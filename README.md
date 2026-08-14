@@ -5,331 +5,151 @@
 </p>
 
 <p align="center">
-  Official PyTorch implementation of <b>Native Adversariality Mining (NAM)</b>, including the extended TPAMI experiments and the CVPR 2026 preliminary work.
+  Official PyTorch implementation of <b>Native Adversariality Mining (NAM)</b>, including the TPAMI extended experiments and the CVPR 2026 preliminary work.
 </p>
 
 <p align="center">
-  <a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Zhang_Diffusion-Based_Native_Adversarial_Synthesis_for_Enhanced_Medical_Segmentation_Generalization_CVPR_2026_paper.pdf">
-    <img src="https://img.shields.io/badge/CVPR%202026-Highlight-ff4d4f?style=flat-square" alt="CVPR 2026 Highlight">
-  </a>
-  <a href="#-publications">
-    <img src="https://img.shields.io/badge/TPAMI-Extended%20Manuscript-0054a6?style=flat-square" alt="TPAMI extended manuscript">
-  </a>
-  <a href="pyproject.toml">
-    <img src="https://img.shields.io/badge/Python-%E2%89%A53.10-3776ab?style=flat-square&logo=python&logoColor=white" alt="Python >=3.10">
-  </a>
-  <a href="https://pytorch.org/">
-    <img src="https://img.shields.io/badge/PyTorch-%E2%89%A52.1-ee4c2c?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch >=2.1">
-  </a>
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-Apache--2.0-green?style=flat-square" alt="Apache-2.0">
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/stargazers">
-    <img src="https://img.shields.io/github/stars/JackCD99/Native-Adversariality-Mining?style=social" alt="GitHub stars">
-  </a>
-  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/network/members">
-    <img src="https://img.shields.io/github/forks/JackCD99/Native-Adversariality-Mining?style=social" alt="GitHub forks">
-  </a>
-  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/commits/main">
-    <img src="https://img.shields.io/github/last-commit/JackCD99/Native-Adversariality-Mining?style=flat-square" alt="Last commit">
-  </a>
-  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/issues">
-    <img src="https://img.shields.io/github/issues/JackCD99/Native-Adversariality-Mining?style=flat-square" alt="GitHub issues">
-  </a>
+  <a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Zhang_Diffusion-Based_Native_Adversarial_Synthesis_for_Enhanced_Medical_Segmentation_Generalization_CVPR_2026_paper.pdf"><img src="https://img.shields.io/badge/CVPR%202026-Highlight-ff4d4f?style=flat-square" alt="CVPR 2026 Highlight"></a>
+  <a href="#-publications"><img src="https://img.shields.io/badge/TPAMI-Extended%20Manuscript-0054a6?style=flat-square" alt="TPAMI extended manuscript"></a>
+  <a href="pyproject.toml"><img src="https://img.shields.io/badge/Python-%E2%89%A53.10-3776ab?style=flat-square&logo=python&logoColor=white" alt="Python >=3.10"></a>
+  <a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-%E2%89%A52.1-ee4c2c?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch >=2.1"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-green?style=flat-square" alt="Apache-2.0"></a>
+  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/stargazers"><img src="https://img.shields.io/github/stars/JackCD99/Native-Adversariality-Mining?style=flat-square" alt="GitHub stars"></a>
+  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/issues"><img src="https://img.shields.io/github/issues/JackCD99/Native-Adversariality-Mining?style=flat-square" alt="GitHub issues"></a>
+  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/commits/main"><img src="https://img.shields.io/github/last-commit/JackCD99/Native-Adversariality-Mining?style=flat-square" alt="Last commit"></a>
 </p>
 
 <p align="center">
   📄 <a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Zhang_Diffusion-Based_Native_Adversarial_Synthesis_for_Enhanced_Medical_Segmentation_Generalization_CVPR_2026_paper.pdf">CVPR Paper</a>
-  &nbsp;·&nbsp;
-  📎 <a href="https://openaccess.thecvf.com/content/CVPR2026/supplemental/Zhang_Diffusion-Based_Native_Adversarial_CVPR_2026_supplemental.pdf">CVPR Supplement</a>
-  &nbsp;·&nbsp;
-  🧪 <a href="docs/TABLE1_PROTOCOL.md">Table I Protocol</a>
-  &nbsp;·&nbsp;
-  📊 <a href="docs/EVALUATION_VISUALIZATION.md">Evaluation Guide</a>
-  &nbsp;·&nbsp;
-  🐛 <a href="https://github.com/JackCD99/Native-Adversariality-Mining/issues">Issues</a>
+  &nbsp;·&nbsp; 📎 <a href="https://openaccess.thecvf.com/content/CVPR2026/supplemental/Zhang_Diffusion-Based_Native_Adversarial_CVPR_2026_supplemental.pdf">Supplement</a>
+  &nbsp;·&nbsp; 🧪 <a href="docs/TABLE1_PROTOCOL.md">Table I Protocol</a>
+  &nbsp;·&nbsp; 📊 <a href="docs/EVALUATION_VISUALIZATION.md">Evaluation Guide</a>
+  &nbsp;·&nbsp; 🐛 <a href="https://github.com/JackCD99/Native-Adversariality-Mining/issues">Issues</a>
 </p>
 
 ---
 
-## 🧭 Navigation
-
-- [🌟 Overview](#-overview)
-- [💡 Why NAM?](#-why-nam)
-- [🧠 Method at a glance](#-method-at-a-glance)
-- [🏆 Representative results](#-representative-results)
-- [🧪 What can be reproduced](#-what-can-be-reproduced)
-- [🚀 Quick start](#-quick-start)
-- [⚙️ Installation](#️-installation)
-- [🗂️ Repository structure](#️-repository-structure)
-- [🧩 Configuration system](#-configuration-system)
-- [📦 Datasets](#-datasets)
-- [🧬 Supported diffusion models](#-supported-diffusion-models)
-- [🧠 Downstream models](#-downstream-models)
-- [🔁 Reproduction workflows](#-reproduction-workflows)
-- [📊 Evaluation and visualization](#-evaluation-and-visualization)
-- [🛡️ Mitigation strategies](#️-mitigation-strategies)
-- [💾 Checkpoints and outputs](#-checkpoints-and-outputs)
-- [🧪 Reproducibility checklist](#-reproducibility-checklist)
-- [🧰 Extending the repository](#-extending-the-repository)
-- [❓ FAQ and troubleshooting](#-faq-and-troubleshooting)
-- [📚 Publications](#-publications)
-- [📝 Citation](#-citation)
-
----
+<p align="center">
+  <a href="#-overview">Overview</a> ·
+  <a href="#-method-at-a-glance">Method</a> ·
+  <a href="#-representative-results">Results</a> ·
+  <a href="#-installation--quick-start">Installation</a> ·
+  <a href="#-datasets">Datasets</a> ·
+  <a href="#-supported-generators">Generators</a> ·
+  <a href="#-reproduction">Reproduction</a> ·
+  <a href="#-evaluation--analysis">Evaluation</a> ·
+  <a href="#-comparison-methods">Baselines</a> ·
+  <a href="#-faq--troubleshooting">FAQ</a> ·
+  <a href="#-citation">Citation</a>
+</p>
 
 ## 📢 News
 
-- **August 2026** — Public release of the TPAMI-oriented NAM codebase, including 2D/3D synthesis, M2I/M&I/T2I branches, transfer experiments, analysis utilities, and defective-mode mitigation.
+- **August 2026** — Public release of the TPAMI-oriented NAM codebase with 2D/3D synthesis, M2I/M&I/T2I branches, transfer experiments, analysis utilities, and defective-mode mitigation.
 - **June 2026** — The preliminary work, *Diffusion-Based Native Adversarial Synthesis for Enhanced Medical Segmentation Generalization*, was presented at **CVPR 2026** and selected as a **Highlight** paper. 🌟
 
 ---
 
 ## 🌟 Overview
 
-Diffusion models have become powerful medical-image generators, but **high visual fidelity alone does not guarantee that synthetic data will improve a downstream model**. Randomly generated samples are often dominated by already well-learned modes, while the samples that expose meaningful downstream weaknesses can be sparse.
-
-**Native Adversariality Mining (NAM)** is designed to find these informative hard samples directly from a pretrained diffusion model. NAM learns a lightweight miner that uses the diffusion model's early denoising response to reselect the initial noise. The resulting seeds are more likely to generate samples with high downstream difficulty while preserving the base diffusion process.
-
-In the intended NAM workflow:
-
-- the **diffusion generator is frozen**;
-- the **downstream anchor is frozen**;
-- only the lightweight **NAM miner** is optimized;
-- generation still uses the original diffusion sampling process;
-- synthetic data are evaluated under the same downstream training and fixed-budget protocol as Base sampling.
+Diffusion models can synthesize realistic medical images, but **visual fidelity alone does not guarantee downstream utility**. Random sampling tends to overproduce already well-learned modes, while informative hard modes can be sparse. **Native Adversariality Mining (NAM)** learns a lightweight miner that uses the frozen diffusion model's early denoising response to reselect initial noise, increasing the probability of generating hard yet generator-supported samples.
 
 <p align="center">
   <img src="assets/nam_overview.png" width="920" alt="Overview of Native Adversariality Mining">
 </p>
 
-> [!TIP]
-> If you are new to the repository, start with the **Polyps + SiameseDiff + nnU-Net** example in `configs/table1_2d.yaml`. It is the most convenient end-to-end entry point for understanding the training, mining, generation, and evaluation flow.
-
-### ✨ Repository highlights
-
-| Capability | What is available |
-|---|---|
-| 🎯 **Native adversariality mining** | Trainable 2D and 3D NAM miners with frozen diffusion/downstream models |
-| 🧬 **Multiple synthesis paradigms** | 2D M2I, 2D M&I, 3D M2I, and text-to-image branches |
-| 🩺 **Medical benchmarks** | MRI, CT, CTA, endoscopy, dermoscopy, and chest X-ray settings |
-| 🌍 **Generalization evaluation** | In-domain, cross-center, cross-modality, natural-image transfer, and classification |
-| 🧠 **Multiple downstream families** | nnU-Net, Swin-Unet/SwinUNETR, SAMed, ResNet-50, ViT-S/16, DeepLabV3, Mask2Former |
-| 📊 **Analysis toolkit** | adversariality distributions, FID, t-SNE, cross-model consistency, CSV/JSON exports |
-| 🛡️ **Defective-mode mitigation** | HAT, QSF, LSRS, and ASG sampling-time strategies |
-| ⚙️ **Configuration-driven runs** | YAML experiment configs plus CLI overrides, validation, and dry runs |
-| 📈 **Experiment tracking** | TensorBoard, JSONL metrics, environment snapshots, previews, sample metadata |
-| 🧪 **Paper-oriented reproduction** | Table I matrix, fixed seeds, fixed budgets, and documented training/evaluation order |
-
----
-
-## 💡 Why NAM?
-
-### Random diffusion augmentation can be redundant
-
-A standard synthetic-data pipeline usually samples initial noise from the base Gaussian prior and accepts every generated sample with equal probability. When a generator and downstream model are trained from the same limited task data, this process can repeatedly synthesize dominant modes that the downstream model already handles well.
-
-NAM instead asks a different question:
-
-> **Which seeds are more likely to expose underlearned but generator-supported modes?**
-
-The method treats downstream difficulty as a signal for locating these modes before the expensive full generation step.
-
-### Native versus artificial adversariality
-
-The paper distinguishes two forms of high downstream difficulty:
-
-- **Native adversariality** — hard samples associated with difficult modes that remain compatible with the base diffusion distribution.
-- **Artificial adversariality** — difficulty induced by attack-style perturbations or trajectory guidance that can move synthesis away from the base distribution and become highly model-specific.
-
-<p align="center">
-  <img src="assets/native_vs_artificial_adversariality.png" width="780" alt="Native versus artificial adversariality">
-</p>
-
-A practical difference is summarized below:
-
-| Property | Random Base sampling | NAM | Adversarial guidance |
+| Aspect | Base sampling | **NAM** | Adversarial guidance |
 |---|---|---|---|
-| Diffusion model updated? | No | No | No |
-| Sampling trajectory modified? | No | No | **Yes** |
-| Initial seed distribution adapted? | No | **Yes** | Usually no |
-| Downstream difficulty targeted? | No | **Yes** | Yes |
-| Goal | generic synthesis | informative native hard modes | attack-style difficulty |
-| Typical alignment behavior in the paper | base reference | near-base / mild shift | often stronger degradation |
-| Cross-model transfer in the paper | task-dependent | comparatively strong | often weaker / model-specific |
+| Diffusion model | Frozen | **Frozen** | Frozen |
+| Sampling trajectory | Original | **Original** | Often modified |
+| Initial seed distribution | Gaussian | **Adapted by miner** | Usually unchanged |
+| Downstream difficulty targeted | No | **Yes** | Yes |
+| Trainable component | None | **NAM miner only** | Guidance/attack variables |
+| Primary goal | Generic synthesis | **Native hard-mode mining** | Attack-style difficulty |
+| Paper behavior | Reference distribution | **Near-base / mild shift** | Often larger alignment degradation |
 
-> [!NOTE]
-> NAM is **not training-free**: the miner is trained for the selected generator/task/anchor configuration. The key efficiency property is that NAM does **not retrain the diffusion model** and introduces only a small additional cost at synthesis time after the miner has been trained.
+> [!TIP]
+> The most convenient end-to-end starting point is **Polyps + SiameseDiff + nnU-Net** in `configs/table1_2d.yaml`.
+
+### ✨ Repository coverage
+
+| NAM / synthesis | Data & tasks | Downstream | Analysis & reproduction |
+|---|---|---|---|
+| 2D & 3D miners | MRI / CT / CTA / RGB / X-ray / dermoscopy | nnU-Net / Swin-Unet / SwinUNETR / SAMed | Table I matrix + fixed seeds |
+| M2I / M&I / T2I | In-domain / cross-center / cross-modality | ResNet-50 / ViT-S/16 | Adversariality / FID / t-SNE |
+| Frozen generator + frozen anchor | Medical segmentation / classification | DeepLabV3 / Mask2Former | Cross-model consistency |
+| HAT / QSF / LSRS / ASG | Natural-image segmentation transfer | Real + synthetic continuation | TensorBoard / JSONL / environment snapshots |
 
 ---
 
 ## 🧠 Method at a glance
 
-### 🔹 Standard Base sampling
+<p align="center">
+  <img src="assets/native_vs_artificial_adversariality.png" width="780" alt="Native versus artificial adversariality">
+</p>
 
-```text
-x_T ~ N(0, I)
-      |
-      v
-frozen diffusion model
-      |
-      v
-synthetic sample
-```
+NAM treats the **initial noise distribution** as the mining space. The generator and downstream anchor remain frozen; only the miner is optimized. Final synthesis keeps the original diffusion sampler.
 
-### 🔹 NAM sampling
+| Stage | Input | Operation | Trainable? | Output |
+|---|---|---|---|---|
+| Probe | `x_T ~ N(0,I)` + condition | Initial frozen-DM denoising response | No | Early score/response |
+| Mining | Early response | Predict noise-prior shift | **NAM miner only** | Reselected initial noise |
+| Truncated training rollout | Reselected noise | Early differentiable DDIM rollout | Miner receives gradients | Adversariality signal |
+| Regularization | Mined prior | KL to base Gaussian + `kappa_up` control | Miner only | Stable native mining objective |
+| Final synthesis | Trained miner + frozen DM | Full original deterministic DDIM | No | NAM synthetic set |
+| Downstream continuation | Real + synthetic data | Architecture-specific training | Downstream model | Final evaluation checkpoint |
 
-```text
-probe noise x_T ~ N(0, I)
-        |
-        v
-initial denoising score / response
-        |
-        v
-    NAM miner M_xi
-        |
-        v
-predicted noise-distribution shift
-        |
-        v
-reselected noise x_T^adv
-        |
-        v
-frozen diffusion model + original sampler
-        |
-        v
-native-adversarial synthetic sample
-```
+### 🔬 Main optimization settings
 
-### 🔹 End-to-end training flow
+| Parameter | Default | Parameter | Default |
+|---|---:|---|---:|
+| Optimizer | AdamW | Learning rate | `1e-4` |
+| Weight decay | `1e-2` | Miner iterations | `3,000` |
+| KL weight `beta` | `0.001` | Adversariality cap `kappa_up` | `0.5` |
+| Truncated rollout | `10` steps | Final sampler | deterministic DDIM-50 |
+| Rewards | `lce`, `lcbce`, `ldice`, `lfocal` | Main seeds | `42`, `3407`, `2026` |
 
-```mermaid
-flowchart LR
-    A[Real training data] --> B[Train / prepare diffusion generator]
-    A --> C[Train real-only downstream model]
-    B --> D[Frozen generator]
-    C --> E[Frozen adversariality anchor]
-    D --> F[Train NAM miner]
-    E --> F
-    F --> G[Generate NAM synthetic set]
-    D --> H[Generate Base synthetic set]
-    A --> I[Real + synthetic downstream continuation]
-    G --> I
-    H --> J[Matched Base comparison]
-    I --> K[Held-out evaluation]
-    J --> K
-```
-
-### 🔬 What the miner sees
-
-The miner is conditioned on the diffusion model's **initial denoising response**, rather than only on raw random noise. This gives the miner information about how the frozen generator interprets a candidate seed before full synthesis.
-
-For the main experiments, miner optimization uses a **truncated early DDIM rollout** to reduce training cost. Full deterministic DDIM sampling is retained for final generation.
-
-### ⚖️ Main NAM objective components
-
-The implementation exposes the main ingredients used in the paper:
-
-- an adversariality reward derived from the frozen downstream model;
-- a cap `kappa_up` that prevents unrestricted pursuit of extreme loss;
-- KL regularization controlled by `beta` to keep the reselected noise distribution close to the base prior;
-- a truncated differentiable rollout for efficient miner optimization.
-
-The exact implementation depends on the generator adapter and spatial dimensionality.
+> [!NOTE]
+> NAM is **not training-free**. It avoids diffusion-model retraining, but the miner is optimized for the selected generator/task/anchor configuration.
 
 ---
 
 ## 🏆 Representative results
 
-The following numbers are **representative manuscript-reported gains over the real-only downstream baseline**. They are included as reference points for reproduction; exact results can vary with hardware, dependency versions, preprocessing, and stochastic training.
+The values below are manuscript-reported reference gains over the real-only downstream baseline.
 
-### 📈 In-domain medical segmentation
+| Dataset / generator | nnU-Net: Base → NAM | Swin(-Unet): Base → NAM | SAMed: Base → NAM |
+|---|---:|---:|---:|
+| ACDC / DiffBoost | +3.50 → **+8.26 DSC** | +2.28 → **+8.39 DSC** | — |
+| Synapse / DiffBoost | +4.09 → **+9.49 DSC** | +3.17 → **+8.56 DSC** | — |
+| Polyps / SiameseDiff | +5.05 → **+10.74 DSC** | +4.38 → **+9.80 DSC** | +4.60 → **+10.00 DSC** |
+| LA / MAISI | +2.66 → **+4.84 DSC** | — | — |
+| ImageCAS / MAISI | +3.06 → **+6.30 DSC** | — | — |
 
-| Dataset / generator | Downstream | Base synthesis gain | NAM gain |
-|---|---|---:|---:|
-| ACDC / DiffBoost | nnU-Net | +3.50 DSC | **+8.26 DSC** |
-| ACDC / DiffBoost | Swin-Unet | +2.28 DSC | **+8.39 DSC** |
-| Synapse / DiffBoost | nnU-Net | +4.09 DSC | **+9.49 DSC** |
-| Synapse / DiffBoost | Swin-Unet | +3.17 DSC | **+8.56 DSC** |
-| Polyps / SiameseDiff | nnU-Net | +5.05 DSC | **+10.74 DSC** |
-| Polyps / SiameseDiff | Swin-Unet | +4.38 DSC | **+9.80 DSC** |
-| Polyps / SiameseDiff | SAMed | +4.60 DSC | **+10.00 DSC** |
-| LA / MAISI | nnU-Net | +2.66 DSC | **+4.84 DSC** |
-| ImageCAS / MAISI | nnU-Net | +3.06 DSC | **+6.30 DSC** |
-
-### 🌍 Transfer settings
-
-The extended experiments also include:
-
-- cross-center polyp segmentation on EndoScene/CVC-300, CVC-ColonDB, and ETIS;
-- MRI↔CT cross-modality evaluation on MMWHS;
-- medical classification on PneumoniaMNIST-224 and ISIC;
-- natural-image segmentation on PASCAL VOC 2012 + SBD.
-
-In the manuscript's transfer experiments, NAM improves the average gain of the task-specific diffusion baseline in both medical classification and natural-image segmentation.
-
-### ⚡ Reference efficiency
-
-For the reported SiameseDiff experiment on a single RTX 4090:
-
-| Sampling mode | Reported time / image |
-|---|---:|
-| Standard DDIM | 7.41 s |
-| **NAM** | **7.85 s** |
-| NatADiff reference | 176.91 s |
-
-These values are hardware- and implementation-specific and should be treated as reference measurements rather than fixed requirements.
+| Transfer coverage | Included settings | Reference efficiency (SiameseDiff, RTX 4090) |
+|---|---|---|
+| Cross-center | EndoScene/CVC-300, CVC-ColonDB, ETIS | Standard DDIM: **7.41 s/image** |
+| Cross-modality | MMWHS MRI ↔ CT | **NAM: 7.85 s/image** |
+| Classification | PneumoniaMNIST-224, ISIC | NatADiff reference: **176.91 s/image** |
+| Natural-image transfer | PASCAL VOC 2012 + SBD | Hardware/implementation dependent |
 
 ---
 
-## 🧪 What can be reproduced
+## 🧪 Reproducible experiment coverage
 
-The public code is organized around four major experiment groups.
+| Setting | Dataset(s) | Modality / task | Main generator(s) | Downstream |
+|---|---|---|---|---|
+| In-domain 2D | ACDC | cardiac MRI segmentation | SegDiff, DiffBoost, JoDiffusion | nnU-Net, Swin-Unet, SAMed |
+| In-domain 2D | Synapse | abdominal CT segmentation | FairDiff, DiffBoost, MedSegFactory | nnU-Net, Swin-Unet, SAMed |
+| In-domain / source | Polyps | RGB polyp segmentation | SegDiff, DiffBoost, SiameseDiff, MedSegFactory | nnU-Net, Swin-Unet, SAMed |
+| In-domain 3D | LA | left-atrium MRI segmentation | VolDiT, MAISI | nnU-Net, SwinUNETR, SAMed |
+| In-domain 3D | ImageCAS | coronary CTA segmentation | VolDiT, MAISI | nnU-Net, SwinUNETR, SAMed |
+| Cross-center | EndoScene/CVC-300, ColonDB, ETIS | polyp segmentation | source-trained generators | segmentation models |
+| Cross-modality | MMWHS MRI ↔ CT | whole-heart segmentation | task-specific branches | segmentation models |
+| Classification | PneumoniaMNIST-224, ISIC | X-ray / dermoscopy | SD-v1.5 + LoRA | ResNet-50, ViT-S/16 |
+| Natural-image transfer | PASCAL VOC 2012 + SBD | semantic segmentation | ControlNet-SDXL | DeepLabV3, Mask2Former |
 
-### 1️⃣ In-domain medical segmentation
-
-- **ACDC** — cardiac MRI
-- **Synapse** — abdominal CT
-- **Polyps** — CVC-ClinicDB + Kvasir-SEG
-- **LA** — 3D left-atrium MRI
-- **ImageCAS** — 3D coronary CTA
-
-### 2️⃣ Cross-domain medical generalization
-
-- **Cross-center:** EndoScene/CVC-300, CVC-ColonDB, ETIS-LaribPolypDB
-- **Cross-modality:** MMWHS MRI ↔ CT
-
-### 3️⃣ Task transfer
-
-- **PneumoniaMNIST-224** — medical image classification
-- **ISIC** — skin-lesion classification
-
-### 4️⃣ Domain transfer
-
-- **PASCAL VOC 2012 + SBD** — natural-image semantic segmentation
-
-### 🧾 Main experiment matrix
-
-`configs/table1_matrix.yaml` defines the primary generator/dataset/downstream combinations and the three paper seeds:
-
-```text
-42, 3407, 2026
-```
-
-The main matrix includes:
-
-| Dataset | Modality | Spatial dims | Main generators | Downstream models |
-|---|---|---:|---|---|
-| ACDC | MRI | 2D | SegDiff, DiffBoost, JoDiffusion | nnU-Net, Swin-Unet, SAMed |
-| Synapse | CT | 2D | FairDiff, DiffBoost, MedSegFactory | nnU-Net, Swin-Unet, SAMed |
-| Polyps | RGB | 2D | SegDiff, DiffBoost, SiameseDiff, MedSegFactory | nnU-Net, Swin-Unet, SAMed |
-| LA | MRI | 3D | VolDiT, MAISI | nnU-Net, SwinUNETR, SAMed |
-| ImageCAS | CTA | 3D | VolDiT, MAISI | nnU-Net, SwinUNETR, SAMed |
-
-List the configured Table I cells with:
+`configs/table1_matrix.yaml` stores the primary Table I matrix and seeds. List configured cells with:
 
 ```bash
 python scripts/list_table1.py
@@ -337,303 +157,123 @@ python scripts/list_table1.py
 
 ---
 
-## 🚀 Quick start
+## ⚙️ Installation & Quick Start
 
-This section gives the shortest path from a fresh clone to a validated NAM configuration.
+### Requirements
 
-### 1. Clone the repository
+| Runtime | Requirement | Runtime | Requirement |
+|---|---|---|---|
+| Python | `>=3.10` | PyTorch | `>=2.1` |
+| GPU | CUDA-capable recommended | OS | Linux recommended; WSL2 useful on Windows |
+| Paper hardware | 4× RTX 4090 | Storage | datasets + generator weights + synthetic outputs |
+
+Install the CUDA-compatible PyTorch build first, then:
 
 ```bash
 git clone https://github.com/JackCD99/Native-Adversariality-Mining.git
 cd Native-Adversariality-Mining
-```
 
-### 2. Create a Python environment
-
-```bash
 python -m venv .venv
-```
+# Linux/macOS: source .venv/bin/activate
+# Windows PowerShell: .venv\Scripts\Activate.ps1
 
-Linux/macOS:
-
-```bash
-source .venv/bin/activate
-```
-
-Windows PowerShell:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-### 3. Install NAM
-
-Install the correct PyTorch build for your CUDA environment first, then:
-
-```bash
 python -m pip install --upgrade pip
 pip install -e ".[medical,diffusion,visualization]"
-```
 
-### 4. Validate the default experiment
-
-```bash
-python scripts/train_nam_2d.py \
-  --config configs/table1_2d.yaml \
-  --dry-run \
-  --print-config
-```
-
-A successful dry run confirms that the configuration file can be loaded and that the configured factories can be imported. It does **not** load the real dataset, initialize large weights, or start optimization.
-
-### 5. Inspect the paper matrix
-
-```bash
+python scripts/train_nam_2d.py --config configs/table1_2d.yaml --dry-run --print-config
 python scripts/list_table1.py
 ```
 
 > [!IMPORTANT]
-> A dry run is only a configuration check. A full experiment still requires the corresponding dataset, upstream generator source code where applicable, pretrained generator weights, and a real-data downstream checkpoint.
+> `--dry-run` validates configuration/imports only. Full experiments still require the corresponding dataset, upstream generator code when applicable, generator weights, and a real-data downstream checkpoint.
+
+### Optional dependency groups
+
+| Extra | Main packages | Typical use | Install |
+|---|---|---|---|
+| `medical` | MONAI, nibabel, h5py | medical / 3D data | `pip install -e ".[medical]"` |
+| `diffusion` | diffusers, PEFT, safetensors | latent-diffusion pipelines | `pip install -e ".[diffusion]"` |
+| `natural` | torchvision, transformers, accelerate | VOC + ControlNet/SDXL | `pip install -e ".[natural]"` |
+| `classification` | torchvision, timm | ResNet / ViT | `pip install -e ".[classification]"` |
+| `volumetric-diffusion` | MONAI, OmegaConf, einops, timm | VolDiT / MAISI | `pip install -e ".[volumetric-diffusion]"` |
+| `visualization` | matplotlib, scikit-learn | t-SNE / plots | `pip install -e ".[visualization]"` |
+| `xray` | torchxrayvision | X-ray evaluation | `pip install -e ".[xray]"` |
+| `mitigation-vqa` | transformers, accelerate | QSF | `pip install -e ".[mitigation-vqa]"` |
+
+Linux is the recommended environment for full reproduction because several upstream medical/diffusion projects assume Linux shell/CUDA tooling. Native Windows remains suitable for code inspection, configuration work, dry runs, and many pure-PyTorch components.
 
 ---
 
-## ⚙️ Installation
-
-### 📌 Core requirements
-
-- Python **3.10+**
-- PyTorch **2.1+**
-- CUDA-capable GPU for diffusion/NAM training
-- Linux recommended for full reproduction
-- sufficient local storage for raw datasets, pretrained diffusion weights, downstream checkpoints, and generated synthetic samples
-
-The manuscript experiments were run on **four RTX 4090 GPUs**. Individual pipelines may use fewer devices, but memory and runtime requirements vary substantially across 2D latent diffusion, pixel-space diffusion, and 3D volumetric synthesis.
-
-### 📦 Core Python dependencies
-
-The package metadata includes the following core dependencies:
-
-| Package | Minimum version |
-|---|---:|
-| NumPy | 1.24 |
-| Pillow | 10.0 |
-| PyYAML | 6.0 |
-| SciPy | 1.11 |
-| TensorBoard | 2.14 |
-| PyTorch | 2.1 |
-| tqdm | 4.66 |
-
-### 🧩 Optional dependency groups
-
-Install only what is needed for the selected branch.
-
-```bash
-# Medical imaging
-pip install -e ".[medical]"
-
-# Diffusion pipelines
-pip install -e ".[diffusion]"
-
-# Natural-image transfer
-pip install -e ".[natural]"
-
-# Classification
-pip install -e ".[classification]"
-
-# 3D / volumetric diffusion
-pip install -e ".[volumetric-diffusion]"
-
-# Plotting and t-SNE
-pip install -e ".[visualization]"
-
-# Chest-X-ray utilities
-pip install -e ".[xray]"
-
-# VQA-based mitigation
-pip install -e ".[mitigation-vqa]"
-```
-
-<details>
-<summary><b>📚 Optional dependency groups in <code>pyproject.toml</code></b></summary>
-
-| Group | Main packages | Typical use |
-|---|---|---|
-| `medical` | MONAI, nibabel, h5py | medical segmentation / 3D data |
-| `diffusion` | diffusers, PEFT, safetensors | Stable-Diffusion-style pipelines |
-| `natural` | torchvision, transformers, accelerate | PASCAL VOC + ControlNet/SDXL |
-| `classification` | torchvision, timm | ResNet / ViT classification |
-| `volumetric-diffusion` | MONAI, nibabel, OmegaConf, einops, timm | VolDiT / MAISI branches |
-| `visualization` | matplotlib, scikit-learn, torchvision | t-SNE and analysis plots |
-| `xray` | torchxrayvision | X-ray branch |
-| `mitigation-vqa` | transformers, accelerate | QSF / VQA-based mitigation |
-
-</details>
-
-### 🐧 Linux notes
-
-Most full experiments and upstream medical-generation repositories are easiest to reproduce on Linux. When an upstream generator has its own environment file or CUDA extension requirements, follow the upstream installation instructions first, then install NAM in editable mode.
-
-### 🪟 Windows notes
-
-Windows is suitable for:
-
-- reading/configuring experiments;
-- dry-run validation;
-- code inspection;
-- many pure-PyTorch components.
-
-Some upstream diffusion/medical packages may assume Linux shell commands, symlinks, or CUDA build tooling. WSL2 is often the simplest option if native Windows compatibility becomes a bottleneck.
-
----
-
-## 🗂️ Repository structure
+## 🗂️ Repository & configuration map
 
 ```text
 Native-Adversariality-Mining/
-├── assets/                         # README figures
-├── configs/                        # YAML experiment configurations
-├── docs/                           # paper reproduction / evaluation notes
+├── assets/                  # README figures
+├── configs/                 # experiment YAMLs
+├── docs/                    # reproduction / evaluation notes
 ├── nam/
-│   ├── data/                       # dataset packages and split manifests
-│   ├── diffusion/
-│   │   ├── 2D_M2I/                # 2D mask-to-image generators
-│   │   ├── 2D_M&I/                # joint image-mask generators
-│   │   ├── 2D_T2I/                # text-to-image branch
-│   │   └── 3D_M2I/                # volumetric mask-to-image generators
-│   ├── downstream/                 # downstream models and trainers
-│   │   ├── real_checkpoint/        # real-only baselines / NAM anchors
-│   │   └── syn_checkpoint/         # synthetic-augmented models
-│   ├── engine/                     # shared execution layer
-│   ├── evaluation/                 # metrics and visualization utilities
-│   ├── mitigation/                 # HAT / QSF / LSRS / ASG
-│   └── utils/                      # configuration, logging, seeds, I/O
-├── pretrained_weights/             # documentation for external weights
-├── scripts/                        # command-line entry points
+│   ├── data/                # datasets + split manifests
+│   ├── diffusion/           # 2D_M2I / 2D_M&I / 2D_T2I / 3D_M2I
+│   ├── downstream/          # models + real/synthetic training
+│   ├── engine/              # shared execution
+│   ├── evaluation/          # metrics + visualization
+│   ├── mitigation/          # HAT / QSF / LSRS / ASG
+│   └── utils/               # config / logging / seeds / I/O
+├── pretrained_weights/
+├── scripts/
 ├── pyproject.toml
-├── requirements.txt
 └── README.md
 ```
 
-### 🔎 Where should I look first?
+| Goal | Entry | Goal | Entry |
+|---|---|---|---|
+| Default 2D experiment | `configs/table1_2d.yaml` | Main matrix | `configs/table1_matrix.yaml` |
+| Train NAM | `scripts/train_nam_2d.py`, `train_nam_3d.py` | Generate Base/NAM | `scripts/generate_2d.py`, `generate_3d.py` |
+| Train downstream | `scripts/train_downstream_2d.py`, `train_downstream_3d.py` | Segmentation eval | `scripts/evaluate_2d.py`, `evaluate_3d.py` |
+| Classification eval | `scripts/evaluate_classification.py` | Adversariality | `scripts/evaluate_adversariality.py` |
+| FID | `scripts/evaluate_fid.py` | Table I protocol | `docs/TABLE1_PROTOCOL.md` |
+| Visualization | `docs/EVALUATION_VISUALIZATION.md` | Dataset inventory | `nam/data/SPLITS.md` |
 
-| Goal | Start here |
-|---|---|
-| Run the default 2D experiment | `configs/table1_2d.yaml` |
-| Inspect all main paper cells | `configs/table1_matrix.yaml` |
-| Train NAM | `scripts/train_nam_2d.py` / `train_nam_3d.py` |
-| Generate synthetic samples | `scripts/generate_2d.py` / `generate_3d.py` |
-| Train downstream models | `scripts/train_downstream_2d.py` / `train_downstream_3d.py` |
-| Evaluate segmentation | `scripts/evaluate_2d.py` / `evaluate_3d.py` |
-| Evaluate classification | `scripts/evaluate_classification.py` |
-| Compute adversariality | `scripts/evaluate_adversariality.py` |
-| Compute FID | `scripts/evaluate_fid.py` |
-| Reproduce Table I protocol | `docs/TABLE1_PROTOCOL.md` |
-| Reproduce visual analyses | `docs/EVALUATION_VISUALIZATION.md` |
-| Understand split inventory | `nam/data/SPLITS.md` |
+### CLI
 
----
-
-## 🧩 Configuration system
-
-Experiments are controlled by YAML files in `configs/`. The command-line entry points share a small set of common options:
-
-```text
---config PATH
---set KEY=VALUE [KEY=VALUE ...]
---dry-run
---print-config
---log-level {DEBUG,INFO,WARNING,ERROR}
-```
-
-### 🧪 Validate before launching
+| Option | Purpose | Example |
+|---|---|---|
+| `--config PATH` | experiment YAML/JSON | `--config configs/table1_2d.yaml` |
+| `--set KEY=VALUE ...` | dotted overrides | `--set runtime.seed=3407 training.reward=lcbce` |
+| `--dry-run` | validate config/imports without loading data/weights | recommended before GPU runs |
+| `--print-config` | print resolved config | useful for provenance |
+| `--log-level` | `DEBUG/INFO/WARNING/ERROR` | default `INFO` |
 
 ```bash
 python scripts/train_nam_2d.py \
   --config configs/table1_2d.yaml \
-  --dry-run \
-  --print-config
+  --set runtime.seed=3407 training.reward=lcbce \
+  --dry-run --print-config
 ```
 
-### ✏️ Override individual values
+### Main configurations
 
-```bash
-python scripts/train_nam_2d.py \
-  --config configs/table1_2d.yaml \
-  --set runtime.seed=3407 training.reward=lcbce
-```
-
-### 🧱 Configuration anatomy
-
-A typical experiment configuration contains sections like:
-
-```yaml
-experiment_name: polyps-siamesediff-nnunet
-
-runtime:
-  device: cuda
-  seed: 42
-  num_workers: 4
-  output_dir: outputs
-
-dataset:
-  factory: nam.data.polyps.dataset:build_dataset
-  root: nam/data/polyps
-
-diffusion:
-  name: siamesediff
-  checkpoint: nam/diffusion/2D_M2I/siamesediff/checkpoints/diffusion/polyps/best_fid.ckpt
-  full_schedule_steps: 50
-
-anchor:
-  name: nnunet
-  checkpoint: nam/downstream/real_checkpoint/polyps/nnunet/best.pt
-
-training:
-  max_iterations: 3000
-  learning_rate: 0.0001
-  beta: 0.001
-  kappa_up: 0.5
-  truncated_steps: 10
-
-sampling:
-  budget: 1128
-  ddim_steps: 50
-```
-
-The complete configuration includes generator-specific and downstream-specific options; the example above only shows the most important fields.
-
-### 📚 Main configuration files
-
-| Configuration | Intended use |
-|---|---|
-| `configs/table1_2d.yaml` | Polyps + SiameseDiff + nnU-Net reference experiment |
-| `configs/table1_3d.yaml` | 3D reference experiments |
-| `configs/table1_matrix.yaml` | main Table I generator/dataset/downstream matrix |
-| `configs/segdiff_2d.yaml` | SegDiff branch |
-| `configs/diffboost_2d.yaml` | DiffBoost branch |
-| `configs/fairdiff_2d.yaml` | FairDiff branch |
-| `configs/jodiffusion_2d.yaml` | JoDiffusion branch |
-| `configs/medsegfactory_2d.yaml` | MedSegFactory branch |
-| `configs/voldit_3d.yaml` | VolDiT branch |
-| `configs/maisi_3d.yaml` | MAISI branch |
-| `configs/controlnet_sdxl_voc.yaml` | PASCAL VOC + SBD transfer |
-| `configs/sd15_lora_pneumoniamnist.yaml` | PneumoniaMNIST classification |
-| `configs/sd15_lora_isic.yaml` | ISIC classification |
-| `configs/mitigation.yaml` | mitigation studies |
+| Configuration | Use | Configuration | Use |
+|---|---|---|---|
+| `table1_2d.yaml` | Polyps + SiameseDiff + nnU-Net reference | `table1_3d.yaml` | 3D reference |
+| `table1_matrix.yaml` | main paper matrix | `segdiff_2d.yaml` | SegDiff |
+| `diffboost_2d.yaml` | DiffBoost | `fairdiff_2d.yaml` | FairDiff |
+| `jodiffusion_2d.yaml` | JoDiffusion | `medsegfactory_2d.yaml` | MedSegFactory |
+| `voldit_3d.yaml` | VolDiT | `maisi_3d.yaml` | MAISI |
+| `controlnet_sdxl_voc.yaml` | VOC/SBD transfer | `sd15_lora_pneumoniamnist.yaml` | PneumoniaMNIST |
+| `sd15_lora_isic.yaml` | ISIC classification | `mitigation.yaml` | mitigation studies |
 
 ---
 
 ## 📦 Datasets
 
-Raw datasets are **not redistributed**. Each dataset package contains the local loader, expected split manifests, and a preparation README.
+Raw datasets are **not redistributed**. Each local package contains its loader, manifests, and preparation notes. Keep split membership unchanged when comparing with the manuscript.
 
-### 📊 Split inventory
-
-| Scenario | Dataset | Modality / task | Train | Val | Test | Typical resolution |
+| Scenario | Dataset | Modality / task | Train | Val | Test | Resolution |
 |---|---|---|---:|---:|---:|---|
 | In-domain | ACDC | cardiac MRI segmentation | 4,010 | 572 | 1,146 | 256×256 |
 | In-domain | Synapse | abdominal CT segmentation | 2,645 | 378 | 756 | 256×256 |
-| In-domain / source | CVC-ClinicDB + Kvasir-SEG | RGB polyp segmentation | 1,128 | 161 | 323 | 256×256 |
+| Source / in-domain | CVC-ClinicDB + Kvasir-SEG | RGB polyp segmentation | 1,128 | 161 | 323 | 256×256 |
 | 3D | LA | left-atrium MRI segmentation | 70 | 10 | 20 | 192×192×96 |
 | 3D | ImageCAS | coronary CTA segmentation | 700 | 100 | 200 | 192×192×96 |
 | Cross-center | EndoScene / CVC-300 | polyp evaluation | — | — | 60 | 256×256 |
@@ -645,1127 +285,352 @@ Raw datasets are **not redistributed**. Each dataset package contains the local 
 | Classification | PneumoniaMNIST-224 | chest X-ray classification | 4,099 | 585 | 1,171 | 224×224 |
 | Classification | ISIC | dermoscopic classification | 1,925 | 275 | 550 | 256×256 |
 
-Detailed inventory: [`nam/data/SPLITS.md`](nam/data/SPLITS.md)
+Detailed split inventory: [`nam/data/SPLITS.md`](nam/data/SPLITS.md)
 
-### 📝 Manifest formats
-
-Segmentation:
-
-```text
-sample_id relative/image/path relative/target/path [optional prompt]
-```
-
-Classification:
-
-```text
-sample_id relative/image/path class_id [optional prompt]
-```
-
-### 📁 Expected dataset layout
-
-A typical package looks like:
-
-```text
-nam/data/<dataset>/
-├── README.md
-├── dataset.py
-├── train.list
-├── val.list
-├── test.list
-└── data/               # local raw / processed data; ignored by Git
-```
-
-### 🩻 Example: Polyps
-
-The Polyps benchmark combines **CVC-ClinicDB** and **Kvasir-SEG**. The local preparation guide uses a unified 7:1:2 split with seed 42 and expects binary masks at 256×256 resolution.
-
-Example manifest rows:
-
-```text
-kvasir_0001 data/images/kvasir_0001.jpg data/masks/kvasir_0001.png
-clinicdb_0001 data/images/clinicdb_0001.tif data/masks/clinicdb_0001.tif
-```
-
-See [`nam/data/polyps/README.md`](nam/data/polyps/README.md).
-
-<details>
-<summary><b>🔗 Dataset sources</b></summary>
-
-- **ACDC:** cardiac segmentation challenge
-- **Synapse:** multi-organ CT segmentation dataset
-- **CVC-ClinicDB:** polyp segmentation dataset
-- **Kvasir-SEG:** polyp segmentation dataset
-- **LA:** Atrial Segmentation Challenge
-- **ImageCAS:** coronary artery CTA dataset
-- **EndoScene / CVC-300:** cross-center polyp evaluation
-- **CVC-ColonDB:** cross-center polyp evaluation
-- **ETIS-LaribPolypDB:** cross-center polyp evaluation
-- **MMWHS:** multi-modality whole-heart segmentation
-- **PASCAL VOC 2012:** natural-image semantic segmentation
-- **SBD:** Semantic Boundaries Dataset
-- **PneumoniaMNIST-224:** MedMNIST chest X-ray classification
-- **ISIC:** skin-lesion image classification
-
-Please follow the license and use conditions of each original dataset.
-
-</details>
-
-> [!WARNING]
-> Do not modify split membership when comparing against the reported experiments. Changes to preprocessing, subject-level partitioning, slice filtering, or train/validation/test membership can produce results that are not directly comparable to the manuscript.
+| Item | Format / location |
+|---|---|
+| Segmentation manifest | `sample_id relative/image/path relative/target/path [optional prompt]` |
+| Classification manifest | `sample_id relative/image/path class_id [optional prompt]` |
+| Typical package | `nam/data/<dataset>/{README.md,dataset.py,train.list,val.list,test.list,data/}` |
+| Polyps example | `nam/data/polyps/README.md`; unified 7:1:2 split, seed 42, binary 256×256 masks |
+| Local data | place below each package's ignored `data/` directory |
+| Licensing | follow each original dataset's license/use conditions |
 
 ---
 
-## 🧬 Supported diffusion models
+## 🧬 Supported generators
 
-NAM is integrated with multiple generator families. Upstream repositories and large pretrained weights are intentionally kept separate from this repository.
+Upstream repositories and large pretrained weights remain external. Each adapter README documents source code, required weights, and checkpoint locations.
 
-| Generator | Synthesis paradigm | Noise / latent space | Main datasets | Local guide | Upstream |
+| Generator | Paradigm | Noise layout | Main datasets | Local guide | Upstream |
 |---|---|---|---|---|---|
-| **SegDiff** | mask → image | 2D pixel DPM | ACDC, Polyps | [`README`](nam/diffusion/2D_M2I/segdiff/README.md) | [segmentation-guided diffusion](https://github.com/mazurowski-lab/segmentation-guided-diffusion) |
-| **DiffBoost** | mask → image | 2D latent diffusion | ACDC, Synapse, Polyps | [`README`](nam/diffusion/2D_M2I/diffboost/README.md) | [DiffBoost](https://github.com/NUBagciLab/DiffBoost) |
-| **FairDiff** | mask → image | 2D latent diffusion | Synapse | [`README`](nam/diffusion/2D_M2I/fairdiff/README.md) | [FairDiff](https://github.com/wenyi-li/FairDiff) |
-| **SiameseDiff** | mask → image | 2D Stable Diffusion latent | Polyps | [`README`](nam/diffusion/2D_M2I/siamesediff/README.md) | [Siamese-Diffusion](https://github.com/Qiukunpeng/Siamese-Diffusion) |
-| **JoDiffusion** | image + mask | joint 2D latent diffusion | ACDC | [`README`](nam/diffusion/2D_M%26I/jodiffusion/README.md) | [JoDiffusion](https://github.com/00why00/JoDiffusion) |
-| **MedSegFactory** | image + mask | dual-stream 2D latent diffusion | Synapse, Polyps | [`README`](nam/diffusion/2D_M%26I/medsegfactory/README.md) | [MedSegFactory](https://github.com/jwmao1/MedSegFactory) |
-| **VolDiT** | mask → volume | 3D latent DiT | LA, ImageCAS | [`README`](nam/diffusion/3D_M2I/voldit/README.md) | [VolDiT](https://github.com/Cardio-AI/voldit) |
-| **MAISI** | mask → volume | 3D latent diffusion | LA, ImageCAS | [`README`](nam/diffusion/3D_M2I/maisi/README.md) | [MONAI MAISI](https://github.com/Project-MONAI/tutorials/tree/main/generation/maisi) |
-| **ControlNet-SDXL** | semantic mask → image | 2D latent diffusion | PASCAL VOC + SBD | [`README`](nam/diffusion/2D_M2I/controlnet_sdxl/README.md) | [ControlNet](https://github.com/lllyasviel/ControlNet) |
-| **SD-v1.5 + LoRA** | text → image | 2D latent diffusion | PneumoniaMNIST, ISIC | [`README`](nam/diffusion/2D_T2I/sd15_lora/README.md) | [Stable Diffusion v1.5](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5) |
+| **SegDiff** | 2D mask → image, pixel DPM | image channels × 256×256 | ACDC, Polyps | [`README`](nam/diffusion/2D_M2I/segdiff/README.md) | [GitHub](https://github.com/mazurowski-lab/segmentation-guided-diffusion) |
+| **DiffBoost** | 2D mask → image, latent | 4×32×32 | ACDC, Synapse, Polyps | [`README`](nam/diffusion/2D_M2I/diffboost/README.md) | [GitHub](https://github.com/NUBagciLab/DiffBoost) |
+| **FairDiff** | 2D mask → image, latent | 4×32×32 | Synapse | [`README`](nam/diffusion/2D_M2I/fairdiff/README.md) | [GitHub](https://github.com/wenyi-li/FairDiff) |
+| **SiameseDiff** | 2D mask → image, SD latent | 4×32×32 | Polyps | [`README`](nam/diffusion/2D_M2I/siamesediff/README.md) | [GitHub](https://github.com/Qiukunpeng/Siamese-Diffusion) |
+| **JoDiffusion** | joint image + mask | 8×32×32 | ACDC | [`README`](nam/diffusion/2D_M%26I/jodiffusion/README.md) | [GitHub](https://github.com/00why00/JoDiffusion) |
+| **MedSegFactory** | dual-stream image + mask | 4×32×32, dual noise | Synapse, Polyps | [`README`](nam/diffusion/2D_M%26I/medsegfactory/README.md) | [GitHub](https://github.com/jwmao1/MedSegFactory) |
+| **VolDiT** | 3D mask → volume | 8×24×24×12 | LA, ImageCAS | [`README`](nam/diffusion/3D_M2I/voldit/README.md) | [GitHub](https://github.com/Cardio-AI/voldit) |
+| **MAISI** | 3D mask → volume | 4×48×48×24 | LA, ImageCAS | [`README`](nam/diffusion/3D_M2I/maisi/README.md) | [GitHub](https://github.com/Project-MONAI/tutorials/tree/main/generation/maisi) |
+| **ControlNet-SDXL** | semantic mask → image | 2D latent | PASCAL VOC + SBD | [`README`](nam/diffusion/2D_M2I/controlnet_sdxl/README.md) | [ControlNet](https://github.com/lllyasviel/ControlNet) |
+| **SD-v1.5 + LoRA** | text → image | 2D latent | PneumoniaMNIST, ISIC | [`README`](nam/diffusion/2D_T2I/sd15_lora/README.md) | [SD-v1.5](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5) |
 
-### 🔢 Noise layouts used by the main matrix
-
-| Generator | Channels | Spatial size | Notes |
-|---|---:|---|---|
-| SegDiff | dataset image channels | 256×256 | pixel-space noise |
-| DiffBoost | 4 | 32×32 | latent diffusion |
-| FairDiff | 4 | 32×32 | latent diffusion |
-| SiameseDiff | 4 | 32×32 | latent diffusion |
-| JoDiffusion | 8 | 32×32 | joint image-mask latent |
-| MedSegFactory | 4 | 32×32 | dual-noise branch |
-| VolDiT | 8 | 24×24×12 | 3D latent |
-| MAISI | 4 | 48×48×24 | 3D latent |
-
-### 🔌 Upstream generator setup
-
-Most generator adapters expect the original implementation to be available separately, typically below a configurable `third_party/` directory.
-
-For example, SiameseDiff:
+Example upstream setup:
 
 ```bash
 git clone https://github.com/Qiukunpeng/Siamese-Diffusion.git third_party/Siamese-Diffusion
 ```
-
-The adapter README explains where to place weights and which upstream configuration is expected.
 
 ---
 
 ## 🧠 Downstream models
 
-The repository separates **real-only training** from **synthetic-augmented continuation**.
+| Model | Task | Dim. | Reference | Checkpoint role |
+|---|---|---:|---|---|
+| **nnU-Net** | medical segmentation | 2D / 3D | [GitHub](https://github.com/MIC-DKFZ/nnUNet) | main anchor / downstream |
+| **Swin-Unet** | medical segmentation | 2D | [GitHub](https://github.com/HuCaoFighting/Swin-Unet) | transfer downstream |
+| **SwinUNETR** | volumetric segmentation | 3D | [GitHub](https://github.com/Project-MONAI/research-contributions/tree/main/SwinUNETR) | 3D downstream |
+| **SAMed** | medical segmentation | 2D / slice-wise 3D eval | [GitHub](https://github.com/hitachinsk/SAMed) | transfer downstream |
+| **DeepLabV3-R50** | natural-image segmentation | 2D | [Torchvision](https://pytorch.org/vision/stable/models/deeplabv3.html) | VOC transfer |
+| **Mask2Former-R50** | natural-image segmentation | 2D | [GitHub](https://github.com/facebookresearch/Mask2Former) | VOC transfer |
+| **ResNet-50** | medical classification | 2D | [Torchvision](https://pytorch.org/vision/stable/models/resnet.html) | classification |
+| **ViT-S/16** | medical classification | 2D | [timm](https://github.com/huggingface/pytorch-image-models) | classification |
 
-| Model | Primary task | Dimensionality | Reference |
-|---|---|---:|---|
-| **nnU-Net** | medical segmentation | 2D / 3D | [MIC-DKFZ/nnUNet](https://github.com/MIC-DKFZ/nnUNet) |
-| **Swin-Unet** | medical segmentation | 2D | [HuCaoFighting/Swin-Unet](https://github.com/HuCaoFighting/Swin-Unet) |
-| **SwinUNETR** | volumetric segmentation | 3D | [MONAI SwinUNETR](https://github.com/Project-MONAI/research-contributions/tree/main/SwinUNETR) |
-| **SAMed** | medical segmentation | 2D / slice-wise 3D evaluation | [hitachinsk/SAMed](https://github.com/hitachinsk/SAMed) |
-| **DeepLabV3-R50** | natural-image segmentation | 2D | [Torchvision](https://pytorch.org/vision/stable/models/deeplabv3.html) |
-| **Mask2Former-R50** | natural-image segmentation | 2D | [Mask2Former](https://github.com/facebookresearch/Mask2Former) |
-| **ResNet-50** | medical classification | 2D | [Torchvision](https://pytorch.org/vision/stable/models/resnet.html) |
-| **ViT-S/16** | medical classification | 2D | [timm](https://github.com/huggingface/pytorch-image-models) |
+| Namespace | Path | Selection |
+|---|---|---|
+| Real baseline / NAM anchor | `nam/downstream/real_checkpoint/<dataset>/<model>/best.pt` | validation-selected |
+| Synthetic-augmented | `nam/downstream/syn_checkpoint/<dataset>/<generator>/<model>/best.pt` | validation-selected |
+| Resume state | corresponding `latest.pt` | latest training state |
+| Periodic snapshots | `epoch_XXXX.pt` | archival |
 
-### 💾 Checkpoint namespaces
-
-Real-only checkpoints:
-
-```text
-nam/downstream/real_checkpoint/<dataset>/<model>/
-├── best.pt
-├── latest.pt
-└── epoch_XXXX.pt
-```
-
-Synthetic-augmented checkpoints:
-
-```text
-nam/downstream/syn_checkpoint/<dataset>/<generator>/<model>/
-├── best.pt
-├── latest.pt
-└── epoch_XXXX.pt
-```
-
-`best.pt` is selected using validation performance. The real-only `best.pt` is used as the frozen downstream anchor for NAM unless another anchor is explicitly configured.
-
-See [`nam/downstream/README.md`](nam/downstream/README.md) for model-specific details.
+Details: [`nam/downstream/README.md`](nam/downstream/README.md)
 
 ---
 
-## 🔁 Reproduction workflows
+## 🔁 Reproduction
 
-### 🎯 Recommended first reproduction: Polyps + SiameseDiff + nnU-Net
+### 🎯 Recommended first run: Polyps + SiameseDiff + nnU-Net
 
-The default configuration is:
-
-```text
-configs/table1_2d.yaml
-```
-
-This setting uses:
-
-- Polyps dataset;
-- SiameseDiff as the generator;
-- nnU-Net as the anchor and default downstream model;
-- 4×32×32 latent noise;
-- 50-step deterministic DDIM for final synthesis;
-- 1,128 synthetic samples by default, matching the real training-set size.
-
-#### Step 1 — Prepare the dataset
-
-Follow:
-
-```text
-nam/data/polyps/README.md
-```
-
-Expected split sizes:
-
-```text
-train: 1128
-val:    161
-test:   323
-```
-
-#### Step 2 — Prepare SiameseDiff
-
-```bash
-git clone https://github.com/Qiukunpeng/Siamese-Diffusion.git third_party/Siamese-Diffusion
-```
-
-Read:
-
-```text
-nam/diffusion/2D_M2I/siamesediff/README.md
-```
-
-The default configuration expects the task diffusion checkpoint at:
-
-```text
-nam/diffusion/2D_M2I/siamesediff/checkpoints/diffusion/polyps/best_fid.ckpt
-```
-
-If training the generator locally:
-
-```bash
-python scripts/train_diffusion_2d.py \
-  --config configs/table1_2d.yaml
-```
-
-#### Step 3 — Train the real-only downstream model
-
-```bash
-python scripts/train_downstream_2d.py \
-  --config configs/table1_2d.yaml \
-  --phase real
-```
-
-Expected validation-selected anchor:
-
-```text
-nam/downstream/real_checkpoint/polyps/nnunet/best.pt
-```
-
-#### Step 4 — Train NAM
-
-```bash
-python scripts/train_nam_2d.py \
-  --config configs/table1_2d.yaml
-```
-
-Main defaults:
-
-| Hyperparameter | Value |
-|---|---:|
-| Optimizer | AdamW |
-| Learning rate | 1e-4 |
-| Weight decay | 1e-2 |
-| Miner iterations | 3,000 |
-| `beta` | 0.001 |
-| `kappa_up` | 0.5 |
-| Truncated rollout | 10 steps |
-| Final DDIM | 50 steps |
-
-#### Step 5 — Generate NAM samples
-
-```bash
-python scripts/generate_2d.py \
-  --config configs/table1_2d.yaml \
-  --method nam
-```
-
-#### Step 6 — Generate matched Base samples
-
-```bash
-python scripts/generate_2d.py \
-  --config configs/table1_2d.yaml \
-  --method base
-```
-
-Base and NAM comparisons should use the same generator checkpoint, condition list, synthetic budget, resolution, DDIM schedule, and downstream training procedure.
-
-#### Step 7 — Train with synthetic data
-
-```bash
-python scripts/train_downstream_2d.py \
-  --config configs/table1_2d.yaml \
-  --phase synthetic
-```
-
-The Table I protocol uses matched real/synthetic batches and a 1:1 real-to-synthetic ratio.
-
-#### Step 8 — Evaluate
-
-```bash
-python scripts/evaluate_2d.py \
-  --config configs/table1_2d.yaml \
-  --checkpoint-phase real
-
-python scripts/evaluate_2d.py \
-  --config configs/table1_2d.yaml \
-  --checkpoint-phase syn
-
-python scripts/evaluate_adversariality.py \
-  --config configs/table1_2d.yaml
-
-python scripts/evaluate_fid.py \
-  --config configs/table1_2d.yaml
-```
-
-### 🧪 Full Table I protocol
-
-Every main experiment cell follows the same high-level dependency order:
-
-1. prepare the real-data split;
-2. train or register the corresponding generator;
-3. train the real-only downstream baseline;
-4. freeze the generator and adversariality anchor;
-5. train NAM for 3,000 iterations;
-6. synthesize a fixed budget with deterministic DDIM-50;
-7. continue downstream training with matched real/synthetic batches;
-8. select checkpoints using validation data;
-9. report final metrics on the held-out test split;
-10. repeat for the configured seeds `42`, `3407`, and `2026`.
-
-See [`docs/TABLE1_PROTOCOL.md`](docs/TABLE1_PROTOCOL.md).
-
-### 🩻 General 2D workflow
-
-```bash
-# 1. generator
-python scripts/train_diffusion_2d.py --config <CONFIG>
-
-# 2. real baseline / anchor
-python scripts/train_downstream_2d.py --config <CONFIG> --phase real
-
-# 3. NAM
-python scripts/train_nam_2d.py --config <CONFIG>
-
-# 4. synthesis
-python scripts/generate_2d.py --config <CONFIG> --method nam
-python scripts/generate_2d.py --config <CONFIG> --method base
-
-# 5. synthetic continuation
-python scripts/train_downstream_2d.py --config <CONFIG> --phase synthetic
-
-# 6. evaluation
-python scripts/evaluate_2d.py --config <CONFIG> --checkpoint-phase syn
-python scripts/evaluate_adversariality.py --config <CONFIG>
-python scripts/evaluate_fid.py --config <CONFIG>
-```
-
-### 🧊 3D workflow
-
-```bash
-python scripts/train_diffusion_3d.py --config configs/table1_3d.yaml
-python scripts/train_downstream_3d.py --config configs/table1_3d.yaml --phase real
-python scripts/train_nam_3d.py --config configs/table1_3d.yaml
-python scripts/generate_3d.py --config configs/table1_3d.yaml --method nam
-python scripts/generate_3d.py --config configs/table1_3d.yaml --method base
-python scripts/train_downstream_3d.py --config configs/table1_3d.yaml --phase synthetic
-python scripts/evaluate_3d.py --config configs/table1_3d.yaml --checkpoint-phase syn
-python scripts/evaluate_adversariality.py --config configs/table1_3d.yaml --spatial-dims 3
-```
-
-### 🌿 Natural-image transfer
-
-PASCAL VOC 2012 + SBD uses the ControlNet-SDXL branch.
-
-```bash
-python scripts/train_diffusion_2d.py --config configs/controlnet_sdxl_voc.yaml
-python scripts/train_downstream_2d.py --config configs/controlnet_sdxl_voc.yaml --phase real
-python scripts/train_nam_2d.py --config configs/controlnet_sdxl_voc.yaml
-python scripts/generate_2d.py --config configs/controlnet_sdxl_voc.yaml --method nam
-python scripts/train_downstream_2d.py --config configs/controlnet_sdxl_voc.yaml --phase synthetic
-python scripts/evaluate_2d.py --config configs/controlnet_sdxl_voc.yaml --checkpoint-phase syn
-```
-
-### 🩺 Medical classification transfer
-
-PneumoniaMNIST-224 and ISIC use the SD-v1.5 + LoRA branch.
-
-```bash
-python scripts/train_diffusion_2d.py \
-  --config configs/sd15_lora_pneumoniamnist.yaml
-
-python scripts/train_downstream_2d.py \
-  --config configs/sd15_lora_pneumoniamnist.yaml \
-  --phase real
-
-python scripts/train_nam_2d.py \
-  --config configs/sd15_lora_pneumoniamnist.yaml
-
-python scripts/generate_2d.py \
-  --config configs/sd15_lora_pneumoniamnist.yaml \
-  --method nam
-
-python scripts/train_downstream_2d.py \
-  --config configs/sd15_lora_pneumoniamnist.yaml \
-  --phase synthetic
-
-python scripts/evaluate_classification.py \
-  --config configs/sd15_lora_pneumoniamnist.yaml
-```
-
-Switch to `configs/sd15_lora_isic.yaml` for ISIC.
-
----
-
-## 📊 Evaluation and visualization
-
-### 📏 Task metrics
-
-| Task | Main metrics |
+| Item | Default |
 |---|---|
-| Medical segmentation | DSC ↑, ASD ↓ |
-| Natural-image segmentation | mIoU ↑ |
-| Classification | accuracy ↑, plus configured class metrics |
-| Synthetic alignment | FID ↓ |
-| Synthetic adversariality | LCE / LCBCE / LDice-derived scores |
-
-### 🎯 Adversariality evaluation
-
-```bash
-python scripts/evaluate_adversariality.py \
-  --config configs/table1_2d.yaml
-```
-
-Choose a proxy:
+| Config | `configs/table1_2d.yaml` |
+| Data | Polyps: `1128 / 161 / 323` train/val/test |
+| Generator | SiameseDiff |
+| Anchor / downstream | nnU-Net |
+| Latent noise | 4×32×32 |
+| NAM | 3,000 iterations; `beta=0.001`; `kappa_up=0.5`; 10-step rollout |
+| Final synthesis | deterministic DDIM-50 |
+| Synthetic budget | 1,128 |
 
 ```bash
-python scripts/evaluate_adversariality.py \
-  --config configs/table1_2d.yaml \
-  --proxy lce
+# 1) data: follow nam/data/polyps/README.md
+git clone https://github.com/Qiukunpeng/Siamese-Diffusion.git third_party/Siamese-Diffusion
+
+# 2) train/register generator (skip if a compatible checkpoint is already available)
+python scripts/train_diffusion_2d.py --config configs/table1_2d.yaml
+
+# 3) real downstream baseline / frozen anchor
+python scripts/train_downstream_2d.py --config configs/table1_2d.yaml --phase real
+
+# 4) NAM
+python scripts/train_nam_2d.py --config configs/table1_2d.yaml
+
+# 5) matched synthesis
+python scripts/generate_2d.py --config configs/table1_2d.yaml --method nam
+python scripts/generate_2d.py --config configs/table1_2d.yaml --method base
+
+# 6) synthetic continuation
+python scripts/train_downstream_2d.py --config configs/table1_2d.yaml --phase synthetic
+
+# 7) evaluation
+python scripts/evaluate_2d.py --config configs/table1_2d.yaml --checkpoint-phase real
+python scripts/evaluate_2d.py --config configs/table1_2d.yaml --checkpoint-phase syn
+python scripts/evaluate_adversariality.py --config configs/table1_2d.yaml
+python scripts/evaluate_fid.py --config configs/table1_2d.yaml
 ```
 
-The exported table can include:
+Expected default checkpoint locations:
 
-```text
-id
-path
-lce
-lcbce
-ldice
-adv_lce
-adv_lcbce
-adv_ldice
-adv
-```
+| Component | Path |
+|---|---|
+| SiameseDiff task checkpoint | `nam/diffusion/2D_M2I/siamesediff/checkpoints/diffusion/polyps/best_fid.ckpt` |
+| Real nnU-Net anchor | `nam/downstream/real_checkpoint/polyps/nnunet/best.pt` |
+| NAM miner | configuration-dependent, typically `outputs/<experiment>/checkpoints/nam_latest.pt` |
+| Synthetic downstream | `nam/downstream/syn_checkpoint/polyps/siamesediff/nnunet/best.pt` |
 
-The normalized convention is **larger = harder** under the selected downstream model.
+### 🧪 Workflow profiles
 
-The evaluator preserves dataset order, truncates to the requested fixed budget, and does not add new perturbations to already generated samples.
+The operation order is shared across branches: **generator → real baseline → NAM → Base/NAM synthesis → synthetic continuation → evaluation**.
 
-### ⚖️ Adversariality reward variants
+| Profile | Config | NAM / generation | Downstream / evaluation |
+|---|---|---|---|
+| 2D medical | `<2D_CONFIG>` | `train_nam_2d.py`, `generate_2d.py` | `train_downstream_2d.py`, `evaluate_2d.py` |
+| 3D medical | `configs/table1_3d.yaml` | `train_nam_3d.py`, `generate_3d.py` | `train_downstream_3d.py`, `evaluate_3d.py` |
+| Natural-image | `configs/controlnet_sdxl_voc.yaml` | 2D scripts | `evaluate_2d.py` |
+| PneumoniaMNIST | `configs/sd15_lora_pneumoniamnist.yaml` | 2D scripts | `evaluate_classification.py` |
+| ISIC | `configs/sd15_lora_isic.yaml` | 2D scripts | `evaluate_classification.py` |
 
-Available NAM reward choices include:
+### 📋 Main Table I protocol
 
-```text
-lce
-lcbce
-ldice
-lfocal
-```
+| Control | Setting | Control | Setting |
+|---|---|---|---|
+| Generator | same task-specific checkpoint | NAM optimization | 3,000 iterations |
+| Final sampler | deterministic DDIM-50 | Synthetic budget | matched to real train size |
+| Real : synthetic | `1 : 1` | CutMix | `p=0.5` |
+| Checkpoint selection | validation only | Final metrics | held-out test |
+| Paper seeds | `42`, `3407`, `2026` | Full protocol | [`docs/TABLE1_PROTOCOL.md`](docs/TABLE1_PROTOCOL.md) |
 
-Example override:
+---
+
+## 📊 Evaluation & analysis
+
+| Analysis | Command / module | Main output | Reproduction note |
+|---|---|---|---|
+| 2D segmentation | `scripts/evaluate_2d.py` | DSC / ASD | select real or synthetic checkpoint |
+| 3D segmentation | `scripts/evaluate_3d.py` | volumetric metrics | use 3D config |
+| Classification | `scripts/evaluate_classification.py` | accuracy + configured metrics | PneumoniaMNIST / ISIC |
+| Adversariality | `scripts/evaluate_adversariality.py` | CSV + JSON summary | larger normalized score = harder |
+| FID | `scripts/evaluate_fid.py` | feature-distance JSON | keep encoder/splits/budget fixed |
+| t-SNE | `python -m nam.evaluation.Vis.tsne` | features + PDF/PNG | joint projection |
+| Adversariality distribution | `python -m nam.evaluation.Vis.adversariality_distribution` | plots | exported sample scores |
+| Cross-model consistency | `python -m nam.evaluation.Vis.cross_model_consistency` | Pearson / Spearman / MAD | align by exact sample `id` |
+
+Adversariality exports may contain `id`, `path`, raw `lce/lcbce/ldice`, normalized `adv_*`, and selected `adv`. Example reward override:
 
 ```bash
-python scripts/train_nam_2d.py \
-  --config configs/table1_2d.yaml \
-  --set training.reward=lcbce
+python scripts/train_nam_2d.py --config configs/table1_2d.yaml --set training.reward=lcbce
 ```
 
-### 🌌 FID / distribution alignment
-
-```bash
-python scripts/evaluate_fid.py \
-  --config configs/table1_2d.yaml
-```
-
-When comparing Base and NAM, keep the following fixed:
-
-- feature extractor;
-- real reference split;
-- synthetic budget;
-- image preprocessing;
-- output resolution.
-
-### 🎨 Publication visualizations
-
-Install visualization dependencies:
-
-```bash
-pip install -e ".[visualization]"
-```
-
-Then run:
-
-```bash
-python -m nam.evaluation.Vis.tsne
-python -m nam.evaluation.Vis.adversariality_distribution
-python -m nam.evaluation.Vis.cross_model_consistency
-```
-
-#### t-SNE
-
-The t-SNE analysis uses frozen downstream bottleneck features and projects configured groups jointly. Both the source features and projected coordinates are saved for inspection.
-
-#### Adversariality distributions
-
-The plotting utilities can produce histogram / density-style summaries and sample-level rankings from the exported adversariality files.
-
-#### Cross-model consistency
-
-Cross-model consistency aligns records using the exact sample `id` intersection and reports:
-
-- Pearson correlation;
-- Spearman rank correlation;
-- mean absolute difference.
-
-This supports analysis of whether samples identified as hard by one anchor remain difficult for another downstream architecture.
-
-More details: [`docs/EVALUATION_VISUALIZATION.md`](docs/EVALUATION_VISUALIZATION.md)
+For FID/Base/NAM comparisons keep the **feature extractor, real split, synthetic budget, preprocessing, and output resolution** fixed. Full analysis notes: [`docs/EVALUATION_VISUALIZATION.md`](docs/EVALUATION_VISUALIZATION.md)
 
 ---
 
 ## 🛡️ Mitigation strategies
 
-High-adversariality mining can also expose defective modes already present in a generator. The extended code includes four optional sampling-time mitigation strategies.
+High-adversariality mining can expose defective modes already present in the base generator. Mitigation is optional and applied after NAM training while generator, anchor, and miner remain frozen.
 
-| Strategy | Main idea | Additional requirement |
-|---|---|---|
-| **HAT** | replace samples above a calibrated adversariality threshold; retry candidate seeds | adversariality scoring |
-| **QSF** | evaluate generated samples with a configurable VQA-based quality/semantic score | VQA model / optional dependencies |
-| **LSRS** | rerank candidates using full, unconditional, and component-conditioned diffusion predictions | cached diffusion states / generator hooks |
-| **ASG** | use cross/self-attention signals to suppress incompatible generations | attention access in supported generators |
+| Strategy | Main idea | Requirement | Location |
+|---|---|---|---|
+| **HAT** | replace samples above calibrated adversariality threshold; retry seeds | adversariality scoring | `nam/mitigation/hat.py` |
+| **QSF** | VQA-based quality / semantic filtering | VQA model + optional deps | `nam/mitigation/qsf.py` |
+| **LSRS** | rerank using full/unconditional/component-conditioned predictions | cached states / hooks | `nam/mitigation/lsrs.py` |
+| **ASG** | suppress incompatible generations with cross/self-attention signals | attention access | `nam/mitigation/asg.py` |
 
-All four strategies are applied **after NAM has been trained**; the generator, downstream anchor, and NAM miner remain frozen during mitigation sampling.
-
-Configuration:
-
-```text
-configs/mitigation.yaml
-```
-
-Implementation:
-
-```text
-nam/mitigation/
-```
-
-Detailed guide: [`nam/mitigation/README.md`](nam/mitigation/README.md)
-
-> [!NOTE]
-> Mitigation is optional. It can improve sample quality in settings where defective modes are noticeable, but some strategies add substantial inference cost and may reject useful hard samples. For direct paper reproduction, use the configuration associated with the target experiment.
+Config: `configs/mitigation.yaml` · Guide: [`nam/mitigation/README.md`](nam/mitigation/README.md)
 
 ---
 
-## 💾 Checkpoints and outputs
+## 💾 Checkpoints, outputs & paper-to-code map
 
-Large model binaries are not stored in Git. The repository expects pretrained generators and locally trained checkpoints at documented paths.
+### Paths and artifacts
 
-### 🧬 Diffusion checkpoints
-
-Each generator adapter README describes:
-
-- upstream repository;
-- expected source revision / model configuration;
-- pretrained weights;
-- checkpoint filenames;
-- task-specific training or registration steps.
-
-Example SiameseDiff layout:
-
-```text
-nam/diffusion/2D_M2I/siamesediff/
-├── pretrained_weights/
-├── checkpoints/
-│   ├── diffusion/<dataset>/
-│   ├── nam/<dataset>/
-│   └── downstream/<dataset>/<model>/
-└── README.md
-```
-
-### 🧠 Downstream checkpoints
-
-Real baseline / anchor:
-
-```text
-nam/downstream/real_checkpoint/<dataset>/<model>/best.pt
-```
-
-Synthetic-augmented model:
-
-```text
-nam/downstream/syn_checkpoint/<dataset>/<generator>/<model>/best.pt
-```
-
-### 🎯 NAM miner checkpoint
-
-The miner output path is configuration-dependent. The default Polyps/SiameseDiff example uses an output path similar to:
-
-```text
-outputs/polyps-siamesediff-nnunet/checkpoints/nam_latest.pt
-```
-
-### 📂 Experiment artifacts
-
-A run can produce:
-
-```text
-outputs/<experiment>/
-├── checkpoints/
-├── tensorboard/
-├── visualizations/
-├── metrics.jsonl
-├── config.json
-├── environment.json
-└── samples.jsonl
-```
-
-| Artifact | Description |
-|---|---|
-| `checkpoints/` | latest / best / periodic training states |
-| `tensorboard/` | scalar curves, histograms, images, diagnostics |
-| `visualizations/` | PNG previews and analysis panels |
-| `metrics.jsonl` | append-only machine-readable metrics |
-| `config.json` | fully resolved configuration used for the run |
-| `environment.json` | Python, PyTorch, CUDA and environment metadata |
-| `samples.jsonl` | generated sample IDs, conditions, prompts, seeds, checkpoints, output paths |
-
-### 📈 TensorBoard
+| Item | Default / pattern | Item | Default / pattern |
+|---|---|---|---|
+| Real downstream | `nam/downstream/real_checkpoint/<dataset>/<model>/best.pt` | Synthetic downstream | `nam/downstream/syn_checkpoint/<dataset>/<generator>/<model>/best.pt` |
+| NAM miner | `outputs/<experiment>/checkpoints/nam_latest.pt` | TensorBoard | `outputs/**/tensorboard/` |
+| Metrics | `metrics.jsonl` | Resolved config | `config.json` |
+| Environment | `environment.json` | Sample metadata | `samples.jsonl` |
+| Visualizations | `visualizations/` | Large weights/data | excluded from Git |
 
 ```bash
 tensorboard --logdir outputs --port 6006
 ```
 
-### 🔍 Why keep `config.json` and `environment.json`?
+Keep `config.json`, `environment.json`, code commit, seed, upstream generator revision, checkpoint IDs, and synthetic budget for reproducible comparisons.
 
-They make it much easier to distinguish:
+### 🗺️ Paper-to-code
 
-- a code change from a configuration change;
-- a different seed from a different data split;
-- a dependency-version difference from an algorithmic difference;
-- Base/NAM runs that accidentally used different checkpoints or budgets.
+| Paper component | Entry | Paper component | Entry |
+|---|---|---|---|
+| 2D reference | `configs/table1_2d.yaml` | 3D reference | `configs/table1_3d.yaml` |
+| Table I matrix | `configs/table1_matrix.yaml` | Table I notes | `docs/TABLE1_PROTOCOL.md` |
+| NAM training | `scripts/train_nam_2d.py`, `train_nam_3d.py` | Base/NAM sampling | `scripts/generate_2d.py`, `generate_3d.py` |
+| Downstream training | `scripts/train_downstream_*.py` | Segmentation eval | `scripts/evaluate_2d.py`, `evaluate_3d.py` |
+| Classification | `scripts/evaluate_classification.py` | Adversariality | `scripts/evaluate_adversariality.py` |
+| FID | `scripts/evaluate_fid.py` | Visualization guide | `docs/EVALUATION_VISUALIZATION.md` |
+| t-SNE | `nam/evaluation/Vis/tsne.py` | Cross-model | `nam/evaluation/Vis/cross_model_consistency.py` |
+| Split inventory | `nam/data/SPLITS.md` | Mitigation | `configs/mitigation.yaml`, `nam/mitigation/` |
 
 ---
 
-## 🗺️ Paper-to-code map
+## ✅ Reproducibility checklist
 
-| Paper component | Main repository entry |
+| Category | Verify |
 |---|---|
-| Main 2D reference configuration | `configs/table1_2d.yaml` |
-| Main 3D reference configuration | `configs/table1_3d.yaml` |
-| Table I experiment matrix | `configs/table1_matrix.yaml` |
-| Table I reproduction notes | `docs/TABLE1_PROTOCOL.md` |
-| NAM 2D training | `scripts/train_nam_2d.py` |
-| NAM 3D training | `scripts/train_nam_3d.py` |
-| Base / NAM 2D generation | `scripts/generate_2d.py` |
-| Base / NAM 3D generation | `scripts/generate_3d.py` |
-| Real / synthetic downstream training | `scripts/train_downstream_2d.py`, `scripts/train_downstream_3d.py` |
-| Medical segmentation evaluation | `scripts/evaluate_2d.py`, `scripts/evaluate_3d.py` |
-| Classification transfer | `scripts/evaluate_classification.py` |
-| Adversariality analysis | `scripts/evaluate_adversariality.py` |
-| FID analysis | `scripts/evaluate_fid.py` |
-| t-SNE | `nam/evaluation/Vis/tsne.py` |
-| Cross-model consistency | `nam/evaluation/Vis/cross_model_consistency.py` |
-| Adversariality distribution plots | `nam/evaluation/Vis/adversariality_distribution.py` |
-| Dataset split inventory | `nam/data/SPLITS.md` |
-| Mitigation experiments | `configs/mitigation.yaml`, `nam/mitigation/` |
-| Visualization guide | `docs/EVALUATION_VISUALIZATION.md` |
-
----
-
-## 🔬 NAM hyperparameters
-
-The main Table I NAM settings are:
-
-| Parameter | Default |
-|---|---:|
-| Optimizer | AdamW |
-| Learning rate | `1e-4` |
-| Weight decay | `1e-2` |
-| Maximum iterations | `3000` |
-| KL weight `beta` | `0.001` |
-| Adversariality cap `kappa_up` | `0.5` |
-| Truncated rollout | `10` steps |
-| Full final sampler | deterministic DDIM-50 |
-
-### 🎚️ Important knobs
-
-#### `beta`
-
-Controls the KL regularization that keeps the reselected noise distribution close to the base Gaussian prior. Too little regularization can produce larger prior drift; too much can suppress adversariality mining.
-
-#### `kappa_up`
-
-Caps the adversariality objective. This prevents the miner from continuously increasing downstream loss after a sample is already sufficiently difficult.
-
-#### `truncated_steps`
-
-Controls the number of early denoising steps used during miner optimization. The full sampling schedule is still used for final generation.
-
-#### `sampling.budget`
-
-Controls the synthetic set size. For the primary Table I protocol, the default synthetic budget matches the size of the real training set.
-
-#### `runtime.seed`
-
-The main experiment matrix uses:
-
-```text
-42
-3407
-2026
-```
-
----
-
-## 🧪 Reproducibility checklist
-
-Before comparing your numbers with the paper, verify the following.
-
-### ✅ Data
-
-- [ ] The intended train/validation/test manifests are unchanged.
-- [ ] Subject-level or case-level partitioning follows the dataset README.
-- [ ] Image/mask resolution matches the target configuration.
-- [ ] Foreground filtering and label mapping match the released loader.
-- [ ] Cross-domain target datasets are not included in source-domain training.
-
-### ✅ Generator
-
-- [ ] Base and NAM use the **same diffusion checkpoint**.
-- [ ] Base and NAM use the **same sampler schedule**.
-- [ ] Conditioning masks/prompts come from the same list.
-- [ ] CFG scale and prediction type match the configuration.
-- [ ] Upstream model revision and pretrained initialization are consistent.
-
-### ✅ NAM
-
-- [ ] The real-data downstream anchor is frozen.
-- [ ] The diffusion model is frozen during miner optimization.
-- [ ] `beta`, `kappa_up`, truncated steps, and reward match the target experiment.
-- [ ] The correct 2D/3D miner and noise layout are used.
-- [ ] The miner checkpoint belongs to the same dataset/generator/anchor combination.
-
-### ✅ Synthetic data
-
-- [ ] Base and NAM have the same synthetic budget.
-- [ ] Generated records preserve stable sample IDs and seed metadata.
-- [ ] No extra post-hoc filtering is applied unless the experiment explicitly evaluates mitigation.
-
-### ✅ Downstream training
-
-- [ ] Real and synthetic runs start from the intended checkpoint.
-- [ ] Architecture-specific optimizer settings match the configuration.
-- [ ] The real-to-synthetic sampling ratio matches the protocol.
-- [ ] Checkpoint selection uses the validation split only.
-
-### ✅ Evaluation
-
-- [ ] Final segmentation/classification metrics use the held-out test split.
-- [ ] FID uses the same encoder and preprocessing for compared methods.
-- [ ] Adversariality comparisons use the same frozen downstream model.
-- [ ] Cross-model consistency aligns samples by `id`, not CSV row index.
-- [ ] Results are aggregated over the intended seeds.
+| **Data** | unchanged train/val/test manifests · case-level partitioning · resolution/label mapping · no target-domain leakage |
+| **Generator** | same checkpoint · sampler · condition list · CFG/prediction type · upstream revision |
+| **NAM** | frozen generator/anchor · correct 2D/3D miner · `beta/kappa_up/reward/truncated_steps` · matching miner checkpoint |
+| **Synthetic data** | Base/NAM budget matched · stable IDs/seeds · no unreported filtering |
+| **Downstream** | same real initialization · architecture-specific optimizer · same continuation schedule · validation-only selection |
+| **Evaluation** | held-out test metrics · same FID encoder/preprocessing · same adversariality anchor · cross-model match by `id` · intended seed aggregation |
 
 ---
 
 ## 🧰 Extending the repository
 
-The codebase is structured so that new generators, datasets, or downstream models can be added without changing the high-level experiment entry points.
-
-### ➕ Adding a new dataset
-
-A dataset package should typically provide:
-
-```text
-nam/data/my_dataset/
-├── README.md
-├── dataset.py
-├── train.list
-├── val.list
-├── test.list
-└── data/
-```
-
-The configuration references the factory with a string such as:
-
-```yaml
-dataset:
-  factory: nam.data.my_dataset.dataset:build_dataset
-  root: nam/data/my_dataset
-```
-
-For reproducible releases, document:
-
-- download source;
-- preprocessing;
-- label mapping;
-- split construction;
-- image/volume resolution;
-- expected file layout.
-
-### ➕ Adding a new diffusion generator
-
-A generator integration needs to expose the operations required by the selected experiment, including:
-
-- model construction / checkpoint loading;
-- noise specification;
-- conditioning format;
-- sampling;
-- access to the early denoising signal used by NAM;
-- NAM miner integration;
-- optional mitigation hooks if LSRS/ASG are required.
-
-Use an existing adapter with a similar synthesis paradigm as the starting point.
-
-### ➕ Adding a new downstream model
-
-A downstream package should provide the network and real/synthetic training behavior needed by the shared scripts. In particular, NAM requires a frozen checkpoint that can produce the configured downstream loss/adversariality signal.
-
-Recommended additions include:
-
-- model definition;
-- real-only training entry;
-- synthetic continuation entry;
-- validation metric and checkpoint selection;
-- evaluation integration;
-- feature access if t-SNE or cross-model analysis is desired.
-
-### ➕ Adding a new reward
-
-The adversariality reward should provide a meaningful downstream hardness signal. When adding a reward, keep the score direction consistent with the existing convention: **larger adversariality = harder sample**.
+| Extension | Minimum interface / files | Reproducibility notes |
+|---|---|---|
+| Dataset | `README.md`, `dataset.py`, train/val/test manifests, `build_dataset` factory | document source, preprocessing, labels, split, resolution, layout |
+| Diffusion generator | model/checkpoint loading, noise layout, conditioning, sampling, early denoising signal, NAM integration | reuse an adapter with a similar synthesis paradigm |
+| Downstream model | model, real training, synthetic continuation, validation selection, evaluation | NAM needs a frozen loss/adversariality-producing checkpoint |
+| Reward | downstream hardness signal with **larger = harder** convention | keep normalization/direction consistent |
+| Mitigation hooks | state / attention access when needed | required mainly for LSRS / ASG |
 
 ---
 
 ## ⚖️ Comparison Methods
 
-We compare NAM with representative diffusion-based synthesis and augmentation methods spanning **random sampling**, **heuristic targeting**, **diversity-oriented augmentation**, **utility-aware generation**, and **adversarial guidance**.
-
-> [!NOTE]
-> All methods use the same task-specific diffusion backbone and the same downstream training protocol whenever applicable.  
-> The last column reports the **configuration used in our experiments**, which may differ slightly from the original implementation when required by the unified frozen-DM / from-scratch synthesis protocol.
+We compare NAM with **random sampling**, **heuristic targeting**, **diversity-oriented augmentation**, **utility-aware generation**, and **adversarial guidance**. The last column gives the configuration used in our unified comparison; some methods require minimal adaptation to satisfy the shared frozen-DM / from-scratch synthesis protocol.
 
 ### 📚 Baselines and configurations
 
 | Family | Method | Paper | Code | Core mechanism | Configuration used in our experiments |
 |---|---|---|---|---|---|
-| 🎲 **Random** | **Base** | — | — | Standard random diffusion sampling | DDIM-50; `σ=0`; Gaussian initial noise; no guidance or filtering |
-| 🎯 **Heuristic targeting** | **UGDM** | [Paper](https://doi.org/10.1109/TPAMI.2024.3399098) | [GitHub](https://github.com/huanlemin/UGDM) | Uncertainty-based measurement guidance | Margin guidance `γ=3`; DDIM inversion removed |
-| 🎯 **Heuristic targeting** | **VGD** | [Paper](https://ojs.aaai.org/index.php/AAAI/article/view/38246) | — | Value-guided synthesis toward high-utility / boundary samples | DDIM-100; `σ=0.2`; `λ=1.0`, `τ=1.0`, `k=0.03`, `γ=0.90` |
-| 🌈 **Diversity** | **AugPaint** | [Paper](https://arxiv.org/abs/2506.23038) | — | Task-aware diffusion inpainting | Foreground regions are masked and reconstructed through diffusion inpainting |
-| 🌈 **Diversity** | **DiffAug** | [Paper](https://proceedings.neurips.cc/paper_files/paper/2024/hash/24e8b46430df965674221665816a4964-Abstract-Conference.html) | — | Partial diffuse-and-denoise augmentation | Base synthetic sample; intermediate timestep `t ~ Beta(2,4)·T` |
-| 🌈 **Diversity** | **CIG / Diff-II** | [Paper](https://openaccess.thecvf.com/content/CVPR2025/html/Wang_Inversion_Circle_Interpolation_Diffusion-Based_Image_Augmentation_for_Data-Scarce_Classification_CVPR_2025_paper.html) | [GitHub](https://github.com/scuwyh2000/Diff-II) | Circle interpolation between random and reference diffusion noise | `"interp"` mode; real reference uniformly sampled; forward noising to `T`; concept learning removed |
-| 🌈 **Diversity** | **DA-Fusion** | [Paper](https://arxiv.org/abs/2302.07944) | [GitHub](https://github.com/brandontrabucco/da-fusion) | SDEdit-based augmentation followed by Mixup | `t₀/T ∈ {0.25,0.50,0.75,1.00}`; Mixup `α=0.5` |
-| 📈 **Utility-aware** | **GAL** | [Paper](https://proceedings.mlr.press/v235/zhu24b.html) | [GitHub](https://github.com/aim-uofa/DiverGen) | Offline utility-based filtering | Validation-score threshold `τ=-0.05`; sampling repeated until the target budget is reached |
-| 📈 **Utility-aware** | **UtilGen-lite** | [Paper](https://papers.neurips.cc/paper_files/paper/2025/hash/2ea07a4acbf7e38913062fd69a70805f-Abstract-Conference.html) | — | Utility estimator with prompt/noise optimization | Single-hidden-layer MLP; MLCO removed; denoising CFG `5.5`; inversion CFG `0` |
-| ⚔️ **Adversarial guidance** | **AdvDiffuser** | [Paper](https://openaccess.thecvf.com/content/ICCV2023/html/Chen_AdvDiffuser_Natural_Adversarial_Example_Synthesis_with_Diffusion_Models_ICCV_2023_paper.html) | — | Diffusion adversarial guidance with PGD | `T=50`; PGD step size `η=0.1`; `I=1` adversarial update/sample |
-| ⚔️ **Adversarial guidance** | **P2P** | [Paper](https://openaccess.thecvf.com/content/CVPR2025/html/Medghalchi_Prompt2Perturb_P2P_Text-Guided_Diffusion-Based_Adversarial_Attack_on_Breast_Ultrasound_Images_CVPR_2025_paper.html) | [GitHub](https://github.com/moeinheidari7829/P2P) | Adversarial text-embedding optimization | `ε=0.05`; AdamW; `lr=1e-5`; 500 iterations |
-| ⚔️ **Adversarial guidance** | **Diff-PGD** | [Paper](https://proceedings.neurips.cc/paper_files/paper/2023/hash/088463cd3126aef2002ffc69da42ec59-Abstract-Conference.html) | [GitHub](https://github.com/xavihart/Diff-PGD) | SDEdit + PGD adversarial editing | Base synthetic image as input; official/default attack parameters |
-| ⚔️ **Adversarial guidance** | **DiffAttack** | [Paper](https://arxiv.org/abs/2305.08192) | [GitHub](https://github.com/WindVChen/DiffAttack) | Latent-space adversarial optimization with attention preservation | DDIM-20; `σ=0`; start step `15`; 30 iterations; AdamW `lr=1e-2`; guidance `2.5`; loss weights `10 / 10000 / 100` |
-| ⚔️ **Adversarial guidance** | **NatADiff** | [Paper](https://arxiv.org/abs/2505.20934) | [GitHub](https://github.com/maxcollins1999/NatADiff) | Boundary-guided adversarial diffusion with time travel | DDIM-100; `σ=0`; `ω=7.5`, `ρ=7.5`, `μ=0.2`; `R=5`; `r_l=500`, `r_u=800`; `[c_l,c_u]=[0,700]`; `S=5`; `s=50` |
-| ⛏️ **Native adversariality** | **NAM (ours)** | TPAMI extended manuscript | [GitHub](https://github.com/JackCD99/Native-Adversariality-Mining) | Seed-level mining of native hard modes | Frozen generator + frozen anchor; AdamW `1e-4`; 3,000 iterations; `β=0.001`; `κ_up=0.5`; 10-step truncated rollout; DDIM-50 |
+| 🎲 Random | **Base** | — | — | Standard diffusion sampling | DDIM-50; `σ=0`; Gaussian noise; no guidance/filtering |
+| 🎯 Heuristic | **UGDM** | [Paper](https://doi.org/10.1109/TPAMI.2024.3399098) | [GitHub](https://github.com/huanlemin/UGDM) | Uncertainty measurement guidance | `γ=3`; DDIM inversion removed |
+| 🎯 Heuristic | **VGD** | [Paper](https://ojs.aaai.org/index.php/AAAI/article/view/38246) | — | Value-guided high-utility/boundary synthesis | DDIM-100; `σ=0.2`; `λ=1`, `τ=1`, `k=0.03`, `γ=0.90` |
+| 🌈 Diversity | **AugPaint** | [Paper](https://arxiv.org/abs/2506.23038) | — | Task-aware inpainting | foreground masking + diffusion reconstruction |
+| 🌈 Diversity | **DiffAug** | [Paper](https://proceedings.neurips.cc/paper_files/paper/2024/hash/24e8b46430df965674221665816a4964-Abstract-Conference.html) | — | Partial diffuse-and-denoise | Base sample; `t ~ Beta(2,4)·T` |
+| 🌈 Diversity | **CIG / Diff-II** | [Paper](https://openaccess.thecvf.com/content/CVPR2025/html/Wang_Inversion_Circle_Interpolation_Diffusion-Based_Image_Augmentation_for_Data-Scarce_Classification_CVPR_2025_paper.html) | [GitHub](https://github.com/scuwyh2000/Diff-II) | Circle interpolation | `"interp"`; real ref + forward noise to `T`; concept learning removed |
+| 🌈 Diversity | **DA-Fusion** | [Paper](https://arxiv.org/abs/2302.07944) | [GitHub](https://github.com/brandontrabucco/da-fusion) | SDEdit + Mixup | `t₀/T∈{.25,.5,.75,1}`; Mixup `α=.5` |
+| 📈 Utility | **GAL** | [Paper](https://proceedings.mlr.press/v235/zhu24b.html) | [GitHub](https://github.com/aim-uofa/DiverGen) | Offline utility filtering | threshold `τ=-0.05`; repeat until budget |
+| 📈 Utility | **UtilGen-lite** | [Paper](https://papers.neurips.cc/paper_files/paper/2025/hash/2ea07a4acbf7e38913062fd69a70805f-Abstract-Conference.html) | — | Utility estimator + prompt/noise optimization | 1-hidden-layer MLP; MLCO removed; CFG `5.5/0` |
+| ⚔️ Adv. guidance | **AdvDiffuser** | [Paper](https://openaccess.thecvf.com/content/ICCV2023/html/Chen_AdvDiffuser_Natural_Adversarial_Example_Synthesis_with_Diffusion_Models_ICCV_2023_paper.html) | — | Diffusion guidance + PGD | `T=50`; `η=.1`; `I=1` |
+| ⚔️ Adv. guidance | **P2P** | [Paper](https://openaccess.thecvf.com/content/CVPR2025/html/Medghalchi_Prompt2Perturb_P2P_Text-Guided_Diffusion-Based_Adversarial_Attack_on_Breast_Ultrasound_Images_CVPR_2025_paper.html) | [GitHub](https://github.com/moeinheidari7829/P2P) | Text-embedding adversarial optimization | `ε=.05`; AdamW `1e-5`; 500 iters |
+| ⚔️ Adv. guidance | **Diff-PGD** | [Paper](https://proceedings.neurips.cc/paper_files/paper/2023/hash/088463cd3126aef2002ffc69da42ec59-Abstract-Conference.html) | [GitHub](https://github.com/xavihart/Diff-PGD) | SDEdit + PGD | Base synthetic input; official/default attack parameters |
+| ⚔️ Adv. guidance | **DiffAttack** | [Paper](https://arxiv.org/abs/2305.08192) | [GitHub](https://github.com/WindVChen/DiffAttack) | Latent attack + attention preservation | DDIM-20; start 15; 30 iters; AdamW `1e-2`; guidance `2.5`; weights `10/10000/100` |
+| ⚔️ Adv. guidance | **NatADiff** | [Paper](https://arxiv.org/abs/2505.20934) | [GitHub](https://github.com/maxcollins1999/NatADiff) | Boundary guidance + time travel | DDIM-100; `ω=7.5`,`ρ=7.5`,`μ=.2`; `R=5`; `r_l/r_u=500/800`; `[c_l,c_u]=[0,700]`; `S=5`; `s=50` |
+| ⛏️ Native | **NAM (ours)** | TPAMI extended manuscript | [GitHub](https://github.com/JackCD99/Native-Adversariality-Mining) | Seed-level native hard-mode mining | frozen DM/anchor; AdamW `1e-4`; 3k iters; `β=.001`; `κ_up=.5`; rollout 10; DDIM-50 |
 
 > [!TIP]
-> **DiffAug** here refers to *DiffAug: A Diffuse-and-Denoise Augmentation for Training Robust Classifiers* (NeurIPS 2024), rather than other methods sharing the same abbreviation.
+> **DiffAug** here is *DiffAug: A Diffuse-and-Denoise Augmentation for Training Robust Classifiers* (NeurIPS 2024).
 
----
-
-### 🧪 Unified comparison protocol
+### 🧪 Unified protocol & adaptations
 
 | Component | Setting | Component | Setting |
 |---|---|---|---|
-| 🧬 **Diffusion backbone** | Same task-specific frozen DM | 📦 **Synthetic budget** | Equal to the real training-set size |
-| 🎲 **Primary comparison seed** | `42` | 🏷️ **Conditions** | Same masks / prompts / labels |
-| 🧠 **Downstream initialization** | Same real-data checkpoint | ⚖️ **Real : synthetic ratio** | `1 : 1` |
-| ✂️ **CutMix** | Probability `0.5` | ⚙️ **Training schedule** | Identical within each downstream architecture |
-| ✅ **Checkpoint selection** | Validation split only | 📊 **Final evaluation** | Held-out test split |
-| 🔧 **Baseline parameters** | Official settings whenever possible | 🛠️ **Tuning policy** | Minimal tuning only when necessary for valid synthesis |
+| Diffusion backbone | same task-specific frozen DM | Synthetic budget | real training-set size |
+| Primary comparison seed | `42` | Conditions | same masks/prompts/labels |
+| Downstream initialization | same real checkpoint | Real : synthetic | `1:1` |
+| CutMix | `p=0.5` | Training schedule | identical per architecture |
+| Checkpoint selection | validation only | Final evaluation | held-out test |
+| Hyperparameters | official when valid | Tuning | minimal validity-only tuning |
 
-The comparison therefore controls the generator, data budget, and downstream optimization, while changing the strategy used to construct the synthetic training set.
-
----
-
-### 🔀 Protocol-specific adaptations
-
-Some original methods contain stages that are incompatible with our common **frozen diffusion model + from-scratch synthesis** setting.
-
-| Method | Original component | Setting used here | Reason |
-|---|---|---|---|
-| **UGDM** | DDIM inversion | ❌ Removed | Direct generation from initial noise |
-| **CIG / Diff-II** | Concept learning | ❌ Removed | Avoid additional method-specific model adaptation |
-| **CIG / Diff-II** | DDIM inversion | 🔄 Replaced by forward noising to `T` | Preserve a common generation protocol |
-| **DiffAttack** | DDIM inversion | ❌ Removed | Direct frozen-DM synthesis |
-| **UtilGen** | MLCO diffusion-model retraining | ❌ Removed | Violates the shared frozen-DM setting |
-| **UtilGen-lite** | Utility estimator + prompt/noise optimization | ✅ Retained | Compatible with a frozen generator |
+| Method | Adaptation | Reason |
+|---|---|---|
+| **UGDM** | remove DDIM inversion | direct generation from initial noise |
+| **CIG / Diff-II** | remove concept learning; replace inversion with forward noising to `T` | avoid method-specific adaptation; common generation protocol |
+| **DiffAttack** | remove DDIM inversion | direct frozen-DM synthesis |
+| **UtilGen-lite** | remove MLCO DM retraining; retain utility estimator + prompt/noise optimization | enforce frozen-DM comparison |
 
 > [!IMPORTANT]
-> We refer to the modified UtilGen baseline as **UtilGen-lite** because the original MLCO diffusion-model adaptation stage is excluded from our comparison.
+> We call the modified utility baseline **UtilGen-lite** because the original MLCO diffusion-model adaptation stage is excluded.
 
 ---
-
-### ✅ Fair-comparison checklist
-
-| Generator & sampling | Downstream & evaluation |
-|---|---|
-| Same diffusion checkpoint | Same real-data initialization |
-| Same conditioning inputs | Same optimizer and training schedule |
-| Same target synthetic budget | Same `1:1` real/synthetic ratio |
-| Same image / volume resolution | Same CutMix probability |
-| Same comparison seed | Validation-only checkpoint selection |
-| Method-specific sampler settings reported explicitly | Same held-out test evaluation |
-| No unreported generator fine-tuning | Same FID encoder / preprocessing within each modality |
-
-For exact reproduction, record both the **original baseline settings** and the **protocol-specific modifications** listed above.
-
-
-
-
-
-
-
-
 
 ## ⚠️ Practical limitations
 
-NAM is intended to mine informative hard modes, but several practical limitations matter during reproduction and deployment.
-
-### 1. Dependence on generator alignment
-
-If the base diffusion model poorly represents the target data distribution, increasing adversariality may not translate into useful downstream gains.
-
-### 2. Miner optimization cost
-
-NAM avoids diffusion-model retraining, but the miner still requires optimization through a truncated diffusion path. The cost is much smaller than retraining a large generator in the reported setting, but it is not negligible.
-
-### 3. Defective-mode exposure
-
-Hard generator defects can also produce high downstream loss. NAM may therefore increase the probability of sampling undesirable modes already present in the base diffusion model. The optional mitigation strategies address this issue from different angles.
-
-### 4. Upstream dependency complexity
-
-Several experiments depend on large external projects, pretrained checkpoints, and model-specific environments. Reproducing the full matrix requires more setup than reproducing the core NAM algorithm on one generator.
-
-### 5. Metric sensitivity
-
-FID, adversariality, and downstream metrics measure different aspects of the synthetic data. A lower FID does not necessarily imply a larger downstream gain, and a higher adversariality score should be interpreted together with sample validity and alignment.
+| Limitation | Practical implication |
+|---|---|
+| **Generator alignment** | if the base DM poorly represents the target distribution, higher adversariality may not improve generalization |
+| **Miner optimization cost** | NAM avoids DM retraining but still optimizes through a truncated diffusion path |
+| **Defective-mode exposure** | hard generator defects can receive high downstream loss; optional mitigation may be needed |
+| **Upstream dependency complexity** | full-matrix reproduction depends on several large external projects/checkpoints |
+| **Metric sensitivity** | FID, adversariality, validity, and downstream gain measure different properties and should be interpreted together |
 
 ---
 
-## ❓ FAQ and troubleshooting
+## ❓ FAQ & troubleshooting
 
-### ❓ Is NAM training-free?
-
-No. NAM trains a lightweight miner. The **diffusion generator itself is not retrained** during NAM optimization.
-
-### ❓ Do I need to train the diffusion model from scratch?
-
-Not necessarily. If a compatible task-specific checkpoint is available, place it at the path documented by the corresponding adapter README and point the YAML configuration to it.
-
-### ❓ What is the downstream anchor?
-
-It is a downstream model trained on real data and then frozen. NAM uses this model to measure downstream difficulty during miner optimization.
-
-### ❓ Why does the default experiment use nnU-Net as the anchor?
-
-The main medical-segmentation analysis uses nnU-Net as the anchor and then evaluates transfer to additional downstream architectures. Other configurations can use another supported anchor when the experiment is defined accordingly.
-
-### ❓ What does “Base” mean?
-
-Base refers to standard sampling from the **same frozen diffusion generator** using random initial noise, without NAM seed reselection.
-
-### ❓ Does `--dry-run` test my checkpoint?
-
-No. It validates configuration structure and configured imports without loading the dataset or large model weights.
-
-### ❓ Why is `best.pt` missing?
-
-Complete the real-data training/validation stage first. NAM expects a validation-selected downstream checkpoint for the anchor.
-
-### ❓ `remote` / dataset file not found
-
-Check the local dataset README, manifest-relative paths, and `dataset.root`. Raw data should be placed under the ignored `data/` directory expected by the package.
-
-### ❓ Diffusion checkpoint mismatch
-
-Check:
-
-- upstream repository version;
-- model configuration file;
-- latent/noise channels;
-- conditioning channels;
-- scheduler and prediction type;
-- checkpoint filename and resolution.
-
-### ❓ NAM shape mismatch
-
-Confirm that the miner matches the generator's noise layout. Common examples include 4×32×32 latent noise for 2D Stable-Diffusion-style pipelines and 3D latent tensors for VolDiT/MAISI.
-
-### ❓ CUDA out of memory
-
-Reduce batch size first. For 3D experiments, crop/volume size, mixed precision, and visualization frequency can strongly affect memory usage.
+| Question / symptom | Check / answer |
+|---|---|
+| Is NAM training-free? | **No.** The miner is trained; the diffusion generator remains frozen. |
+| Must I train the diffusion model from scratch? | No, if a compatible task checkpoint is available and placed as documented by the adapter. |
+| What is the downstream anchor? | A real-data-trained, frozen downstream model that provides the difficulty signal. |
+| What does Base mean? | Standard sampling from the same frozen generator with random initial noise and no NAM reselection. |
+| Does `--dry-run` test checkpoints/data? | No; it validates configuration and imports without loading large data/weights. |
+| `best.pt` is missing | finish real-data training/validation first. |
+| Dataset file not found | verify dataset README, `dataset.root`, manifest-relative paths, preprocessing, and ignored `data/` directory. |
+| Diffusion checkpoint mismatch | verify upstream revision, model config, channels, scheduler/prediction type, filename, resolution. |
+| NAM shape mismatch | match miner spatial dims/noise layout to the generator (e.g. 4×32×32 vs 3D latent tensors). |
+| CUDA OOM | reduce batch size first; for 3D also inspect volume size, mixed precision, and visualization frequency. |
+| FID differs strongly | match feature encoder, preprocessing/resolution, real split, and synthetic budget. |
+| Base/NAM downstream results incomparable | match real initialization, budget, continuation epochs, augmentation, validation rule, and seeds. |
+| Cross-model CSV order differs | align by exact sample `id`, not row position. |
+| Reporting an issue | include command, config, `config.json`, `environment.json`, checkpoint IDs, dataset/preprocessing stage, and full traceback; never upload private medical data. |
 
 > [!WARNING]
-> Do not silently reduce the synthetic-data budget when reporting a Base-vs-NAM comparison. Batch size can be changed for memory reasons, but the final number of generated samples should remain matched unless you are explicitly studying budget scaling.
-
-### ❓ My FID differs significantly
-
-Verify that both runs use:
-
-- the same feature encoder;
-- identical image resolution / preprocessing;
-- the same real reference split;
-- the same synthetic budget.
-
-### ❓ My Base and NAM downstream results are not comparable
-
-Check whether they used the same:
-
-- real initialization;
-- synthetic budget;
-- number of continuation epochs;
-- data augmentation;
-- validation checkpoint-selection rule;
-- random seeds.
-
-### ❓ Cross-model consistency CSVs have different orders
-
-The analysis should align records by exact sample ID rather than by row position.
-
-### ❓ How do I report a reproducible issue?
-
-Please include:
-
-```text
-1. exact command
-2. config file
-3. resolved config.json if available
-4. environment.json if available
-5. generator / downstream checkpoint identifiers
-6. dataset name and preprocessing stage
-7. complete traceback
-```
-
-Do **not** attach private medical data or restricted pretrained checkpoints to a public issue.
+> Batch size may be reduced for memory, but do **not** silently reduce the final synthetic budget in a Base-vs-NAM comparison.
 
 ---
 
-## 🧑‍💻 Development notes
+## 🧑‍💻 Development & contributing
 
-### 🧹 Keep large assets out of Git
+| Topic | Recommendation |
+|---|---|
+| Git contents | keep raw datasets, generated datasets, `*.pt/*.pth/*.ckpt/*.safetensors`, TensorBoard folders, large outputs, and third-party repos out of Git |
+| Portability | prefer dataset-relative/config-driven paths over machine-specific absolute paths |
+| Sanity check | `python scripts/train_nam_2d.py --config <CONFIG> --dry-run --print-config` |
+| Provenance | record code commit, config, seed, upstream revision, checkpoints, environment, budget, metrics |
+| Good contributions | reproducibility fixes, setup notes, new adapters/models, split-preserving loader fixes, evaluation/visualization, docs |
+| PR description | state affected experiment/component, numerical behavior changes, tested config, and new dependencies |
 
-The repository is intended to contain source code, configs, lightweight manifests, and documentation. Keep the following local unless explicitly required:
-
-```text
-raw datasets
-large generated datasets
-*.pt / *.pth / *.ckpt / *.safetensors
-TensorBoard event folders
-large output directories
-third-party repositories
-```
-
-### 🔐 Keep experiments portable
-
-Prefer dataset-relative paths and configuration values over machine-specific absolute paths. This makes experiment configs easier to share between local workstations, servers, and clusters.
-
-### 🧪 Sanity-check a new configuration
-
-```bash
-python scripts/train_nam_2d.py \
-  --config <YOUR_CONFIG> \
-  --dry-run \
-  --print-config
-```
-
-### 📌 Preserve provenance
-
-For new experiments, keep:
-
-- code commit;
-- exact config;
-- seed;
-- upstream generator revision;
-- checkpoint identity;
-- environment metadata;
-- synthetic budget;
-- test metric output.
-
-This information is usually more useful for debugging reproduction differences than a screenshot of the final score alone.
-
----
-
-## 🤝 Contributing
-
-Issues and pull requests are welcome, especially for:
-
-- reproducibility fixes;
-- missing setup notes;
-- support for additional generators or downstream models;
-- dataset-loader corrections that preserve the published split;
-- evaluation/visualization improvements;
-- documentation clarifications.
-
-For substantial changes, opening an issue first is helpful so that the expected experiment behavior and compatibility can be discussed before a large implementation effort.
-
-When submitting a pull request, please describe:
-
-- what experiment or component is affected;
-- whether numerical behavior changes;
-- which configuration was used for testing;
-- whether new third-party dependencies are required.
+Issues and pull requests are welcome. For substantial changes, opening an issue first helps align expected experiment behavior and compatibility.
 
 ---
 
 ## 📚 Publications
 
-### 📘 TPAMI extended manuscript
-
-**Mining Native Adversariality in Diffusion Models for Medical Generalization**  
-Hongyu Zhang, Haipeng Chen, Zhimin Xu, Chengxin Yang, and Yingda Lyu.  
-Submitted to *IEEE Transactions on Pattern Analysis and Machine Intelligence*, 2026.
-
-### 🌟 CVPR 2026 Highlight
-
-**Diffusion-Based Native Adversarial Synthesis for Enhanced Medical Segmentation Generalization**  
-Hongyu Zhang, Haipeng Chen, Zhimin Xu, Chengxin Yang, and Yingda Lyu.  
-*IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*, 2026. **Highlight**.
+| Venue | Publication |
+|---|---|
+| 📘 **TPAMI extended manuscript** | **Mining Native Adversariality in Diffusion Models for Medical Generalization** — Hongyu Zhang, Haipeng Chen, Zhimin Xu, Chengxin Yang, Yingda Lyu. Submitted to *IEEE TPAMI*, 2026. |
+| 🌟 **CVPR 2026 Highlight** | **Diffusion-Based Native Adversarial Synthesis for Enhanced Medical Segmentation Generalization** — Hongyu Zhang, Haipeng Chen, Zhimin Xu, Chengxin Yang, Yingda Lyu. *CVPR*, 2026. |
 
 ---
 
 ## 📝 Citation
 
-If NAM or this repository is useful for your research, please cite the relevant paper.
+If NAM or this repository is useful for your research, please cite the relevant paper and the original generator/downstream/dataset used in your reproduced experiment.
 
 ```bibtex
 @article{zhang2026mining,
@@ -1786,30 +651,15 @@ If NAM or this repository is useful for your research, please cite the relevant 
 }
 ```
 
-Please also cite the original generator, downstream architecture, and dataset used in each reproduced experiment.
-
 ---
 
-## 🙏 Acknowledgements
+## 🙏 Acknowledgements & License
 
-This project builds on open-source work from the diffusion, medical-imaging, segmentation, classification, and evaluation communities. The corresponding upstream repositories are linked from the generator and downstream sections above.
+This project builds on open-source work in diffusion models, medical imaging, segmentation, classification, and evaluation. Upstream repositories are linked above; datasets, pretrained weights, external checkpoints, and third-party code remain subject to their original licenses and terms.
 
-We thank the authors and maintainers of the datasets, pretrained models, and open-source implementations that make reproducible research in this area possible.
-
----
-
-## 📄 License
-
-The NAM code in this repository is released under the [Apache License 2.0](LICENSE).
-
-Raw datasets, third-party repositories, pretrained model weights, and externally released checkpoints remain subject to their original licenses and terms of use.
-
----
+The NAM code is released under the [Apache License 2.0](LICENSE).
 
 <p align="center">
-  <b>⭐ If this repository helps your research, a GitHub star is appreciated.</b>
-</p>
-
-<p align="center">
+  <b>⭐ If this repository helps your research, a GitHub star is appreciated.</b><br>
   <sub>Native Adversariality Mining · diffusion-driven synthetic data for downstream generalization</sub>
 </p>
