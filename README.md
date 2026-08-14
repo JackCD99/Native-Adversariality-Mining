@@ -1,64 +1,86 @@
-<h1 align="center">🔥 Native Adversariality Mining (NAM)</h1>
+<div align="center">
 
-<p align="center">
-  <b>Mining Native Adversariality in Diffusion Models for Medical Generalization</b>
-</p>
+# 🔥 Native Adversariality Mining
 
-<p align="center">
-  Official PyTorch implementation of <b>Native Adversariality Mining (NAM)</b>, including the TPAMI extended experiments and the CVPR 2026 preliminary work.
-</p>
+### *Mining Native Adversariality in Diffusion Models for Medical Generalization*
 
-<p align="center">
-  <a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Zhang_Diffusion-Based_Native_Adversarial_Synthesis_for_Enhanced_Medical_Segmentation_Generalization_CVPR_2026_paper.pdf"><img src="https://img.shields.io/badge/CVPR%202026-Highlight-ff4d4f?style=flat-square" alt="CVPR 2026 Highlight"></a>
-  <a href="#-publications"><img src="https://img.shields.io/badge/TPAMI-Extended%20Manuscript-0054a6?style=flat-square" alt="TPAMI extended manuscript"></a>
-  <a href="pyproject.toml"><img src="https://img.shields.io/badge/Python-%E2%89%A53.10-3776ab?style=flat-square&logo=python&logoColor=white" alt="Python >=3.10"></a>
-  <a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-%E2%89%A52.1-ee4c2c?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch >=2.1"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-green?style=flat-square" alt="Apache-2.0"></a>
-  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/stargazers"><img src="https://img.shields.io/github/stars/JackCD99/Native-Adversariality-Mining?style=flat-square" alt="GitHub stars"></a>
-  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/issues"><img src="https://img.shields.io/github/issues/JackCD99/Native-Adversariality-Mining?style=flat-square" alt="GitHub issues"></a>
-  <a href="https://github.com/JackCD99/Native-Adversariality-Mining/commits/main"><img src="https://img.shields.io/github/last-commit/JackCD99/Native-Adversariality-Mining?style=flat-square" alt="Last commit"></a>
-</p>
+**Official PyTorch implementation of NAM · TPAMI extended experiments · CVPR 2026 Highlight preliminary work**
 
-<p align="center">
-  📄 <a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Zhang_Diffusion-Based_Native_Adversarial_Synthesis_for_Enhanced_Medical_Segmentation_Generalization_CVPR_2026_paper.pdf">CVPR Paper</a>
-  &nbsp;·&nbsp; 📎 <a href="https://openaccess.thecvf.com/content/CVPR2026/supplemental/Zhang_Diffusion-Based_Native_Adversarial_CVPR_2026_supplemental.pdf">Supplement</a>
-  &nbsp;·&nbsp; 🧪 <a href="docs/TABLE1_PROTOCOL.md">Table I Protocol</a>
-  &nbsp;·&nbsp; 📊 <a href="docs/EVALUATION_VISUALIZATION.md">Evaluation Guide</a>
-  &nbsp;·&nbsp; 🐛 <a href="https://github.com/JackCD99/Native-Adversariality-Mining/issues">Issues</a>
-</p>
+<br>
+
+<a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Zhang_Diffusion-Based_Native_Adversarial_Synthesis_for_Enhanced_Medical_Segmentation_Generalization_CVPR_2026_paper.pdf"><img src="https://img.shields.io/badge/CVPR%202026-Highlight-ff4d4f?style=for-the-badge" alt="CVPR 2026 Highlight"></a>
+<a href="#publications"><img src="https://img.shields.io/badge/TPAMI-Extended%20Manuscript-0054a6?style=for-the-badge" alt="TPAMI extended manuscript"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-2ea44f?style=for-the-badge" alt="Apache-2.0"></a>
+
+<br>
+
+<a href="pyproject.toml"><img src="https://img.shields.io/badge/Python-%E2%89%A53.10-3776ab?style=flat-square&logo=python&logoColor=white" alt="Python >=3.10"></a>
+<a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-%E2%89%A52.1-ee4c2c?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch >=2.1"></a>
+<img src="https://img.shields.io/badge/Scope-2D%20%2B%203D-6f42c1?style=flat-square" alt="2D + 3D">
+<img src="https://img.shields.io/badge/Paradigms-M2I%20%7C%20M%26I%20%7C%20T2I-8250df?style=flat-square" alt="M2I M&I T2I">
+<img src="https://img.shields.io/badge/Training-Frozen%20DM%20%2B%20Anchor-0969da?style=flat-square" alt="Frozen DM and anchor">
+<img src="https://img.shields.io/badge/Reproduction-Config--Driven-1f883d?style=flat-square" alt="Config-driven reproduction">
+
+<br>
+
+<a href="https://github.com/JackCD99/Native-Adversariality-Mining/stargazers"><img src="https://img.shields.io/github/stars/JackCD99/Native-Adversariality-Mining?style=flat-square&logo=github" alt="GitHub stars"></a>
+<a href="https://github.com/JackCD99/Native-Adversariality-Mining/network/members"><img src="https://img.shields.io/github/forks/JackCD99/Native-Adversariality-Mining?style=flat-square&logo=github" alt="GitHub forks"></a>
+<a href="https://github.com/JackCD99/Native-Adversariality-Mining/issues"><img src="https://img.shields.io/github/issues/JackCD99/Native-Adversariality-Mining?style=flat-square&logo=github" alt="GitHub issues"></a>
+<a href="https://github.com/JackCD99/Native-Adversariality-Mining/commits/main"><img src="https://img.shields.io/github/last-commit/JackCD99/Native-Adversariality-Mining?style=flat-square&logo=github" alt="Last commit"></a>
+
+<br><br>
+
+📄 **[CVPR Paper](https://openaccess.thecvf.com/content/CVPR2026/papers/Zhang_Diffusion-Based_Native_Adversarial_Synthesis_for_Enhanced_Medical_Segmentation_Generalization_CVPR_2026_paper.pdf)**
+&nbsp;·&nbsp;
+📎 **[Supplement](https://openaccess.thecvf.com/content/CVPR2026/supplemental/Zhang_Diffusion-Based_Native_Adversarial_CVPR_2026_supplemental.pdf)**
+&nbsp;·&nbsp;
+🧪 **[Table I Protocol](docs/TABLE1_PROTOCOL.md)**
+&nbsp;·&nbsp;
+📊 **[Evaluation Guide](docs/EVALUATION_VISUALIZATION.md)**
+&nbsp;·&nbsp;
+🐛 **[Issues](https://github.com/JackCD99/Native-Adversariality-Mining/issues)**
+
+<br>
+
+**[Overview](#overview)** · **[Method](#method)** · **[Results](#results)** · **[Install](#install)** · **[Data](#datasets)** · **[Generators](#generators)** · **[Reproduce](#reproduction)** · **[Evaluate](#evaluation)** · **[Baselines](#baselines)** · **[FAQ](#faq)** · **[Cite](#citation)**
+
+</div>
 
 ---
 
-<p align="center">
-  <a href="#-overview">Overview</a> ·
-  <a href="#-method-at-a-glance">Method</a> ·
-  <a href="#-representative-results">Results</a> ·
-  <a href="#-installation--quick-start">Installation</a> ·
-  <a href="#-datasets">Datasets</a> ·
-  <a href="#-supported-generators">Generators</a> ·
-  <a href="#-reproduction">Reproduction</a> ·
-  <a href="#-evaluation--analysis">Evaluation</a> ·
-  <a href="#-comparison-methods">Baselines</a> ·
-  <a href="#-faq--troubleshooting">FAQ</a> ·
-  <a href="#-citation">Citation</a>
-</p>
+<a id="news"></a>
 
 ## 📢 News
 
-- **August 2026** — Public release of the TPAMI-oriented NAM codebase with 2D/3D synthesis, M2I/M&I/T2I branches, transfer experiments, analysis utilities, and defective-mode mitigation.
-- **June 2026** — The preliminary work, *Diffusion-Based Native Adversarial Synthesis for Enhanced Medical Segmentation Generalization*, was presented at **CVPR 2026** and selected as a **Highlight** paper. 🌟
+| Date | Update |
+|---|---|
+| **2026.08** | 🚀 Public release of the TPAMI-oriented NAM codebase: 2D/3D synthesis, M2I/M&I/T2I branches, transfer experiments, analysis utilities, and defective-mode mitigation. |
+| **2026.06** | 🌟 *Diffusion-Based Native Adversarial Synthesis for Enhanced Medical Segmentation Generalization* presented at **CVPR 2026** and selected as a **Highlight** paper. |
 
 ---
 
+<a id="overview"></a>
+
 ## 🌟 Overview
 
+<p>
+  <img src="https://img.shields.io/badge/Core-Seed--Level%20Mining-6f42c1?style=flat-square" alt="Seed-level mining">
+  <img src="https://img.shields.io/badge/Generator-Frozen-0969da?style=flat-square" alt="Frozen generator">
+  <img src="https://img.shields.io/badge/Anchor-Frozen-0969da?style=flat-square" alt="Frozen anchor">
+  <img src="https://img.shields.io/badge/Goal-Downstream%20Generalization-1f883d?style=flat-square" alt="Downstream generalization">
+</p>
+
 Diffusion models can synthesize realistic medical images, but **visual fidelity alone does not guarantee downstream utility**. Random sampling tends to overproduce already well-learned modes, while informative hard modes can be sparse. **Native Adversariality Mining (NAM)** learns a lightweight miner that uses the frozen diffusion model's early denoising response to reselect initial noise, increasing the probability of generating hard yet generator-supported samples.
+
+| **Core idea** | **Optimization** | **Coverage** | **Reproduction** |
+|---|---|---|---|
+| Mine informative seeds from a pretrained DM | Frozen generator + frozen anchor; miner only | 13 benchmarks · 10 generators · 2D/3D | Config-driven runs · fixed budgets · fixed seeds |
 
 <p align="center">
   <img src="assets/nam_overview.png" width="920" alt="Overview of Native Adversariality Mining">
 </p>
 
-| Aspect | Base sampling | **NAM** | Adversarial guidance |
+| 🧩 Aspect | 🎲 Base sampling | ⛏️ **NAM** | ⚔️ Adversarial guidance |
 |---|---|---|---|
 | Diffusion model | Frozen | **Frozen** | Frozen |
 | Sampling trajectory | Original | **Original** | Often modified |
@@ -82,7 +104,16 @@ Diffusion models can synthesize realistic medical images, but **visual fidelity 
 
 ---
 
-## 🧠 Method at a glance
+<a id="method"></a>
+
+## 🧠 Method at a Glance
+
+<p>
+  <img src="https://img.shields.io/badge/Search%20Space-Initial%20Noise-8250df?style=flat-square" alt="Initial-noise search">
+  <img src="https://img.shields.io/badge/Optimization-Miner%20Only-d29922?style=flat-square" alt="Miner-only optimization">
+  <img src="https://img.shields.io/badge/Training-Truncated%20Rollout-bf8700?style=flat-square" alt="Truncated rollout">
+  <img src="https://img.shields.io/badge/Sampling-Original%20DDIM-1f883d?style=flat-square" alt="Original DDIM">
+</p>
 
 <p align="center">
   <img src="assets/native_vs_artificial_adversariality.png" width="780" alt="Native versus artificial adversariality">
@@ -90,7 +121,7 @@ Diffusion models can synthesize realistic medical images, but **visual fidelity 
 
 NAM treats the **initial noise distribution** as the mining space. The generator and downstream anchor remain frozen; only the miner is optimized. Final synthesis keeps the original diffusion sampler.
 
-| Stage | Input | Operation | Trainable? | Output |
+| 🔹 Stage | 📥 Input | ⚙️ Operation | 🔥 Trainable? | 📤 Output |
 |---|---|---|---|---|
 | Probe | `x_T ~ N(0,I)` + condition | Initial frozen-DM denoising response | No | Early score/response |
 | Mining | Early response | Predict noise-prior shift | **NAM miner only** | Reselected initial noise |
@@ -114,7 +145,15 @@ NAM treats the **initial noise distribution** as the mining space. The generator
 
 ---
 
-## 🏆 Representative results
+<a id="results"></a>
+
+## 🏆 Representative Results
+
+<p>
+  <img src="https://img.shields.io/badge/Medical%20Segmentation-DSC%20↑-1f883d?style=flat-square" alt="DSC">
+  <img src="https://img.shields.io/badge/Transfer-Cross--Center%20%7C%20Cross--Modality-0969da?style=flat-square" alt="Transfer">
+  <img src="https://img.shields.io/badge/Scope-Classification%20%7C%20Natural%20Images-8250df?style=flat-square" alt="Task transfer">
+</p>
 
 The values below are manuscript-reported reference gains over the real-only downstream baseline.
 
@@ -135,9 +174,11 @@ The values below are manuscript-reported reference gains over the real-only down
 
 ---
 
-## 🧪 Reproducible experiment coverage
+<a id="coverage"></a>
 
-| Setting | Dataset(s) | Modality / task | Main generator(s) | Downstream |
+## 🧪 Reproducible Experiment Coverage
+
+| 🌐 Setting | 📦 Dataset(s) | 🩻 Modality / task | 🧬 Main generator(s) | 🧠 Downstream |
 |---|---|---|---|---|
 | In-domain 2D | ACDC | cardiac MRI segmentation | SegDiff, DiffBoost, JoDiffusion | nnU-Net, Swin-Unet, SAMed |
 | In-domain 2D | Synapse | abdominal CT segmentation | FairDiff, DiffBoost, MedSegFactory | nnU-Net, Swin-Unet, SAMed |
@@ -156,6 +197,8 @@ python scripts/list_table1.py
 ```
 
 ---
+
+<a id="install"></a>
 
 ## ⚙️ Installation & Quick Start
 
@@ -204,7 +247,9 @@ Linux is the recommended environment for full reproduction because several upstr
 
 ---
 
-## 🗂️ Repository & configuration map
+<a id="repo-map"></a>
+
+## 🗂️ Repository & Configuration Map
 
 ```text
 Native-Adversariality-Mining/
@@ -265,7 +310,15 @@ python scripts/train_nam_2d.py \
 
 ---
 
+<a id="datasets"></a>
+
 ## 📦 Datasets
+
+<p>
+  <img src="https://img.shields.io/badge/Benchmarks-13-6f42c1?style=flat-square" alt="13 benchmarks">
+  <img src="https://img.shields.io/badge/Dimensions-2D%20%2B%203D-0969da?style=flat-square" alt="2D and 3D">
+  <img src="https://img.shields.io/badge/Splits-Train%20%7C%20Val%20%7C%20Test-1f883d?style=flat-square" alt="Dataset splits">
+</p>
 
 Raw datasets are **not redistributed**. Each local package contains its loader, manifests, and preparation notes. Keep split membership unchanged when comparing with the manuscript.
 
@@ -298,11 +351,19 @@ Detailed split inventory: [`nam/data/SPLITS.md`](nam/data/SPLITS.md)
 
 ---
 
-## 🧬 Supported generators
+<a id="generators"></a>
+
+## 🧬 Supported Generators
+
+<p>
+  <img src="https://img.shields.io/badge/Generators-10-6f42c1?style=flat-square" alt="10 generators">
+  <img src="https://img.shields.io/badge/Paradigms-M2I%20%7C%20M%26I%20%7C%20T2I-8250df?style=flat-square" alt="Synthesis paradigms">
+  <img src="https://img.shields.io/badge/Space-Pixel%20%7C%20Latent%20%7C%203D-0969da?style=flat-square" alt="Generator spaces">
+</p>
 
 Upstream repositories and large pretrained weights remain external. Each adapter README documents source code, required weights, and checkpoint locations.
 
-| Generator | Paradigm | Noise layout | Main datasets | Local guide | Upstream |
+| 🧬 Generator | 🔀 Paradigm | 🔢 Noise layout | 📦 Main datasets | 📘 Local guide | 🔗 Upstream |
 |---|---|---|---|---|---|
 | **SegDiff** | 2D mask → image, pixel DPM | image channels × 256×256 | ACDC, Polyps | [`README`](nam/diffusion/2D_M2I/segdiff/README.md) | [GitHub](https://github.com/mazurowski-lab/segmentation-guided-diffusion) |
 | **DiffBoost** | 2D mask → image, latent | 4×32×32 | ACDC, Synapse, Polyps | [`README`](nam/diffusion/2D_M2I/diffboost/README.md) | [GitHub](https://github.com/NUBagciLab/DiffBoost) |
@@ -323,9 +384,11 @@ git clone https://github.com/Qiukunpeng/Siamese-Diffusion.git third_party/Siames
 
 ---
 
-## 🧠 Downstream models
+<a id="downstream"></a>
 
-| Model | Task | Dim. | Reference | Checkpoint role |
+## 🧠 Downstream Models
+
+| 🧠 Model | 🎯 Task | 📐 Dim. | 🔗 Reference | 💾 Checkpoint role |
 |---|---|---:|---|---|
 | **nnU-Net** | medical segmentation | 2D / 3D | [GitHub](https://github.com/MIC-DKFZ/nnUNet) | main anchor / downstream |
 | **Swin-Unet** | medical segmentation | 2D | [GitHub](https://github.com/HuCaoFighting/Swin-Unet) | transfer downstream |
@@ -347,7 +410,15 @@ Details: [`nam/downstream/README.md`](nam/downstream/README.md)
 
 ---
 
+<a id="reproduction"></a>
+
 ## 🔁 Reproduction
+
+<p>
+  <img src="https://img.shields.io/badge/Reference-Polyps%20%2B%20SiameseDiff%20%2B%20nnU--Net-8250df?style=flat-square" alt="Reference experiment">
+  <img src="https://img.shields.io/badge/Seeds-42%20%7C%203407%20%7C%202026-0969da?style=flat-square" alt="Paper seeds">
+  <img src="https://img.shields.io/badge/Budget-Matched-1f883d?style=flat-square" alt="Matched synthetic budget">
+</p>
 
 ### 🎯 Recommended first run: Polyps + SiameseDiff + nnU-Net
 
@@ -422,9 +493,17 @@ The operation order is shared across branches: **generator → real baseline →
 
 ---
 
-## 📊 Evaluation & analysis
+<a id="evaluation"></a>
 
-| Analysis | Command / module | Main output | Reproduction note |
+## 📊 Evaluation & Analysis
+
+<p>
+  <img src="https://img.shields.io/badge/Metrics-DSC%20%7C%20ASD%20%7C%20mIoU%20%7C%20Acc-1f883d?style=flat-square" alt="Task metrics">
+  <img src="https://img.shields.io/badge/Synthesis-FID%20%7C%20Adversariality-0969da?style=flat-square" alt="Synthesis metrics">
+  <img src="https://img.shields.io/badge/Analysis-t--SNE%20%7C%20Cross--Model-8250df?style=flat-square" alt="Analysis tools">
+</p>
+
+| 📊 Analysis | ▶️ Command / module | 📤 Main output | 🧪 Reproduction note |
 |---|---|---|---|
 | 2D segmentation | `scripts/evaluate_2d.py` | DSC / ASD | select real or synthetic checkpoint |
 | 3D segmentation | `scripts/evaluate_3d.py` | volumetric metrics | use 3D config |
@@ -445,7 +524,9 @@ For FID/Base/NAM comparisons keep the **feature extractor, real split, synthetic
 
 ---
 
-## 🛡️ Mitigation strategies
+<a id="mitigation"></a>
+
+## 🛡️ Mitigation Strategies
 
 High-adversariality mining can expose defective modes already present in the base generator. Mitigation is optional and applied after NAM training while generator, anchor, and miner remain frozen.
 
@@ -460,7 +541,9 @@ Config: `configs/mitigation.yaml` · Guide: [`nam/mitigation/README.md`](nam/mit
 
 ---
 
-## 💾 Checkpoints, outputs & paper-to-code map
+<a id="artifacts"></a>
+
+## 💾 Checkpoints, Outputs & Paper-to-Code Map
 
 ### Paths and artifacts
 
@@ -493,7 +576,9 @@ Keep `config.json`, `environment.json`, code commit, seed, upstream generator re
 
 ---
 
-## ✅ Reproducibility checklist
+<a id="checklist"></a>
+
+## ✅ Reproducibility Checklist
 
 | Category | Verify |
 |---|---|
@@ -506,7 +591,9 @@ Keep `config.json`, `environment.json`, code commit, seed, upstream generator re
 
 ---
 
-## 🧰 Extending the repository
+<a id="extending"></a>
+
+## 🧰 Extending the Repository
 
 | Extension | Minimum interface / files | Reproducibility notes |
 |---|---|---|
@@ -518,13 +605,21 @@ Keep `config.json`, `environment.json`, code commit, seed, upstream generator re
 
 ---
 
+<a id="baselines"></a>
+
 ## ⚖️ Comparison Methods
+
+<p>
+  <img src="https://img.shields.io/badge/Families-Random%20%7C%20Heuristic%20%7C%20Diversity%20%7C%20Utility%20%7C%20Adversarial-6f42c1?style=flat-square" alt="Comparison families">
+  <img src="https://img.shields.io/badge/Protocol-Frozen%20DM-0969da?style=flat-square" alt="Frozen DM protocol">
+  <img src="https://img.shields.io/badge/Budget-Matched-1f883d?style=flat-square" alt="Matched budget">
+</p>
 
 We compare NAM with **random sampling**, **heuristic targeting**, **diversity-oriented augmentation**, **utility-aware generation**, and **adversarial guidance**. The last column gives the configuration used in our unified comparison; some methods require minimal adaptation to satisfy the shared frozen-DM / from-scratch synthesis protocol.
 
 ### 📚 Baselines and configurations
 
-| Family | Method | Paper | Code | Core mechanism | Configuration used in our experiments |
+| 🧭 Family | 🧪 Method | 📄 Paper | 💻 Code | 💡 Core mechanism | ⚙️ Configuration used in our experiments |
 |---|---|---|---|---|---|
 | 🎲 Random | **Base** | — | — | Standard diffusion sampling | DDIM-50; `σ=0`; Gaussian noise; no guidance/filtering |
 | 🎯 Heuristic | **UGDM** | [Paper](https://doi.org/10.1109/TPAMI.2024.3399098) | [GitHub](https://github.com/huanlemin/UGDM) | Uncertainty measurement guidance | `γ=3`; DDIM inversion removed |
@@ -568,7 +663,9 @@ We compare NAM with **random sampling**, **heuristic targeting**, **diversity-or
 
 ---
 
-## ⚠️ Practical limitations
+<a id="limitations"></a>
+
+## ⚠️ Practical Limitations
 
 | Limitation | Practical implication |
 |---|---|
@@ -580,7 +677,9 @@ We compare NAM with **random sampling**, **heuristic targeting**, **diversity-or
 
 ---
 
-## ❓ FAQ & troubleshooting
+<a id="faq"></a>
+
+## ❓ FAQ & Troubleshooting
 
 | Question / symptom | Check / answer |
 |---|---|
@@ -604,7 +703,9 @@ We compare NAM with **random sampling**, **heuristic targeting**, **diversity-or
 
 ---
 
-## 🧑‍💻 Development & contributing
+<a id="development"></a>
+
+## 🧑‍💻 Development & Contributing
 
 | Topic | Recommendation |
 |---|---|
@@ -619,6 +720,8 @@ Issues and pull requests are welcome. For substantial changes, opening an issue 
 
 ---
 
+<a id="publications"></a>
+
 ## 📚 Publications
 
 | Venue | Publication |
@@ -627,6 +730,8 @@ Issues and pull requests are welcome. For substantial changes, opening an issue 
 | 🌟 **CVPR 2026 Highlight** | **Diffusion-Based Native Adversarial Synthesis for Enhanced Medical Segmentation Generalization** — Hongyu Zhang, Haipeng Chen, Zhimin Xu, Chengxin Yang, Yingda Lyu. *CVPR*, 2026. |
 
 ---
+
+<a id="citation"></a>
 
 ## 📝 Citation
 
@@ -653,13 +758,24 @@ If NAM or this repository is useful for your research, please cite the relevant 
 
 ---
 
+<a id="license"></a>
+
 ## 🙏 Acknowledgements & License
 
 This project builds on open-source work in diffusion models, medical imaging, segmentation, classification, and evaluation. Upstream repositories are linked above; datasets, pretrained weights, external checkpoints, and third-party code remain subject to their original licenses and terms.
 
 The NAM code is released under the [Apache License 2.0](LICENSE).
 
-<p align="center">
-  <b>⭐ If this repository helps your research, a GitHub star is appreciated.</b><br>
-  <sub>Native Adversariality Mining · diffusion-driven synthetic data for downstream generalization</sub>
-</p>
+<div align="center">
+
+---
+
+### ⭐ If NAM supports your research, consider starring the repository.
+
+<sub><b>Native Adversariality Mining</b> · seed-level hard-mode mining for diffusion-driven downstream generalization</sub>
+
+<br>
+
+<a href="https://github.com/JackCD99/Native-Adversariality-Mining/stargazers"><img src="https://img.shields.io/github/stars/JackCD99/Native-Adversariality-Mining?style=social" alt="GitHub stars"></a>
+
+</div>
