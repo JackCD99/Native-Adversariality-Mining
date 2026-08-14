@@ -490,5 +490,4 @@ The repository code is released under the [Apache License 2.0](LICENSE). Dataset
 | CUDA out of memory | Reduce batch size, patch/volume size, preview count, or mixed-precision policy; do not silently change the reported synthetic budget. |
 | Missing `best.pt` | Complete real-data validation first; NAM intentionally refuses to use an unvalidated downstream checkpoint. |
 
-For a reproducible issue report, include the resolved `config.json`, `environment.json`, the exact command, and the first complete traceback. Do not attach private datasets or restricted checkpoints.
 #
