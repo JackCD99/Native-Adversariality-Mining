@@ -222,7 +222,6 @@ def reference_miner_configuration(noise_channels: int) -> dict[str, int | tuple[
 
     Pixel-space SegDiff and four-channel latent pipelines share the same
     four-level topology but use channel-dependent output heads. These dimensions
-    keep their parameter counts within rounding distance of the reported
     """
     channels = int(noise_channels)
     return {
