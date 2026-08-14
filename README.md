@@ -1468,43 +1468,93 @@ The adversariality reward should provide a meaningful downstream hardness signal
 
 ---
 
-## ⚖️ Methods compared in the paper
+## ⚖️ Comparison Methods
 
-The manuscript compares NAM with several families of synthetic-data methods. Third-party implementations remain subject to their original repositories and licenses.
+We compare NAM with representative diffusion-based synthesis and augmentation methods spanning **random sampling**, **heuristic targeting**, **diversity-oriented augmentation**, **utility-aware generation**, and **adversarial guidance**.
 
-<details>
-<summary><b>📚 Expand comparison methods</b></summary>
+> [!NOTE]
+> All methods use the same task-specific diffusion backbone and the same downstream training protocol whenever applicable.  
+> The last column reports the **configuration used in our experiments**, which may differ slightly from the original implementation when required by the unified frozen-DM / from-scratch synthesis protocol.
 
-### Heuristic targeting
+### 📚 Baselines and configurations
 
-- UGDM
-- VGD
+| Family | Method | Paper | Code | Core mechanism | Configuration used in our experiments |
+|---|---|---|---|---|---|
+| 🎲 **Random** | **Base** | — | — | Standard random diffusion sampling | DDIM-50; `σ=0`; Gaussian initial noise; no guidance or filtering |
+| 🎯 **Heuristic targeting** | **UGDM** | [Paper](https://doi.org/10.1109/TPAMI.2024.3399098) | [GitHub](https://github.com/huanlemin/UGDM) | Uncertainty-based measurement guidance | Margin guidance `γ=3`; DDIM inversion removed |
+| 🎯 **Heuristic targeting** | **VGD** | [Paper](https://ojs.aaai.org/index.php/AAAI/article/view/38246) | — | Value-guided synthesis toward high-utility / boundary samples | DDIM-100; `σ=0.2`; `λ=1.0`, `τ=1.0`, `k=0.03`, `γ=0.90` |
+| 🌈 **Diversity** | **AugPaint** | [Paper](https://arxiv.org/abs/2506.23038) | — | Task-aware diffusion inpainting | Foreground regions are masked and reconstructed through diffusion inpainting |
+| 🌈 **Diversity** | **DiffAug** | [Paper](https://proceedings.neurips.cc/paper_files/paper/2024/hash/24e8b46430df965674221665816a4964-Abstract-Conference.html) | — | Partial diffuse-and-denoise augmentation | Base synthetic sample; intermediate timestep `t ~ Beta(2,4)·T` |
+| 🌈 **Diversity** | **CIG / Diff-II** | [Paper](https://openaccess.thecvf.com/content/CVPR2025/html/Wang_Inversion_Circle_Interpolation_Diffusion-Based_Image_Augmentation_for_Data-Scarce_Classification_CVPR_2025_paper.html) | [GitHub](https://github.com/scuwyh2000/Diff-II) | Circle interpolation between random and reference diffusion noise | `"interp"` mode; real reference uniformly sampled; forward noising to `T`; concept learning removed |
+| 🌈 **Diversity** | **DA-Fusion** | [Paper](https://arxiv.org/abs/2302.07944) | [GitHub](https://github.com/brandontrabucco/da-fusion) | SDEdit-based augmentation followed by Mixup | `t₀/T ∈ {0.25,0.50,0.75,1.00}`; Mixup `α=0.5` |
+| 📈 **Utility-aware** | **GAL** | [Paper](https://proceedings.mlr.press/v235/zhu24b.html) | [GitHub](https://github.com/aim-uofa/DiverGen) | Offline utility-based filtering | Validation-score threshold `τ=-0.05`; sampling repeated until the target budget is reached |
+| 📈 **Utility-aware** | **UtilGen-lite** | [Paper](https://papers.neurips.cc/paper_files/paper/2025/hash/2ea07a4acbf7e38913062fd69a70805f-Abstract-Conference.html) | — | Utility estimator with prompt/noise optimization | Single-hidden-layer MLP; MLCO removed; denoising CFG `5.5`; inversion CFG `0` |
+| ⚔️ **Adversarial guidance** | **AdvDiffuser** | [Paper](https://openaccess.thecvf.com/content/ICCV2023/html/Chen_AdvDiffuser_Natural_Adversarial_Example_Synthesis_with_Diffusion_Models_ICCV_2023_paper.html) | — | Diffusion adversarial guidance with PGD | `T=50`; PGD step size `η=0.1`; `I=1` adversarial update/sample |
+| ⚔️ **Adversarial guidance** | **P2P** | [Paper](https://openaccess.thecvf.com/content/CVPR2025/html/Medghalchi_Prompt2Perturb_P2P_Text-Guided_Diffusion-Based_Adversarial_Attack_on_Breast_Ultrasound_Images_CVPR_2025_paper.html) | [GitHub](https://github.com/moeinheidari7829/P2P) | Adversarial text-embedding optimization | `ε=0.05`; AdamW; `lr=1e-5`; 500 iterations |
+| ⚔️ **Adversarial guidance** | **Diff-PGD** | [Paper](https://proceedings.neurips.cc/paper_files/paper/2023/hash/088463cd3126aef2002ffc69da42ec59-Abstract-Conference.html) | [GitHub](https://github.com/xavihart/Diff-PGD) | SDEdit + PGD adversarial editing | Base synthetic image as input; official/default attack parameters |
+| ⚔️ **Adversarial guidance** | **DiffAttack** | [Paper](https://arxiv.org/abs/2305.08192) | [GitHub](https://github.com/WindVChen/DiffAttack) | Latent-space adversarial optimization with attention preservation | DDIM-20; `σ=0`; start step `15`; 30 iterations; AdamW `lr=1e-2`; guidance `2.5`; loss weights `10 / 10000 / 100` |
+| ⚔️ **Adversarial guidance** | **NatADiff** | [Paper](https://arxiv.org/abs/2505.20934) | [GitHub](https://github.com/maxcollins1999/NatADiff) | Boundary-guided adversarial diffusion with time travel | DDIM-100; `σ=0`; `ω=7.5`, `ρ=7.5`, `μ=0.2`; `R=5`; `r_l=500`, `r_u=800`; `[c_l,c_u]=[0,700]`; `S=5`; `s=50` |
+| ⛏️ **Native adversariality** | **NAM (ours)** | TPAMI extended manuscript | [GitHub](https://github.com/JackCD99/Native-Adversariality-Mining) | Seed-level mining of native hard modes | Frozen generator + frozen anchor; AdamW `1e-4`; 3,000 iterations; `β=0.001`; `κ_up=0.5`; 10-step truncated rollout; DDIM-50 |
 
-### Diversity-oriented augmentation
-
-- AugPaint
-- DiffAug
-- CIG
-- DA-Fusion
-
-### Utility-proxy methods
-
-- GAL
-- UtilGen
-
-### Adversarial guidance
-
-- AdvDiffuser
-- P2P
-- Diff-PGD
-- DiffAttack
-- NatADiff
-
-For an exact comparison, use the original implementation and match the generator, data budget, resolution, and downstream training protocol as closely as possible.
-
-</details>
+> [!TIP]
+> **DiffAug** here refers to *DiffAug: A Diffuse-and-Denoise Augmentation for Training Robust Classifiers* (NeurIPS 2024), rather than other methods sharing the same abbreviation.
 
 ---
+
+### 🧪 Unified comparison protocol
+
+| Component | Setting | Component | Setting |
+|---|---|---|---|
+| 🧬 **Diffusion backbone** | Same task-specific frozen DM | 📦 **Synthetic budget** | Equal to the real training-set size |
+| 🎲 **Primary comparison seed** | `42` | 🏷️ **Conditions** | Same masks / prompts / labels |
+| 🧠 **Downstream initialization** | Same real-data checkpoint | ⚖️ **Real : synthetic ratio** | `1 : 1` |
+| ✂️ **CutMix** | Probability `0.5` | ⚙️ **Training schedule** | Identical within each downstream architecture |
+| ✅ **Checkpoint selection** | Validation split only | 📊 **Final evaluation** | Held-out test split |
+| 🔧 **Baseline parameters** | Official settings whenever possible | 🛠️ **Tuning policy** | Minimal tuning only when necessary for valid synthesis |
+
+The comparison therefore controls the generator, data budget, and downstream optimization, while changing the strategy used to construct the synthetic training set.
+
+---
+
+### 🔀 Protocol-specific adaptations
+
+Some original methods contain stages that are incompatible with our common **frozen diffusion model + from-scratch synthesis** setting.
+
+| Method | Original component | Setting used here | Reason |
+|---|---|---|---|
+| **UGDM** | DDIM inversion | ❌ Removed | Direct generation from initial noise |
+| **CIG / Diff-II** | Concept learning | ❌ Removed | Avoid additional method-specific model adaptation |
+| **CIG / Diff-II** | DDIM inversion | 🔄 Replaced by forward noising to `T` | Preserve a common generation protocol |
+| **DiffAttack** | DDIM inversion | ❌ Removed | Direct frozen-DM synthesis |
+| **UtilGen** | MLCO diffusion-model retraining | ❌ Removed | Violates the shared frozen-DM setting |
+| **UtilGen-lite** | Utility estimator + prompt/noise optimization | ✅ Retained | Compatible with a frozen generator |
+
+> [!IMPORTANT]
+> We refer to the modified UtilGen baseline as **UtilGen-lite** because the original MLCO diffusion-model adaptation stage is excluded from our comparison.
+
+---
+
+### ✅ Fair-comparison checklist
+
+| Generator & sampling | Downstream & evaluation |
+|---|---|
+| Same diffusion checkpoint | Same real-data initialization |
+| Same conditioning inputs | Same optimizer and training schedule |
+| Same target synthetic budget | Same `1:1` real/synthetic ratio |
+| Same image / volume resolution | Same CutMix probability |
+| Same comparison seed | Validation-only checkpoint selection |
+| Method-specific sampler settings reported explicitly | Same held-out test evaluation |
+| No unreported generator fine-tuning | Same FID encoder / preprocessing within each modality |
+
+For exact reproduction, record both the **original baseline settings** and the **protocol-specific modifications** listed above.
+
+
+
+
+
+
+
+
 
 ## ⚠️ Practical limitations
 
