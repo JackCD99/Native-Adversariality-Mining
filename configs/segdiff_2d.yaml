@@ -1,0 +1,220 @@
+extends: table1_2d.yaml
+
+experiment_name: polyps-segdiff-nnunet
+
+runtime:
+  device: cuda
+  seed: 42
+  deterministic: false
+  num_workers: 4
+  output_dir: outputs
+
+dataset:
+  factory: nam.data.polyps.dataset:build_dataset
+  root: nam/data/polyps
+  ignore_index: -100
+  train_items: []
+  val_items: []
+
+synthetic_dataset:
+  factory: nam.data.common:build_generated_dataset
+  root: outputs/synthetic/segdiff/polyps-segdiff-nnunet-nam
+  ignore_index: -100
+  train_items: []
+  val_items: []
+
+diffusion:
+  name: segdiff
+  # The default path follows the official Diffusers architecture. Select
+  # legacy_unet only for checkpoints produced by the legacy implementation.
+  backend: official_diffusers
+  checkpoint: nam/diffusion/2D_M2I/segdiff/checkpoints/diffusion/polyps/best
+  project_dir: third_party/seg4diff
+  legacy_factory: semi_diffseg.denoise_model.denoise_unet:UNetModel
+  legacy_model_kwargs:
+    image_size: 256
+    in_channels: 4
+    model_channels: 64
+    out_channels: 3
+    num_res_blocks: 2
+    attention_resolutions: [16, 32]
+    dropout: 0.0
+    channel_mult: [1, 2, 4, 8]
+    conv_resample: true
+    dims: 2
+    num_classes: null
+    use_checkpoint: false
+    use_fp16: false
+    num_heads: 1
+    num_head_channels: -1
+    num_heads_upsample: -1
+    use_scale_shift_norm: true
+    resblock_updown: false
+    use_new_attention_order: false
+    condit_dim: 256
+  checkpoint_strict: true
+  resolution: 256
+  image_channels: 3
+  condition_channels: 1
+  num_classes: 2
+  condition_encoding: binary
+  unconditional_value: 0.0
+  num_train_timesteps: 1000
+  beta_schedule: linear
+  prediction_type: epsilon
+  clip_sample: true
+  full_schedule_steps: 50
+
+anchor:
+  name: nnunet
+  spatial_dims: 2
+  checkpoint: nam/downstream/real_checkpoint/polyps/nnunet/best.pt
+  in_channels: 3
+  num_classes: 2
+  model:
+    stages: 6
+    deep_supervision: true
+
+downstream:
+  name: nnunet
+  spatial_dims: 2
+  checkpoint: nam/downstream/syn_checkpoint/polyps/segdiff/{model}/best.pt
+  real_checkpoint: nam/downstream/real_checkpoint/polyps/{model}/best.pt
+  syn_checkpoint: nam/downstream/syn_checkpoint/polyps/segdiff/{model}/best.pt
+  real_checkpoint_root: nam/downstream/real_checkpoint/{dataset}/{model}
+  syn_checkpoint_root: nam/downstream/syn_checkpoint/{dataset}/{generator}/{model}
+  in_channels: 3
+  num_classes: 2
+  model:
+    stages: 6
+    deep_supervision: true
+
+miner:
+  # RGB SegDiff uses an 8.388M pixel-space miner (Supplementary Table B.1).
+  base_channels: 79
+  head_channels: 100
+  channel_multipliers: [1, 2, 4, 4]
+  downsample_levels: 2
+  attention_heads: 4
+  variance_bound: 0.95
+
+segdiff:
+  checkpoints:
+    pretrained_root: nam/diffusion/2D_M2I/segdiff/pretrained_weights
+    diffusion_root: nam/diffusion/2D_M2I/segdiff/checkpoints/diffusion/polyps
+    nam_root: nam/diffusion/2D_M2I/segdiff/checkpoints/nam/polyps
+    nam_miner: nam/diffusion/2D_M2I/segdiff/checkpoints/nam/polyps/nam_latest.pt
+    downstream_root: nam/diffusion/2D_M2I/segdiff/checkpoints/downstream/polyps
+  pre_training:
+    resume_checkpoint: ""
+    output_dir: nam/diffusion/2D_M2I/segdiff/checkpoints/diffusion/polyps/runs
+    batch_size_per_gpu: 18
+    max_iterations: 60000
+    learning_rate: 0.00001
+    lr_warmup_steps: 500
+    condition_dropout_probability: 0.10
+    horizontal_flip_probability: 0.0
+    gradient_clip: 1.0
+    validation_every: 1000
+    validation_batch_size: 8
+    validation_batches: 16
+  nam_training:
+    reward: lce
+    sample_every: 100
+    max_iterations: 3000
+    batch_size_per_gpu: 8
+    learning_rate: 0.0001
+    weight_decay: 0.01
+    beta: 0.001
+    kappa_up: 0.5
+    truncated_steps: 10
+    cfg_scale: 2.5
+    gradient_clip: 1.0
+    save_every: 500
+  sampling:
+    batch_size: 4
+    budget: 1128
+    ddim_steps: 50
+    cfg_scale: 2.5
+    output_dir: outputs/synthetic/segdiff
+
+nnunet:
+  real_training:
+    epochs: 1000
+    iterations_per_epoch: 250
+    batch_size: 4
+    learning_rate: 0.01
+    weight_decay: 0.00003
+    batch_dice: false
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/polyps/nnunet/best.pt
+    epochs: 100
+    iterations_per_epoch: 250
+    batch_size_per_stream: 4
+    learning_rate: 0.01
+    weight_decay: 0.00003
+    batch_dice: false
+    cutmix_probability: 0.5
+    validation_every: 1
+
+swinunet:
+  real_training_2d:
+    epochs: 150
+    batch_size: 24
+    learning_rate: 0.05
+    weight_decay: 0.0001
+    gradient_clip: 12.0
+    validation_every: 1
+  synthetic_training_2d:
+    real_checkpoint: nam/downstream/real_checkpoint/polyps/swinunet/best.pt
+    epochs: 100
+    batch_size_per_stream: 4
+    learning_rate: 0.05
+    weight_decay: 0.0001
+    gradient_clip: 12.0
+    cutmix_probability: 0.5
+    validation_every: 1
+
+samed:
+  real_training:
+    epochs: 200
+    stop_epoch: 160
+    batch_size: 12
+    learning_rate: 0.005
+    weight_decay: 0.1
+    warmup_iterations: 250
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/polyps/samed/best.pt
+    epochs: 100
+    batch_size_per_stream: 4
+    learning_rate: 0.005
+    weight_decay: 0.1
+    warmup_iterations: 250
+    cutmix_probability: 0.5
+    validation_every: 1
+
+evaluation:
+  batch_size: 8
+  output: outputs/evaluation/polyps-segdiff-nnunet.json
+
+adversariality:
+  dataset: synthetic_dataset
+  split: train
+  budget: 1128
+  batch_size: 8
+  proxy: lcbce
+  output: outputs/evaluation/polyps-segdiff-nnunet-adversariality.csv
+
+visualization:
+  tsne:
+    output_dir: outputs/evaluation/Vis/polyps-segdiff-nnunet-tsne
+
+fid:
+  feature_factory: nam.evaluation.feature_extractors:build_feature_extractor
+  encoder: inception_v3
+  batch_size: 16
+  real_split: test
+  synthetic_split: train
+  output: outputs/evaluation/polyps-segdiff-fid.json

@@ -1,0 +1,56 @@
+extends: sd15_lora_pneumoniamnist.yaml
+
+experiment_name: isic-sd15-lora-resnet50
+
+dataset:
+  factory: nam.data.isic.dataset:build_dataset
+  root: nam/data/isic
+  image_size: [256, 256]
+
+synthetic_dataset:
+  root: outputs/synthetic/isic-sd15-lora-resnet50-nam
+
+diffusion:
+  checkpoint: nam/diffusion/2D_T2I/sd15_lora/checkpoints/diffusion/isic
+  resolution: 256
+  default_prompt: a dermoscopic image of a skin lesion
+
+anchor:
+  checkpoint: nam/downstream/real_checkpoint/isic/resnet50/best.pt
+
+downstream:
+  checkpoint: nam/downstream/syn_checkpoint/isic/sd15_lora/{model}/best.pt
+  real_checkpoint: nam/downstream/real_checkpoint/isic/{model}/best.pt
+  syn_checkpoint: nam/downstream/syn_checkpoint/isic/sd15_lora/{model}/best.pt
+
+training:
+  stable_checkpoint: nam/diffusion/2D_T2I/sd15_lora/checkpoints/nam/isic/nam_latest.pt
+
+sd15_lora:
+  checkpoints:
+    diffusion_root: nam/diffusion/2D_T2I/sd15_lora/checkpoints/diffusion/isic
+    nam_root: nam/diffusion/2D_T2I/sd15_lora/checkpoints/nam/isic
+    nam_miner: nam/diffusion/2D_T2I/sd15_lora/checkpoints/nam/isic/nam_latest.pt
+  pre_training:
+    output_dir: nam/diffusion/2D_T2I/sd15_lora/checkpoints/diffusion/isic/runs
+  sampling:
+    budget: 1925
+
+resnet50:
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/isic/resnet50/best.pt
+
+vit_s16:
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/isic/vit_s16/best.pt
+
+evaluation:
+  output: outputs/evaluation/isic-sd15-lora-resnet50.json
+
+adversariality:
+  budget: 1925
+  output: outputs/evaluation/isic-sd15-lora-resnet50-adversariality.csv
+
+fid:
+  encoder: inception_v3
+  output: outputs/evaluation/isic-sd15-lora-fid.json

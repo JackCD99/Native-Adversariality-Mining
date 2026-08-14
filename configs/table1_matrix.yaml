@@ -1,0 +1,85 @@
+# Table I experiment matrix. Each generator points to a complete executable
+# configuration; dataset and downstream fields identify the cell-level overrides.
+# Cell launchers must override `downstream.real_checkpoint`,
+# `downstream.syn_checkpoint`, and both checkpoint roots with the selected
+# dataset/generator/model names recorded below.
+seeds: [42, 3407, 2026]
+
+pipelines:
+  segdiff: {config: configs/segdiff_2d.yaml, spatial_dims: 2}
+  diffboost: {config: configs/diffboost_2d.yaml, spatial_dims: 2}
+  fairdiff: {config: configs/fairdiff_2d.yaml, spatial_dims: 2}
+  siamesediff: {config: configs/table1_2d.yaml, spatial_dims: 2}
+  jodiffusion: {config: configs/jodiffusion_2d.yaml, spatial_dims: 2}
+  medsegfactory: {config: configs/medsegfactory_2d.yaml, spatial_dims: 2}
+  voldit: {config: configs/voldit_3d.yaml, spatial_dims: 3}
+  maisi: {config: configs/maisi_3d.yaml, spatial_dims: 3}
+  controlnet_sdxl: {config: configs/controlnet_sdxl_voc.yaml, spatial_dims: 2}
+
+datasets:
+  acdc:
+    spatial_dims: 2
+    factory: nam.data.acdc.dataset:build_dataset
+    num_classes: 4
+    modality: MRI
+    image_size: [256, 256]
+    diffusion_models: [segdiff, diffboost, jodiffusion]
+  synapse:
+    spatial_dims: 2
+    factory: nam.data.synapse.dataset:build_dataset
+    num_classes: 10
+    modality: CT
+    image_size: [256, 256]
+    diffusion_models: [fairdiff, diffboost, medsegfactory]
+  polyps:
+    spatial_dims: 2
+    factory: nam.data.polyps.dataset:build_dataset
+    num_classes: 2
+    modality: RGB
+    image_size: [256, 256]
+    diffusion_models: [segdiff, diffboost, siamesediff, medsegfactory]
+  la:
+    spatial_dims: 3
+    factory: nam.data.la.dataset:build_dataset
+    num_classes: 2
+    modality: MRI
+    image_size: [192, 192, 96]
+    diffusion_models: [voldit, maisi]
+  imagecas:
+    spatial_dims: 3
+    factory: nam.data.imagecas.dataset:build_dataset
+    num_classes: 2
+    modality: CTA
+    image_size: [192, 192, 96]
+    diffusion_models: [voldit, maisi]
+
+downstream_models:
+  2d: [nnunet, swinunet, samed]
+  3d: [nnunet, swinunetr, samed]
+
+noise_layouts:
+  segdiff:
+    channels: dataset_image_channels
+    spatial_size: [256, 256]
+  diffboost:
+    channels: 4
+    spatial_size: [32, 32]
+  fairdiff:
+    channels: 4
+    spatial_size: [32, 32]
+  siamesediff:
+    channels: 4
+    spatial_size: [32, 32]
+  jodiffusion:
+    channels: 8
+    spatial_size: [32, 32]
+  medsegfactory:
+    channels: 4
+    spatial_size: [32, 32]
+    dual_noise: true
+  voldit:
+    channels: 8
+    spatial_size: [24, 24, 12]
+  maisi:
+    channels: 4
+    spatial_size: [48, 48, 24]

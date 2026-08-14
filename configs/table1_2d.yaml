@@ -1,0 +1,225 @@
+experiment_name: polyps-siamesediff-nnunet
+
+runtime:
+  device: cuda
+  seed: 42
+  deterministic: false
+  num_workers: 4
+  output_dir: outputs
+
+dataset:
+  factory: nam.data.polyps.dataset:build_dataset
+  root: nam/data/polyps
+  ignore_index: -100
+  train_items: []
+  val_items: []
+
+synthetic_dataset:
+  factory: nam.data.common:build_generated_dataset
+  root: outputs/synthetic/siamesediff/polyps-siamesediff-nnunet-nam
+  ignore_index: -100
+  train_items: []
+  val_items: []
+
+diffusion:
+  name: siamesediff
+  project_dir: third_party/Siamese-Diffusion
+  checkpoint: nam/diffusion/2D_M2I/siamesediff/checkpoints/diffusion/polyps/best_fid.ckpt
+  config: models/cldm_v15.yaml
+  default_prompt: a colonoscopy image of a polyp
+  resolution: 256
+  sd_locked: false
+  only_mid_control: false
+  prediction_type: epsilon
+  noise_channels: 4
+  noise_size: [32, 32]
+  full_schedule_steps: 50
+
+anchor:
+  name: nnunet
+  spatial_dims: 2
+  checkpoint: nam/downstream/real_checkpoint/polyps/nnunet/best.pt
+  in_channels: 3
+  num_classes: 2
+  model:
+    stages: 6
+    deep_supervision: true
+
+downstream:
+  name: nnunet
+  spatial_dims: 2
+  checkpoint: nam/downstream/syn_checkpoint/polyps/siamesediff/{model}/best.pt
+  real_checkpoint: nam/downstream/real_checkpoint/polyps/{model}/best.pt
+  syn_checkpoint: nam/downstream/syn_checkpoint/polyps/siamesediff/{model}/best.pt
+  real_checkpoint_root: nam/downstream/real_checkpoint/{dataset}/{model}
+  syn_checkpoint_root: nam/downstream/syn_checkpoint/{dataset}/{generator}/{model}
+  in_channels: 3
+  num_classes: 2
+  model:
+    stages: 6
+    deep_supervision: true
+
+miner:
+  # 8.388M parameters for the 32x32 latent miner (Supplementary Table B.1).
+  base_channels: 79
+  head_channels: 98
+  channel_multipliers: [1, 2, 4, 4]
+  downsample_levels: 2
+  attention_heads: 4
+  variance_bound: 0.95
+
+training:
+  reward: lce
+  sample_every: 100
+  max_iterations: 3000
+  batch_size_per_gpu: 8
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  beta: 0.001
+  kappa_up: 0.5
+  truncated_steps: 10
+  cfg_scale: 2.5
+  gradient_clip: 1.0
+  save_every: 500
+
+sampling:
+  batch_size: 4
+  ddim_steps: 50
+  cfg_scale: 2.5
+  miner_checkpoint: outputs/polyps-siamesediff-nnunet/checkpoints/nam_latest.pt
+  output_dir: outputs/synthetic
+
+siamesediff:
+  checkpoints:
+    pretrained_root: nam/diffusion/2D_M2I/siamesediff/pretrained_weights
+    diffusion_root: nam/diffusion/2D_M2I/siamesediff/checkpoints/diffusion/polyps
+    nam_root: nam/diffusion/2D_M2I/siamesediff/checkpoints/nam/polyps
+    nam_miner: nam/diffusion/2D_M2I/siamesediff/checkpoints/nam/polyps/nam_latest.pt
+    downstream_root: nam/diffusion/2D_M2I/siamesediff/checkpoints/downstream/polyps
+  pre_training:
+    initialization_checkpoint: nam/diffusion/2D_M2I/siamesediff/pretrained_weights/control_sd15.ckpt
+    output_dir: nam/diffusion/2D_M2I/siamesediff/checkpoints/diffusion/polyps
+    resolution: 256
+    batch_size_per_gpu: 6
+    max_iterations: 3000
+    learning_rate: 0.00001
+    prompt_dropout: 0.05
+    sd_locked: false
+    only_mid_control: false
+    horizontal_flip_probability: 0.0
+    scale_range: [1.0, 1.0]
+    fid_every: 500
+    validation_batch_size: 4
+    validation_ddim_steps: 50
+    validation_cfg_scale: 2.5
+  nam_training:
+    reward: lce
+    sample_every: 100
+    max_iterations: 3000
+    batch_size_per_gpu: 8
+    learning_rate: 0.0001
+    weight_decay: 0.01
+    beta: 0.001
+    kappa_up: 0.5
+    truncated_steps: 10
+    cfg_scale: 2.5
+    gradient_clip: 1.0
+    save_every: 500
+  sampling:
+    batch_size: 4
+    budget: 1128
+    ddim_steps: 50
+    cfg_scale: 2.5
+    output_dir: outputs/synthetic/siamesediff
+
+nnunet:
+  real_training:
+    epochs: 1000
+    iterations_per_epoch: 250
+    batch_size: 4
+    learning_rate: 0.01
+    weight_decay: 0.00003
+    batch_dice: false
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/polyps/nnunet/best.pt
+    epochs: 100
+    iterations_per_epoch: 250
+    batch_size_per_stream: 4
+    learning_rate: 0.01
+    weight_decay: 0.00003
+    batch_dice: false
+    cutmix_probability: 0.5
+    validation_every: 1
+
+swinunet:
+  real_training_2d:
+    epochs: 150
+    batch_size: 24
+    learning_rate: 0.05
+    weight_decay: 0.0001
+    gradient_clip: 12.0
+    validation_every: 1
+  synthetic_training_2d:
+    real_checkpoint: nam/downstream/real_checkpoint/polyps/swinunet/best.pt
+    epochs: 100
+    batch_size_per_stream: 4
+    learning_rate: 0.05
+    weight_decay: 0.0001
+    gradient_clip: 12.0
+    cutmix_probability: 0.5
+    validation_every: 1
+
+samed:
+  real_training:
+    epochs: 200
+    stop_epoch: 160
+    batch_size: 12
+    learning_rate: 0.005
+    weight_decay: 0.1
+    warmup_iterations: 250
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/polyps/samed/best.pt
+    epochs: 100
+    batch_size_per_stream: 4
+    learning_rate: 0.005
+    weight_decay: 0.1
+    warmup_iterations: 250
+    cutmix_probability: 0.5
+    validation_every: 1
+
+evaluation:
+  batch_size: 8
+  output: outputs/evaluation/polyps-siamesediff-nnunet.json
+
+adversariality:
+  # Table I uses a fixed synthetic budget equal to the Polyps training-set size.
+  dataset: synthetic_dataset
+  split: train
+  budget: 1128
+  batch_size: 8
+  proxy: lcbce
+  output: outputs/evaluation/polyps-siamesediff-nnunet-adversariality.csv
+
+visualization:
+  tsne:
+    # Both groups pass through the same frozen downstream checkpoint.
+    groups:
+      - {label: Real, dataset: dataset, split: train, max_samples: 0}
+      - {label: NAM, dataset: synthetic_dataset, split: train, max_samples: 0}
+    batch_size: 8
+    bottleneck_layer: ""
+    pca_dimensions: 50
+    perplexity: 30
+    seed: 42
+    output_dir: outputs/evaluation/Vis/polyps-siamesediff-nnunet-tsne
+
+fid:
+  # Use Inception-v3 for RGB and RadImageNet ResNet-50 for MRI/CT.
+  feature_factory: nam.evaluation.feature_extractors:build_feature_extractor
+  encoder: inception_v3
+  batch_size: 16
+  real_split: test
+  synthetic_split: train
+  output: outputs/evaluation/polyps-siamesediff-fid.json

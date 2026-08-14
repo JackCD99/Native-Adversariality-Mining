@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.idea/
+.vscode/
+# Dataset packages and manifests are versioned; only raw dataset payloads are ignored.
+nam/data/*/data/*
+!nam/data/*/data/.gitkeep
+checkpoints/
+outputs/
+runs/
+third_party/
+pretrained_weights/**/*.pt
+pretrained_weights/**/*.pth
+pretrained_weights/**/*.ckpt
+*.ckpt
+*.pth
+*.pt
+*.nii
+*.nii.gz
+
+# Keep method-specific checkpoint layouts and instructions, ignore only binaries.
+!nam/diffusion/**/checkpoints/
+!nam/diffusion/**/checkpoints/README.md
+!nam/diffusion/**/pretrained_weights/
+!nam/diffusion/**/pretrained_weights/README.md
+
+# Publish downstream checkpoint layouts and instructions, but never model binaries.
+!nam/downstream/real_checkpoint/
+!nam/downstream/real_checkpoint/README.md
+!nam/downstream/syn_checkpoint/
+!nam/downstream/syn_checkpoint/README.md

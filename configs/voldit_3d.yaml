@@ -1,0 +1,132 @@
+extends: table1_3d.yaml
+
+experiment_name: la-voldit-nnunet
+
+synthetic_dataset:
+  factory: nam.data.common:build_generated_dataset
+  root: outputs/synthetic/la-voldit-nnunet-nam
+
+runtime:
+  device: cuda
+  seed: 42
+  deterministic: false
+  num_workers: 2
+  output_dir: outputs/voldit
+
+dataset:
+  factory: nam.data.la.dataset:build_dataset
+  root: nam/data/la
+  ignore_index: -100
+  train_items: []
+  val_items: []
+
+diffusion:
+  name: voldit
+  project_dir: third_party/voldit
+  stage1_config: configs/stage1/vqgan_ds8.yaml
+  dit_config: configs/transformer/dit_ds8_l4.yaml
+  tgca_config: configs/tgca/tgca_ds8.yaml
+  stage1_checkpoint: pretrained_weights/voldit/vqgan_ds8.pth
+  dit_checkpoint: pretrained_weights/voldit/dit_ds8_l4.pth
+  checkpoint: checkpoints/voldit/diffusion/best.pth
+  strict_checkpoint: true
+  scale_factor: 1.0
+  volume_size: [192, 192, 96]
+  noise_channels: 8
+  noise_size: [24, 24, 12]
+  full_schedule_steps: 50
+  default_prompt: a MRI imaging of left atrium
+
+anchor:
+  name: nnunet
+  spatial_dims: 3
+  checkpoint: nam/downstream/real_checkpoint/la/nnunet/best.pt
+  in_channels: 1
+  num_classes: 2
+
+downstream:
+  name: nnunet
+  spatial_dims: 3
+  checkpoint: nam/downstream/syn_checkpoint/la/voldit/{model}/best.pt
+  real_checkpoint: nam/downstream/real_checkpoint/la/{model}/best.pt
+  syn_checkpoint: nam/downstream/syn_checkpoint/la/voldit/{model}/best.pt
+  real_checkpoint_root: nam/downstream/real_checkpoint/{dataset}/{model}
+  syn_checkpoint_root: nam/downstream/syn_checkpoint/{dataset}/{generator}/{model}
+  in_channels: 1
+  num_classes: 2
+
+evaluation:
+  batch_size: 1
+  output: outputs/evaluation/la-voldit-nnunet.json
+
+adversariality:
+  dataset: synthetic_dataset
+  split: train
+  budget: 70
+  batch_size: 1
+  proxy: lcbce
+  output: outputs/evaluation/la-voldit-nnunet-adversariality.csv
+
+visualization:
+  tsne:
+    output_dir: outputs/evaluation/Vis/la-voldit-nnunet-tsne
+
+miner:
+  # 25.175M parameters (25.177M after the paper's rounded reporting).
+  in_channels: 8
+  head_channels: 38
+  base_channels: 82
+  channel_multipliers: [1, 2, 4, 4]
+  downsample_levels: 2
+  attention_heads: 4
+  variance_bound: 0.95
+
+training:
+  reward: lce
+  sample_every: 100
+  max_iterations: 3000
+  batch_size_per_gpu: 1
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  beta: 0.001
+  kappa_up: 0.5
+  truncated_steps: 10
+  cfg_scale: 1.0
+  gradient_clip: 1.0
+  save_every: 500
+  stable_checkpoint: checkpoints/voldit/nam/nam_latest.pt
+
+voldit:
+  checkpoints:
+    diffusion_root: checkpoints/voldit/diffusion
+    nam_miner: checkpoints/voldit/nam/nam_latest.pt
+  pre_training:
+    max_epochs: 500
+    max_iterations: 0
+    batch_size_per_gpu: 2
+    learning_rate: 0.00005
+    lr_gamma: 0.999
+    ema_decay: 0.9999
+    gradient_clip: 1.0
+    validation_every: 500
+    validation_batch_size: 1
+    validation_batches: 10
+    validation_ddim_steps: 50
+  sampling:
+    batch_size: 1
+    budget: 70
+    ddim_steps: 50
+    cfg_scale: 1.0
+    output_dir: outputs/synthetic
+    augment_conditions: true
+    flip_probability: 0.5
+    scale_range: [0.9, 1.1]
+
+fid:
+  feature_factory: nam.evaluation.feature_extractors:build_feature_extractor
+  encoder: radimagenet_resnet50
+  checkpoint: pretrained_weights/fid/radimagenet_resnet50.pt
+  batch_size: 16
+  output: outputs/evaluation/la-voldit-fid.json
+  real_split: test
+  synthetic_split: train

@@ -1,0 +1,95 @@
+extends: table1_2d.yaml
+
+experiment_name: acdc-jodiffusion-nnunet
+runtime: {device: cuda, seed: 42, deterministic: false, num_workers: 4}
+dataset:
+  factory: nam.data.acdc.dataset:build_dataset
+  root: nam/data/acdc
+  ignore_index: -100
+  train_items: []
+  val_items: []
+diffusion:
+  name: jodiffusion
+  project_dir: third_party/JoDiffusion
+  base_pipeline: pretrained_weights/jodiffusion/official_pipeline
+  label_vae_checkpoint: pretrained_weights/jodiffusion/label_vae
+  checkpoint: checkpoints/jodiffusion/diffusion/best/unet
+  resolution: 256
+  num_classes: 4
+  ignore_label: 255
+  label_confidence_threshold: 0.5
+  noise_size: [32, 32]
+  full_schedule_steps: 50
+  default_prompt: a cardiac MRI image with its semantic segmentation mask
+anchor: {name: nnunet, spatial_dims: 2, checkpoint: nam/downstream/real_checkpoint/acdc/nnunet/best.pt, in_channels: 3, num_classes: 4}
+downstream:
+  name: nnunet
+  spatial_dims: 2
+  checkpoint: nam/downstream/syn_checkpoint/acdc/jodiffusion/{model}/best.pt
+  real_checkpoint: nam/downstream/real_checkpoint/acdc/{model}/best.pt
+  syn_checkpoint: nam/downstream/syn_checkpoint/acdc/jodiffusion/{model}/best.pt
+  real_checkpoint_root: nam/downstream/real_checkpoint/{dataset}/{model}
+  syn_checkpoint_root: nam/downstream/syn_checkpoint/{dataset}/{generator}/{model}
+  in_channels: 3
+  num_classes: 4
+synthetic_dataset:
+  factory: nam.data.common:build_generated_dataset
+  root: outputs/synthetic/acdc-jodiffusion-nnunet-nam
+evaluation:
+  batch_size: 8
+  output: outputs/evaluation/acdc-jodiffusion-nnunet.json
+adversariality:
+  dataset: synthetic_dataset
+  split: train
+  budget: 4010
+  batch_size: 8
+  proxy: lcbce
+  output: outputs/evaluation/acdc-jodiffusion-nnunet-adversariality.csv
+visualization:
+  tsne:
+    output_dir: outputs/evaluation/Vis/acdc-jodiffusion-nnunet-tsne
+miner: {variance_bound: 0.95}
+jodiffusion:
+  checkpoints:
+    diffusion_root: checkpoints/jodiffusion/diffusion
+    nam_root: checkpoints/jodiffusion/nam
+    nam_miner: checkpoints/jodiffusion/nam/nam_latest.pt
+  pre_training:
+    initialization_checkpoint: ""
+    max_epochs: 100
+    max_iterations: 0
+    batch_size_per_gpu: 1
+    learning_rate: 0.00005
+    weight_decay: 0.01
+    gradient_clip: 1.0
+    horizontal_flip_probability: 0.5
+    validation_every: 500
+    validation_batch_size: 1
+    validation_batches: 10
+    validation_ddim_steps: 50
+    validation_cfg_scale: 7.5
+  nam_training:
+    reward: lce
+    sample_every: 100
+    max_iterations: 3000
+    batch_size_per_gpu: 1
+    learning_rate: 0.0001
+    weight_decay: 0.01
+    beta: 0.001
+    kappa_up: 0.5
+    truncated_steps: 10
+    cfg_scale: 7.5
+    gradient_clip: 1.0
+    save_every: 500
+  sampling: {batch_size: 1, budget: 4010, ddim_steps: 50, cfg_scale: 7.5, output_dir: outputs/synthetic}
+fid: {feature_factory: nam.evaluation.feature_extractors:build_feature_extractor, encoder: radimagenet_resnet50, checkpoint: pretrained_weights/fid/radimagenet_resnet50.pt, output: outputs/evaluation/acdc-jodiffusion-fid.json}
+
+nnunet:
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/acdc/nnunet/best.pt
+swinunet:
+  synthetic_training_2d:
+    real_checkpoint: nam/downstream/real_checkpoint/acdc/swinunet/best.pt
+samed:
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/acdc/samed/best.pt

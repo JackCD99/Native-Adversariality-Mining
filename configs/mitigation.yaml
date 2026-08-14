@@ -1,0 +1,54 @@
+# Sampling-time mitigation defaults. The inherited experiment provides a
+# complete dataset, diffusion, anchor, miner, and sampler configuration.
+extends: table1_2d.yaml
+
+experiment_name: polyps-siamesediff-nnunet-hat
+
+runtime:
+  device: cuda
+  seed: 42
+  num_workers: 4
+  deterministic: false
+  output_dir: outputs/mitigation
+
+backend:
+  # The factory builds a checkpoint- and dataset-specific frozen bridge.
+  # Signature: build_backend(config) -> NAMMitigationBackend.
+  factory: nam.mitigation.adapter_backend:build_backend
+  batch_size: 1
+
+miner:
+  architecture: resunet2d
+  checkpoint: nam/diffusion/2D_M2I/siamesediff/checkpoints/nam/polyps/nam_latest.pt
+
+strategy:
+  name: hat
+  maximum_trials: 5
+
+hat:
+  name: hat
+  quantile: 0.95
+  maximum_trials: 5
+
+qsf:
+  name: qsf
+  model: google/medgemma-4b-it
+  device: cuda
+  dtype: bfloat16
+  threshold: 0.8
+  maximum_trials: 5
+
+lsrs:
+  name: lsrs
+  # Actual DDIM timestep values must be valid for the configured sampler.
+  selected_timesteps: [901, 701, 501, 301, 101]
+  threshold: 0.0
+  maximum_trials: 5
+
+asg:
+  name: asg
+  # Selected trajectory steps; the NAM-selected initial seed stays fixed.
+  guidance_timesteps: [901, 801, 701, 601, 501]
+  guidance_strength: 0.1
+  conflict_weight: 0.1
+  gradient_epsilon: 0.00000001

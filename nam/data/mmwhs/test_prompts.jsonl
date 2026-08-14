@@ -1,0 +1,2 @@
+{"prompt":"a CT imaging of [AA, LAC, LVC, Myo, PA, RAC, RVC]","modality":"CT","classes":[1,2,3,4,5,6,7]}
+{"prompt":"a MRI imaging of [AA, LAC, LVC, Myo, PA, RAC, RVC]","modality":"MRI","classes":[1,2,3,4,5,6,7]}

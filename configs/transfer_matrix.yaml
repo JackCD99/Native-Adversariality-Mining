@@ -1,0 +1,36 @@
+seeds: [42, 3407, 2026]
+
+medical_classification:
+  generator: sd15_lora
+  spatial_dims: 2
+  downstream_models: [resnet50, vit_s16]
+  metric: accuracy
+  datasets:
+    pneumoniamnist:
+      factory: nam.data.pneumoniamnist.dataset:build_dataset
+      config: configs/sd15_lora_pneumoniamnist.yaml
+      image_size: [224, 224]
+      train_samples: 4099
+      validation_samples: 585
+      test_samples: 1171
+    isic:
+      factory: nam.data.isic.dataset:build_dataset
+      config: configs/sd15_lora_isic.yaml
+      image_size: [256, 256]
+      train_samples: 1925
+      validation_samples: 275
+      test_samples: 550
+
+natural_segmentation:
+  dataset: pascal_voc_sbd
+  factory: nam.data.pascal_voc_sbd.dataset:build_dataset
+  config: configs/controlnet_sdxl_voc.yaml
+  generator: controlnet_sdxl
+  downstream_models: [deeplabv3, mask2former]
+  spatial_dims: 2
+  image_size: [512, 512]
+  num_classes: 21
+  train_samples: 8422
+  validation_samples: 1203
+  test_samples: 2406
+  metric: miou

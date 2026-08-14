@@ -1,0 +1,174 @@
+experiment_name: pascal-voc-sbd-controlnet-sdxl-deeplabv3
+
+runtime:
+  device: cuda
+  seed: 42
+  deterministic: false
+  num_workers: 4
+  output_dir: outputs
+
+dataset:
+  factory: nam.data.pascal_voc_sbd.dataset:build_dataset
+  root: nam/data/pascal_voc_sbd
+  image_size: [512, 512]
+  ignore_index: 255
+  augment: true
+
+synthetic_dataset:
+  factory: nam.data.common:build_generated_dataset
+  root: outputs/synthetic/controlnet_sdxl/pascal-voc-sbd-controlnet-sdxl-deeplabv3-nam
+  ignore_index: 255
+
+diffusion:
+  name: controlnet_sdxl
+  base_model: stabilityai/stable-diffusion-xl-base-1.0
+  checkpoint: checkpoints/controlnet_sdxl/diffusion
+  resolution: 512
+  noise_channels: 4
+  noise_size: [64, 64]
+  full_schedule_steps: 50
+  controlnet_scale: 1.0
+  dtype: float16
+  default_prompt: a photo of [VOC object]
+
+anchor:
+  name: deeplabv3
+  spatial_dims: 2
+  checkpoint: nam/downstream/real_checkpoint/pascal_voc_sbd/deeplabv3/best.pt
+  in_channels: 3
+  num_classes: 21
+
+downstream:
+  name: deeplabv3
+  spatial_dims: 2
+  checkpoint: nam/downstream/syn_checkpoint/pascal_voc_sbd/controlnet_sdxl/{model}/best.pt
+  real_checkpoint: nam/downstream/real_checkpoint/pascal_voc_sbd/{model}/best.pt
+  syn_checkpoint: nam/downstream/syn_checkpoint/pascal_voc_sbd/controlnet_sdxl/{model}/best.pt
+  real_checkpoint_root: nam/downstream/real_checkpoint/{dataset}/{model}
+  syn_checkpoint_root: nam/downstream/syn_checkpoint/{dataset}/{generator}/{model}
+  in_channels: 3
+  num_classes: 21
+  model:
+    aux_loss: false
+    feature_size: 256
+    mask_feature_size: 256
+    hidden_dim: 256
+    encoder_layers: 6
+    decoder_layers: 10
+    heads: 8
+    queries: 100
+
+miner:
+  in_channels: 4
+  base_channels: 79
+  head_channels: 98
+  channel_multipliers: [1, 2, 4, 4]
+  downsample_levels: 2
+  attention_heads: 4
+  variance_bound: 0.95
+
+controlnet_sdxl:
+  checkpoints:
+    diffusion_root: checkpoints/controlnet_sdxl/diffusion
+    nam_root: checkpoints/controlnet_sdxl/nam
+    nam_miner: checkpoints/controlnet_sdxl/nam/nam_latest.pt
+  pre_training:
+    output_dir: checkpoints/controlnet_sdxl/diffusion/runs
+    batch_size_per_gpu: 1
+    max_iterations: 30000
+    learning_rate: 0.00001
+    weight_decay: 0.01
+    gradient_clip: 1.0
+    save_every: 1000
+  nam_training:
+    reward: lce
+    sample_every: 100
+    max_iterations: 3000
+    batch_size_per_gpu: 1
+    learning_rate: 0.0001
+    weight_decay: 0.01
+    beta: 0.001
+    kappa_up: 0.5
+    truncated_steps: 10
+    cfg_scale: 7.5
+    gradient_clip: 1.0
+    save_every: 500
+  sampling:
+    batch_size: 1
+    budget: 8422
+    ddim_steps: 50
+    cfg_scale: 7.5
+    output_dir: outputs/synthetic/controlnet_sdxl
+
+deeplabv3:
+  real_training:
+    epochs: 50
+    iterations_per_epoch: 0
+    batch_size: 8
+    learning_rate: 0.0001
+    weight_decay: 0.0001
+    gradient_clip: 1.0
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/pascal_voc_sbd/deeplabv3/best.pt
+    epochs: 20
+    iterations_per_epoch: 0
+    batch_size_per_stream: 4
+    learning_rate: 0.0001
+    weight_decay: 0.0001
+    gradient_clip: 1.0
+    cutmix_probability: 0.5
+    validation_every: 1
+
+mask2former:
+  real_training:
+    epochs: 50
+    iterations_per_epoch: 0
+    batch_size: 4
+    learning_rate: 0.0001
+    weight_decay: 0.05
+    gradient_clip: 0.1
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/pascal_voc_sbd/mask2former/best.pt
+    epochs: 20
+    iterations_per_epoch: 0
+    batch_size_per_stream: 2
+    learning_rate: 0.0001
+    weight_decay: 0.05
+    gradient_clip: 0.1
+    cutmix_probability: 0.5
+    validation_every: 1
+
+evaluation:
+  metric: miou
+  batch_size: 4
+  output: outputs/evaluation/pascal-voc-sbd-controlnet-sdxl-deeplabv3.json
+
+adversariality:
+  dataset: synthetic_dataset
+  split: train
+  budget: 8422
+  batch_size: 4
+  proxy: lcbce
+  output: outputs/evaluation/pascal-voc-sbd-controlnet-sdxl-adversariality.csv
+
+visualization:
+  tsne:
+    groups:
+      - {label: Real, dataset: dataset, split: train, max_samples: 0}
+      - {label: NAM, dataset: synthetic_dataset, split: train, max_samples: 0}
+    batch_size: 4
+    bottleneck_layer: backbone
+    pca_dimensions: 50
+    perplexity: 30
+    seed: 42
+    output_dir: outputs/evaluation/Vis/pascal-voc-sbd-controlnet-sdxl-tsne
+
+fid:
+  feature_factory: nam.evaluation.feature_extractors:build_feature_extractor
+  encoder: inception_v3
+  batch_size: 8
+  real_split: test
+  synthetic_split: train
+  output: outputs/evaluation/pascal-voc-sbd-controlnet-sdxl-fid.json

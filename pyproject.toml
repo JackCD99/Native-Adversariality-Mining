@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "native-adversariality-mining"
+version = "0.1.0"
+description = "PyTorch implementation of Native Adversariality Mining (NAM)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+dependencies = [
+  "numpy>=1.24",
+  "Pillow>=10.0",
+  "PyYAML>=6.0",
+  "scipy>=1.11",
+  "tensorboard>=2.14",
+  "torch>=2.1",
+  "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+medical = ["monai>=1.3", "nibabel>=5.2", "h5py>=3.10"]
+diffusion = ["diffusers>=0.30,<0.36", "peft>=0.12", "safetensors>=0.4"]
+natural = ["torchvision>=0.16", "transformers>=4.36", "accelerate>=0.25"]
+classification = ["torchvision>=0.16", "timm>=1.0"]
+volumetric-diffusion = ["monai>=1.5", "nibabel>=5.2", "omegaconf>=2.3", "einops>=0.7", "timm>=1.0"]
+visualization = ["matplotlib>=3.8", "scikit-learn>=1.4", "torchvision>=0.16"]
+xray = ["torchxrayvision>=1.2"]
+mitigation-vqa = ["transformers>=4.50", "accelerate>=1.2"]
+
+[tool.setuptools.packages.find]
+include = ["nam*"]

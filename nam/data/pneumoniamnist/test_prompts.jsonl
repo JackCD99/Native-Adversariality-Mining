@@ -1,0 +1,2 @@
+{"prompt":"a grayscale chest X-ray image of normal","modality":"X-ray","class_id":0}
+{"prompt":"a grayscale chest X-ray image of pneumonia","modality":"X-ray","class_id":1}

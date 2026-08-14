@@ -1,0 +1,166 @@
+experiment_name: pneumoniamnist-sd15-lora-resnet50
+
+runtime:
+  device: cuda
+  seed: 42
+  deterministic: false
+  num_workers: 4
+  output_dir: outputs
+
+dataset:
+  factory: nam.data.pneumoniamnist.dataset:build_dataset
+  root: nam/data/pneumoniamnist
+  image_size: [224, 224]
+  ignore_index: -100
+  augment: true
+
+synthetic_dataset:
+  factory: nam.data.common:build_generated_dataset
+  root: outputs/synthetic/pneumoniamnist-sd15-lora-resnet50-nam
+
+diffusion:
+  name: sd15_lora
+  base_model: stable-diffusion-v1-5/stable-diffusion-v1-5
+  checkpoint: nam/diffusion/2D_T2I/sd15_lora/checkpoints/diffusion/pneumoniamnist
+  require_checkpoint: true
+  dtype: float16
+  resolution: 224
+  prediction_type: epsilon
+  full_schedule_steps: 50
+  default_prompt: a grayscale chest X-ray image
+  negative_prompt: low quality, artifacts, text
+
+anchor:
+  name: resnet50
+  spatial_dims: 2
+  checkpoint: nam/downstream/real_checkpoint/pneumoniamnist/resnet50/best.pt
+  in_channels: 3
+  num_classes: 2
+  imagenet_pretrained: false
+
+downstream:
+  name: resnet50
+  spatial_dims: 2
+  checkpoint: nam/downstream/syn_checkpoint/pneumoniamnist/sd15_lora/{model}/best.pt
+  real_checkpoint: nam/downstream/real_checkpoint/pneumoniamnist/{model}/best.pt
+  syn_checkpoint: nam/downstream/syn_checkpoint/pneumoniamnist/sd15_lora/{model}/best.pt
+  real_checkpoint_root: nam/downstream/real_checkpoint/{dataset}/{model}
+  syn_checkpoint_root: nam/downstream/syn_checkpoint/{dataset}/{generator}/{model}
+  in_channels: 3
+  num_classes: 2
+  imagenet_pretrained: true
+
+miner:
+  base_channels: 79
+  head_channels: 98
+  channel_multipliers: [1, 2, 4, 4]
+  downsample_levels: 2
+  attention_heads: 4
+  variance_bound: 0.95
+
+training:
+  reward: lce
+  sample_every: 100
+  max_iterations: 3000
+  batch_size_per_gpu: 8
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  beta: 0.001
+  kappa_up: 0.5
+  truncated_steps: 10
+  cfg_scale: 7.5
+  gradient_clip: 1.0
+  save_every: 500
+  stable_checkpoint: nam/diffusion/2D_T2I/sd15_lora/checkpoints/nam/pneumoniamnist/nam_latest.pt
+
+sd15_lora:
+  checkpoints:
+    pretrained_root: nam/diffusion/2D_T2I/sd15_lora/pretrained_weights
+    diffusion_root: nam/diffusion/2D_T2I/sd15_lora/checkpoints/diffusion/pneumoniamnist
+    nam_root: nam/diffusion/2D_T2I/sd15_lora/checkpoints/nam/pneumoniamnist
+    nam_miner: nam/diffusion/2D_T2I/sd15_lora/checkpoints/nam/pneumoniamnist/nam_latest.pt
+  pre_training:
+    output_dir: nam/diffusion/2D_T2I/sd15_lora/checkpoints/diffusion/pneumoniamnist/runs
+    rank: 4
+    batch_size_per_gpu: 8
+    max_iterations: 60000
+    learning_rate: 0.0001
+    weight_decay: 0.01
+    gradient_clip: 1.0
+    save_every: 500
+  nam_training:
+    reward: lce
+    sample_every: 100
+    max_iterations: 3000
+    batch_size_per_gpu: 8
+    learning_rate: 0.0001
+    weight_decay: 0.01
+    beta: 0.001
+    kappa_up: 0.5
+    truncated_steps: 10
+    cfg_scale: 7.5
+    gradient_clip: 1.0
+    save_every: 500
+  sampling:
+    batch_size: 8
+    budget: 4099
+    ddim_steps: 50
+    cfg_scale: 7.5
+    output_dir: outputs/synthetic
+
+resnet50:
+  real_training:
+    epochs: 100
+    batch_size: 64
+    learning_rate: 0.0001
+    weight_decay: 0.0001
+    gradient_clip: 5.0
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/pneumoniamnist/resnet50/best.pt
+    epochs: 50
+    batch_size_per_stream: 32
+    learning_rate: 0.00005
+    weight_decay: 0.0001
+    gradient_clip: 5.0
+    cutmix_probability: 0.5
+    validation_every: 1
+
+vit_s16:
+  real_training:
+    epochs: 100
+    batch_size: 64
+    learning_rate: 0.0001
+    weight_decay: 0.05
+    gradient_clip: 5.0
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/pneumoniamnist/vit_s16/best.pt
+    epochs: 50
+    batch_size_per_stream: 32
+    learning_rate: 0.00005
+    weight_decay: 0.05
+    gradient_clip: 5.0
+    cutmix_probability: 0.5
+    validation_every: 1
+
+evaluation:
+  batch_size: 64
+  output: outputs/evaluation/pneumoniamnist-sd15-lora-resnet50.json
+
+adversariality:
+  dataset: synthetic_dataset
+  split: train
+  budget: 4099
+  batch_size: 64
+  proxy: lcbce
+  output: outputs/evaluation/pneumoniamnist-sd15-lora-resnet50-adversariality.csv
+
+fid:
+  feature_factory: nam.evaluation.feature_extractors:build_feature_extractor
+  encoder: torchxrayvision_densenet121
+  weights: densenet121-res224-all
+  batch_size: 32
+  real_split: test
+  synthetic_split: train
+  output: outputs/evaluation/pneumoniamnist-sd15-lora-fid.json

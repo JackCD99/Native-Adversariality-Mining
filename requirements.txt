@@ -1,0 +1,17 @@
+numpy>=1.24
+Pillow>=10.0
+PyYAML>=6.0
+scipy>=1.11
+tensorboard>=2.14
+torch>=2.1
+tqdm>=4.66
+# Natural-image transfer: pip install torchvision>=0.16 transformers>=4.36 accelerate>=0.25
+# Medical HDF5/NIfTI datasets: pip install h5py>=3.10 nibabel>=5.2
+# Diffusion adapters: pip install "diffusers>=0.30,<0.36" peft>=0.12 safetensors>=0.4
+# Classification downstream models: pip install torchvision>=0.16 timm>=1.0
+# Chest X-ray FID: pip install torchxrayvision>=1.2
+# JoDiffusion and MedSegFactory additionally require the versions of
+# transformers, accelerate, and huggingface-hub pinned by their official repositories.
+# VolDiT and MAISI: pip install monai>=1.5 nibabel>=5.2 omegaconf>=2.3 einops>=0.7 timm>=1.0
+# Optional publication figures: pip install matplotlib>=3.8 scikit-learn>=1.4
+# Optional QSF scorer: pip install transformers>=4.50 accelerate>=1.2

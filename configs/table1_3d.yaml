@@ -1,0 +1,189 @@
+experiment_name: la-voldit-nnunet
+
+runtime:
+  device: cuda
+  seed: 42
+  deterministic: false
+  num_workers: 2
+  output_dir: outputs
+
+dataset:
+  factory: nam.data.la.dataset:build_dataset
+  root: nam/data/la
+  ignore_index: -100
+  train_items: []
+  val_items: []
+
+synthetic_dataset:
+  factory: nam.data.common:build_generated_dataset
+  root: outputs/synthetic/la-voldit-nnunet-nam
+  ignore_index: -100
+  train_items: []
+  val_items: []
+
+diffusion:
+  name: voldit
+  project_dir: third_party/voldit
+  stage1_config: configs/stage1/vqgan_ds8.yaml
+  dit_config: configs/transformer/dit_ds8_l4.yaml
+  tgca_config: configs/tgca/tgca_ds8.yaml
+  stage1_checkpoint: pretrained_weights/voldit/vqgan_ds8.pth
+  dit_checkpoint: pretrained_weights/voldit/dit_ds8_l4.pth
+  checkpoint: checkpoints/voldit/diffusion/best.pth
+  volume_size: [192, 192, 96]
+  full_schedule_steps: 50
+  default_prompt: a MRI imaging of left atrium
+  noise_channels: 8
+  noise_size: [24, 24, 12]
+
+anchor:
+  name: nnunet
+  spatial_dims: 3
+  project_dir: third_party/nnUNet
+  factory: nam_nnunet_bridge:build_model
+  checkpoint: nam/downstream/real_checkpoint/la/nnunet/best.pt
+  num_classes: 2
+
+downstream:
+  name: nnunet
+  spatial_dims: 3
+  checkpoint: nam/downstream/syn_checkpoint/la/voldit/{model}/best.pt
+  real_checkpoint: nam/downstream/real_checkpoint/la/{model}/best.pt
+  syn_checkpoint: nam/downstream/syn_checkpoint/la/voldit/{model}/best.pt
+  real_checkpoint_root: nam/downstream/real_checkpoint/{dataset}/{model}
+  syn_checkpoint_root: nam/downstream/syn_checkpoint/{dataset}/{generator}/{model}
+  in_channels: 1
+  num_classes: 2
+  model:
+    stages: 5
+    deep_supervision: true
+
+miner:
+  # VolDiT configuration: 25.175M parameters.
+  in_channels: 8
+  head_channels: 38
+  base_channels: 82
+  channel_multipliers: [1, 2, 4, 4]
+  downsample_levels: 2
+  attention_heads: 4
+  variance_bound: 0.95
+
+training:
+  reward: lce
+  sample_every: 100
+  max_iterations: 3000
+  batch_size_per_gpu: 1
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  beta: 0.001
+  kappa_up: 0.5
+  truncated_steps: 10
+  cfg_scale: 1.0
+  gradient_clip: 1.0
+  save_every: 500
+
+sampling:
+  batch_size: 1
+  budget: 70
+  ddim_steps: 50
+  cfg_scale: 1.0
+  miner_checkpoint: outputs/la-voldit-nnunet/checkpoints/nam_latest.pt
+  output_dir: outputs/synthetic
+
+nnunet:
+  real_training:
+    epochs: 1000
+    iterations_per_epoch: 250
+    batch_size: 2
+    learning_rate: 0.01
+    weight_decay: 0.00003
+    batch_dice: true
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/la/nnunet/best.pt
+    epochs: 100
+    iterations_per_epoch: 250
+    batch_size_per_stream: 1
+    learning_rate: 0.01
+    weight_decay: 0.00003
+    batch_dice: true
+    cutmix_probability: 0.5
+    validation_every: 1
+
+swinunet:
+  real_training_3d:
+    epochs: 5000
+    warmup_epochs: 50
+    batch_size: 1
+    learning_rate: 0.0001
+    weight_decay: 0.00001
+    gradient_clip: 12.0
+    validation_every: 10
+    roi_size: [96, 96, 96]
+    sliding_window_overlap: 0.5
+  synthetic_training_3d:
+    real_checkpoint: nam/downstream/real_checkpoint/la/swinunetr/best.pt
+    epochs: 100
+    warmup_epochs: 10
+    batch_size_per_stream: 1
+    learning_rate: 0.0001
+    weight_decay: 0.00001
+    gradient_clip: 12.0
+    cutmix_probability: 0.5
+    validation_every: 1
+    roi_size: [96, 96, 96]
+    sliding_window_overlap: 0.5
+
+samed:
+  real_training:
+    epochs: 200
+    stop_epoch: 160
+    batch_size: 1
+    learning_rate: 0.005
+    weight_decay: 0.1
+    warmup_iterations: 250
+    validation_every: 1
+  synthetic_training:
+    real_checkpoint: nam/downstream/real_checkpoint/la/samed/best.pt
+    epochs: 100
+    batch_size_per_stream: 1
+    learning_rate: 0.005
+    weight_decay: 0.1
+    warmup_iterations: 250
+    cutmix_probability: 0.5
+    validation_every: 1
+
+evaluation:
+  batch_size: 1
+  output: outputs/evaluation/la-voldit-nnunet.json
+
+adversariality:
+  # Table I uses a fixed synthetic budget equal to the LA training-set size.
+  dataset: synthetic_dataset
+  split: train
+  budget: 70
+  batch_size: 1
+  proxy: lcbce
+  output: outputs/evaluation/la-voldit-nnunet-adversariality.csv
+
+visualization:
+  tsne:
+    groups:
+      - {label: Real, dataset: dataset, split: train, max_samples: 0}
+      - {label: NAM, dataset: synthetic_dataset, split: train, max_samples: 0}
+    batch_size: 1
+    bottleneck_layer: ""
+    pca_dimensions: 50
+    perplexity: 30
+    seed: 42
+    output_dir: outputs/evaluation/Vis/la-voldit-nnunet-tsne
+
+fid:
+  # The extractor processes axial/coronal/sagittal slices for 2.5D FID.
+  feature_factory: nam.evaluation.feature_extractors:build_feature_extractor
+  encoder: radimagenet_resnet50
+  checkpoint: pretrained_weights/fid/radimagenet_resnet50.pt
+  batch_size: 8
+  real_split: test
+  synthetic_split: train
+  output: outputs/evaluation/la-voldit-fid.json
