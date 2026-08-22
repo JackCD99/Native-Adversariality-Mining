@@ -4,11 +4,14 @@ experiment_name: la-maisi-nnunet
 
 synthetic_dataset:
   factory: nam.data.common:build_generated_dataset
-  root: outputs/synthetic/la-maisi-nnunet-nam
+  root: outputs/synthetic/seed_42/la-maisi-nnunet-nam
 
 runtime:
   device: cuda
   seed: 42
+  miner_seed: 42
+  downstream_seed: 42
+  sampling_seed: 42
   deterministic: false
   num_workers: 2
   output_dir: outputs/maisi
@@ -100,6 +103,7 @@ training:
 maisi:
   checkpoints:
     diffusion_root: checkpoints/maisi/diffusion
+    nam_root: checkpoints/maisi/nam
     nam_miner: checkpoints/maisi/nam/nam_latest.pt
   pre_training:
     max_epochs: 100

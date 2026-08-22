@@ -365,6 +365,11 @@ def create_run_directory(config: Any, model_name: str, phase: str) -> Path:
         / (generator_name if normalized_phase == "syn" else "")
         / model_name
     )
+    if normalized_phase == "syn":
+        # 同一 miner 的三组采样数据必须各自训练、保存，不能靠时间戳猜测来源。
+        from nam.utils.seed import resolve_stage_seed
+
+        root = root / f"sampling_seed_{resolve_stage_seed(config, 'sampling')}"
     directory = root / f"{config.experiment_name}-{phase}-{stamp}"
     directory.mkdir(parents=True, exist_ok=True)
     with (directory / "config.json").open("w", encoding="utf-8") as stream:

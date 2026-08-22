@@ -18,7 +18,7 @@ from nam.config import apply_overrides, load_config
 from nam.models import ResUNet3DMiner
 from nam.objectives import reselect_noise
 from nam.utils.monitoring import SamplingMonitor
-from nam.utils.seed import seed_everything
+from nam.utils.seed import build_sampling_generators, resolve_stage_seed, sampling_output_root, seed_everything
 
 _package = __package__ or "nam.diffusion.3D_M2I.voldit"
 build_adapter = importlib.import_module(f"{_package}.model").build_adapter
@@ -45,16 +45,19 @@ def _load_miner(config: Any, device: torch.device) -> ResUNet3DMiner:
 def sample_dataset(config: Any, use_nam: bool = True) -> Path:
     """Synthesize exactly the configured Table-I budget unless set to zero."""
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(config.runtime.deterministic))
+    sampling_seed = resolve_stage_seed(config, "sampling")
+    seed_everything(sampling_seed, bool(config.runtime.deterministic))
     adapter = build_adapter(config.diffusion)
     adapter.model.to(device)
     settings = config.voldit.sampling
     loader = build_voldit_loader(config.dataset, "train", int(settings.batch_size), int(config.runtime.num_workers), False)
     miner = _load_miner(config, device) if use_nam else None
     method = "nam" if use_nam else "base"
-    output = _io.prepare_output_directory(settings.output_dir, config.experiment_name, method)
+    output = _io.prepare_output_directory(
+        sampling_output_root(settings.output_dir, sampling_seed), config.experiment_name, method
+    )
     monitor = SamplingMonitor(output, config, "voldit", method)
-    generator = torch.Generator(device=device).manual_seed(int(config.runtime.seed))
+    probe_generator, reselection_generator = build_sampling_generators(device, sampling_seed)
     budget, written = int(settings.budget), 0
     augmentation = VolDiTConditionAugmentation(
         float(settings.flip_probability), tuple(settings.scale_range)
@@ -64,19 +67,19 @@ def sample_dataset(config: Any, use_nam: bool = True) -> Path:
             break
         batch = (augmentation(batch) if augmentation is not None else batch).to(device)
         condition = adapter.prepare_condition(batch)
-        probe = adapter.sample_probe_noise(batch.target.shape[0], generator)
+        probe = adapter.sample_probe_noise(batch.target.shape[0], probe_generator)
         selected = probe
         if miner is not None:
             score = adapter.initial_score(probe, condition, float(settings.cfg_scale))
             mean, variance = miner(score.score)
-            selected = reselect_noise(mean, variance, float(config.miner.variance_bound), generator).sample
+            selected = reselect_noise(mean, variance, float(config.miner.variance_bound), reselection_generator).sample
         images, targets = adapter.sample(selected, condition, int(settings.ddim_steps), float(settings.cfg_scale))
         monitor.log_batch(images, targets, probe, selected, batch.sample_id[: images.shape[0]])
         available = images.shape[0] if budget <= 0 else min(images.shape[0], budget - written)
         for index in range(available):
             sample_id = batch.sample_id[index]
             _io.save_volume_pair(output, sample_id, images[index], targets[index], {
-                "sample_id": sample_id, "method": method, "seed": int(config.runtime.seed),
+                "sample_id": sample_id, "method": method, "seed": sampling_seed,
                 "diffusion_checkpoint": str(config.diffusion.checkpoint),
                 "miner_checkpoint": str(config.voldit.checkpoints.nam_miner) if use_nam else None,
                 "ddim_steps": int(settings.ddim_steps), "eta": 0.0,

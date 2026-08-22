@@ -8,7 +8,7 @@ dataset:
   image_size: [256, 256]
 
 synthetic_dataset:
-  root: outputs/synthetic/isic-sd15-lora-resnet50-nam
+  root: outputs/synthetic/seed_42/isic-sd15-lora-resnet50-nam
 
 diffusion:
   checkpoint: nam/diffusion/2D_T2I/sd15_lora/checkpoints/diffusion/isic

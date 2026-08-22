@@ -34,14 +34,14 @@ from nam.downstream.training import (
     save_checkpoint,
     should_validate,
 )
-from nam.utils.seed import seed_everything
+from nam.utils.seed import resolve_stage_seed, seed_everything
 
 
 def train_synthetic(config: Any, spatial_dims: int) -> Path:
     """Continue nnU-Net from a converged real-data checkpoint."""
     settings = config.nnunet.synthetic_training
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(getattr(config.runtime, "deterministic", False)))
+    seed_everything(resolve_stage_seed(config, "downstream"), bool(getattr(config.runtime, "deterministic", False)))
     model = build_model(config.downstream).to(device)
     checkpoint = getattr(settings, "real_checkpoint", getattr(config.downstream, "checkpoint", None))
     if not checkpoint:

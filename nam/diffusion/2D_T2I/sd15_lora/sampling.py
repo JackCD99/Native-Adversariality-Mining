@@ -18,7 +18,7 @@ from nam.config import apply_overrides, load_config
 from nam.models import AdversarialityMiner, reference_miner_configuration
 from nam.objectives import reselect_noise
 from nam.utils.monitoring import SamplingMonitor
-from nam.utils.seed import seed_everything
+from nam.utils.seed import build_sampling_generators, resolve_stage_seed, sampling_output_root, seed_everything
 
 _package = __package__ or "nam.diffusion.2D_T2I.sd15_lora"
 build_adapter = importlib.import_module(f"{_package}.model").build_adapter
@@ -55,7 +55,8 @@ def _load_miner(config: Any, device: torch.device) -> AdversarialityMiner:
 def sample_dataset(config: Any, use_nam: bool = True) -> Path:
     settings = config.sd15_lora.sampling
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(config.runtime.deterministic))
+    sampling_seed = resolve_stage_seed(config, "sampling")
+    seed_everything(sampling_seed, bool(config.runtime.deterministic))
     diffusion = build_adapter(config.diffusion)
     diffusion.model.to(device)
     diffusion.freeze()
@@ -64,21 +65,23 @@ def sample_dataset(config: Any, use_nam: bool = True) -> Path:
     )
     miner = _load_miner(config, device) if use_nam else None
     method = "nam" if use_nam else "base"
-    output = prepare_output_directory(settings.output_dir, config.experiment_name, method)
+    output = prepare_output_directory(
+        sampling_output_root(settings.output_dir, sampling_seed), config.experiment_name, method
+    )
     monitor = SamplingMonitor(output, config, "sd15_lora", method)
-    generator = torch.Generator(device=device).manual_seed(int(config.runtime.seed))
+    probe_generator, reselection_generator = build_sampling_generators(device, sampling_seed)
     budget, written = int(settings.budget), 0
     while written < budget:
         for batch in tqdm(loader, desc=f"SD-v1.5 LoRA {method.upper()}", leave=False):
             batch = batch.to(device)
             condition = diffusion.prepare_condition(batch)
-            probe = diffusion.sample_probe_noise(batch.target.shape[0], generator)
+            probe = diffusion.sample_probe_noise(batch.target.shape[0], probe_generator)
             selected = probe
             if miner is not None:
                 score = diffusion.initial_score(probe, condition, float(settings.cfg_scale))
                 mean, variance = miner(score.score)
                 selected = reselect_noise(
-                    mean, variance, float(config.miner.variance_bound), generator
+                    mean, variance, float(config.miner.variance_bound), reselection_generator
                 ).sample
             images, targets = diffusion.sample(
                 selected, condition, int(settings.ddim_steps), float(settings.cfg_scale)
@@ -95,7 +98,7 @@ def sample_dataset(config: Any, use_nam: bool = True) -> Path:
                     {
                         "sample_id": sample_id,
                         "method": method,
-                        "seed": int(config.runtime.seed),
+                        "seed": sampling_seed,
                         "prompt": condition.extras["prompts"][index],
                         "class_id": int(targets[index].item()),
                         "base_model": str(config.diffusion.base_model),

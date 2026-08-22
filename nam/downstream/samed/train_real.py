@@ -33,7 +33,7 @@ from nam.downstream.training import (
     should_validate,
     target_without_channel,
 )
-from nam.utils.seed import seed_everything
+from nam.utils.seed import resolve_stage_seed, seed_everything
 
 
 def _native_loss(
@@ -59,7 +59,7 @@ def train_real(config: Any, spatial_dims: int) -> Path:
     """Train LoRA and mask-decoder parameters on real images only."""
     settings = config.samed.real_training
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(getattr(config.runtime, "deterministic", False)))
+    seed_everything(resolve_stage_seed(config, "downstream"), bool(getattr(config.runtime, "deterministic", False)))
     model = build_model(config.downstream).to(device)
     train_loader = build_loader(
         config.dataset, "train", spatial_dims, int(settings.batch_size), int(config.runtime.num_workers), True

@@ -4,11 +4,14 @@ experiment_name: la-voldit-nnunet
 
 synthetic_dataset:
   factory: nam.data.common:build_generated_dataset
-  root: outputs/synthetic/la-voldit-nnunet-nam
+  root: outputs/synthetic/seed_42/la-voldit-nnunet-nam
 
 runtime:
   device: cuda
   seed: 42
+  miner_seed: 42
+  downstream_seed: 42
+  sampling_seed: 42
   deterministic: false
   num_workers: 2
   output_dir: outputs/voldit
@@ -99,6 +102,7 @@ training:
 voldit:
   checkpoints:
     diffusion_root: checkpoints/voldit/diffusion
+    nam_root: checkpoints/voldit/nam
     nam_miner: checkpoints/voldit/nam/nam_latest.pt
   pre_training:
     max_epochs: 500

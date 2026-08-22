@@ -19,19 +19,20 @@ from nam.mitigation.base import NAMMitigationBackend
 from nam.mitigation.io import save_manifest, save_tensor_pairs
 from nam.mitigation.registry import build_strategy
 from nam.utils.imports import import_factory
-from nam.utils.seed import seed_everything
+from nam.utils.seed import resolve_stage_seed, seed_everything
 
 
 def run_mitigation(config: Any) -> Path:
     """Build a method bridge, run one strategy, and save auditable outputs."""
-    seed_everything(int(config.runtime.seed), bool(getattr(config.runtime, "deterministic", False)))
+    sampling_seed = resolve_stage_seed(config, "sampling")
+    seed_everything(sampling_seed, bool(getattr(config.runtime, "deterministic", False)))
     factory = import_factory(config.backend.factory, getattr(config.backend, "project_dir", None))
     backend = factory(config=config)
     if not isinstance(backend, NAMMitigationBackend):
         raise TypeError("backend.factory must return a NAMMitigationBackend instance.")
     section = config[str(config.strategy.name).lower()]
     strategy = build_strategy(section)
-    generator = torch.Generator(device=backend.device).manual_seed(int(config.runtime.seed))
+    generator = torch.Generator(device=backend.device).manual_seed(sampling_seed)
     candidates = strategy.run(backend, generator=generator)
     output = Path(config.runtime.output_dir) / str(config.strategy.name).lower()
     save_tensor_pairs(candidates, output / "tensors")

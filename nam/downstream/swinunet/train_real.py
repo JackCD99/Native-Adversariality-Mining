@@ -32,7 +32,7 @@ from nam.downstream.training import (
     should_validate,
 )
 from nam.downstream.training import target_without_channel
-from nam.utils.seed import seed_everything
+from nam.utils.seed import resolve_stage_seed, seed_everything
 
 
 def _settings(config: Any, spatial_dims: int) -> Any:
@@ -133,7 +133,7 @@ def train_real(config: Any, spatial_dims: int) -> Path:
     """Train the appropriate official Swin segmentation baseline."""
     settings = _settings(config, spatial_dims)
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(getattr(config.runtime, "deterministic", False)))
+    seed_everything(resolve_stage_seed(config, "downstream"), bool(getattr(config.runtime, "deterministic", False)))
     model = build_model(config.downstream).to(device)
     train_loader = build_loader(
         config.dataset,

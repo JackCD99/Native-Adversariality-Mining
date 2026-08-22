@@ -3,6 +3,9 @@ experiment_name: pascal-voc-sbd-controlnet-sdxl-deeplabv3
 runtime:
   device: cuda
   seed: 42
+  miner_seed: 42
+  downstream_seed: 42
+  sampling_seed: 42
   deterministic: false
   num_workers: 4
   output_dir: outputs
@@ -16,7 +19,7 @@ dataset:
 
 synthetic_dataset:
   factory: nam.data.common:build_generated_dataset
-  root: outputs/synthetic/controlnet_sdxl/pascal-voc-sbd-controlnet-sdxl-deeplabv3-nam
+  root: outputs/synthetic/controlnet_sdxl/seed_42/pascal-voc-sbd-controlnet-sdxl-deeplabv3-nam
   ignore_index: 255
 
 diffusion:

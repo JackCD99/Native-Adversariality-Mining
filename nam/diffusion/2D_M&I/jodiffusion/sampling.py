@@ -18,7 +18,7 @@ from nam.config import apply_overrides, load_config
 from nam.models import JoDiffusionMiner
 from nam.objectives import reselect_noise
 from nam.utils.monitoring import SamplingMonitor
-from nam.utils.seed import seed_everything
+from nam.utils.seed import build_sampling_generators, resolve_stage_seed, sampling_output_root, seed_everything
 
 _package = __package__ or "nam.diffusion.2D_M&I.jodiffusion"
 build_adapter = importlib.import_module(f"{_package}.model").build_adapter
@@ -39,7 +39,8 @@ def _miner(config: Any, device: torch.device) -> JoDiffusionMiner:
 @torch.no_grad()
 def sample_dataset(config: Any, use_nam: bool = True) -> Path:
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(config.runtime.deterministic))
+    sampling_seed = resolve_stage_seed(config, "sampling")
+    seed_everything(sampling_seed, bool(config.runtime.deterministic))
     settings = config.jodiffusion.sampling
     adapter = build_adapter(config.diffusion)
     adapter.model.to(device)
@@ -50,9 +51,11 @@ def sample_dataset(config: Any, use_nam: bool = True) -> Path:
     )
     miner = _miner(config, device) if use_nam else None
     method = "nam" if use_nam else "base"
-    output = _io.output_directory(settings.output_dir, config.experiment_name, method)
+    output = _io.output_directory(
+        sampling_output_root(settings.output_dir, sampling_seed), config.experiment_name, method
+    )
     monitor = SamplingMonitor(output, config, "jodiffusion", method)
-    generator = torch.Generator(device=device).manual_seed(int(config.runtime.seed))
+    probe_generator, reselection_generator = build_sampling_generators(device, sampling_seed)
     budget, written = int(settings.budget), 0
     progress = tqdm(total=budget, desc=f"JoDiffusion {method.upper()} sampling")
     iterator = iter(loader)
@@ -67,13 +70,13 @@ def sample_dataset(config: Any, use_nam: bool = True) -> Path:
                 raise RuntimeError("The sampling condition loader is empty.") from error
         batch = batch.to(device)
         condition = adapter.prepare_condition(batch)
-        probe = adapter.sample_probe_noise(batch.target.shape[0], generator)
+        probe = adapter.sample_probe_noise(batch.target.shape[0], probe_generator)
         selected = probe
         if miner is not None:
             score = adapter.initial_score(probe, condition, float(settings.cfg_scale))
             mean, variance = miner(score.score)
             selected = reselect_noise(
-                mean, variance, float(config.miner.variance_bound), generator
+                mean, variance, float(config.miner.variance_bound), reselection_generator
             ).sample
         images, targets = adapter.sample(
             selected, condition, int(settings.ddim_steps), float(settings.cfg_scale)
@@ -90,7 +93,7 @@ def sample_dataset(config: Any, use_nam: bool = True) -> Path:
                 {
                     "id": sample_id,
                     "method": method,
-                    "seed": int(config.runtime.seed),
+                    "seed": sampling_seed,
                     "ddim_steps": int(settings.ddim_steps),
                     "eta": 0.0,
                     "prompt": condition.extras["prompts"][index],

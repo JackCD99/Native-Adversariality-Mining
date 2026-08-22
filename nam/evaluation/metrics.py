@@ -34,21 +34,45 @@ def average_surface_distance(
     target: np.ndarray,
     spacing: tuple[float, ...] | None = None,
 ) -> float:
-    """Compute the symmetric average surface distance for one binary object."""
-    prediction = prediction.astype(bool)
-    target = target.astype(bool)
+    """Compute a fair and general symmetric average surface distance (ASD/ASSD).
+
+    The two directional distances are averaged separately and then equally
+    weighted, preventing the side with more surface points from receiving
+    greater influence. If exactly one side is empty, the physical
+    field-of-view (FOV) diagonal is returned as a finite failure penalty.
+    If both sides are empty, the object is absent from the sample and NaN
+    is returned so that dataset-level evaluation can explicitly exclude it.
+    """
+    prediction = np.asarray(prediction, dtype=bool)
+    target = np.asarray(target, dtype=bool)
+    if prediction.shape != target.shape:
+        raise ValueError("ASD prediction and target must have identical shapes.")
+    if prediction.ndim not in (2, 3):
+        raise ValueError("ASD supports arbitrary 2D or 3D binary masks.")
+    if spacing is None:
+        spacing_array = np.ones(prediction.ndim, dtype=np.float64)
+    else:
+        spacing_array = np.asarray(spacing, dtype=np.float64)
+        if spacing_array.shape != (prediction.ndim,):
+            raise ValueError("ASD spacing must contain one value per spatial dimension.")
+        if not np.isfinite(spacing_array).all() or np.any(spacing_array <= 0):
+            raise ValueError("ASD spacing values must be positive and finite.")
     if not prediction.any() and not target.any():
-        return 0.0
-    if not prediction.any() or not target.any():
         return float("nan")
+    if not prediction.any() or not target.any():
+        field_of_view = np.asarray(prediction.shape, dtype=np.float64) * spacing_array
+        return float(np.linalg.norm(field_of_view))
     pred_surface = _surface(prediction)
     target_surface = _surface(target)
-    distance_to_target = ndimage.distance_transform_edt(~target_surface, sampling=spacing)
-    distance_to_prediction = ndimage.distance_transform_edt(~pred_surface, sampling=spacing)
-    distances = np.concatenate(
-        [distance_to_target[pred_surface], distance_to_prediction[target_surface]]
+    distance_to_target = ndimage.distance_transform_edt(
+        ~target_surface, sampling=spacing_array
     )
-    return float(distances.mean())
+    distance_to_prediction = ndimage.distance_transform_edt(
+        ~pred_surface, sampling=spacing_array
+    )
+    prediction_to_target = distance_to_target[pred_surface].mean()
+    target_to_prediction = distance_to_prediction[target_surface].mean()
+    return float(0.5 * (prediction_to_target + target_to_prediction))
 
 
 def frechet_distance(
@@ -73,4 +97,3 @@ def frechet_distance(
         difference.dot(difference)
         + np.trace(covariance_real + covariance_synthetic - 2.0 * product_root)
     )
-

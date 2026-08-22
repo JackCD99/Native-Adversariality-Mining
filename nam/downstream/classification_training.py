@@ -19,7 +19,7 @@ from nam.downstream.training import (
     should_validate,
 )
 from nam.utils.monitoring import ExperimentMonitor, logging_interval
-from nam.utils.seed import seed_everything
+from nam.utils.seed import resolve_stage_seed, seed_everything
 
 
 @torch.no_grad()
@@ -78,7 +78,7 @@ def train_classification(config: Any, model_name: str, build_model: Callable[[An
         "real_training" if phase == "real" else "synthetic_training",
     )
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(config.runtime.deterministic))
+    seed_everything(resolve_stage_seed(config, "downstream"), bool(config.runtime.deterministic))
     model = build_model(config.downstream).to(device)
     if phase == "synthetic":
         load_model_checkpoint(model, str(settings.real_checkpoint))

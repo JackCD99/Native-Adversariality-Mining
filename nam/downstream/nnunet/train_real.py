@@ -31,14 +31,14 @@ from nam.downstream.training import (
     save_checkpoint,
     should_validate,
 )
-from nam.utils.seed import seed_everything
+from nam.utils.seed import resolve_stage_seed, seed_everything
 
 
 def train_real(config: Any, spatial_dims: int) -> Path:
     """Train the leakage-free real-data baseline used by NAM."""
     settings = config.nnunet.real_training
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(getattr(config.runtime, "deterministic", False)))
+    seed_everything(resolve_stage_seed(config, "downstream"), bool(getattr(config.runtime, "deterministic", False)))
     model = build_model(config.downstream).to(device)
     train_loader = build_loader(
         config.dataset,

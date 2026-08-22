@@ -7,6 +7,9 @@ experiment_name: polyps-siamesediff-nnunet-hat
 runtime:
   device: cuda
   seed: 42
+  miner_seed: 42
+  downstream_seed: 42
+  sampling_seed: 42
   num_workers: 4
   deterministic: false
   output_dir: outputs/mitigation

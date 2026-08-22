@@ -20,7 +20,7 @@ from nam.downstream.training import (
     should_validate,
     target_without_channel,
 )
-from nam.utils.seed import seed_everything
+from nam.utils.seed import resolve_stage_seed, seed_everything
 
 
 def _logits(model: torch.nn.Module, images: torch.Tensor) -> torch.Tensor:
@@ -86,7 +86,7 @@ def train_natural_segmentation(
         raise ValueError(f"{model_name} is configured for 2D natural images.")
     settings = _settings(config, model_name, phase)
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
-    seed_everything(int(config.runtime.seed), bool(config.runtime.deterministic))
+    seed_everything(resolve_stage_seed(config, "downstream"), bool(config.runtime.deterministic))
     model = build_model(config.downstream).to(device)
     if phase == "synthetic":
         checkpoint = str(settings.real_checkpoint)

@@ -49,6 +49,12 @@ def validate_config(config: ConfigNode, sections: Iterable[str] = ()) -> None:
             raise KeyError(f"runtime.{key} is required.")
     if int(runtime.num_workers) < 0:
         raise ValueError("runtime.num_workers must be non-negative.")
+    # 三阶段种子彼此独立；缺省时仍允许旧配置回退到 runtime.seed。
+    for key in ("seed", "miner_seed", "downstream_seed", "sampling_seed"):
+        if key in runtime:
+            value = runtime[key]
+            if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+                raise ValueError(f"runtime.{key} must be a non-negative integer.")
     for section_name in ("dataset", "synthetic_dataset"):
         section = getattr(config, section_name, None)
         if section is None:
@@ -89,4 +95,3 @@ def run_configured(
         print(f"Configuration valid: {config.config_path}")
         return config
     return function(config, *function_args, **function_kwargs)
-

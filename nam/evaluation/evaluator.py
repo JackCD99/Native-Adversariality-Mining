@@ -17,7 +17,7 @@ from nam.evaluation.metrics import average_surface_distance, dice_per_class
 
 
 @torch.no_grad()
-def evaluate_segmentation(config: Any, spatial_dims: int) -> dict[str, float]:
+def evaluate_segmentation(config: Any, spatial_dims: int) -> dict[str, Any]:
     """Evaluate a configured downstream checkpoint on the held-out test set."""
     device = torch.device(config.runtime.device if torch.cuda.is_available() else "cpu")
     adapter = build_downstream(config.downstream)
@@ -33,8 +33,11 @@ def evaluate_segmentation(config: Any, spatial_dims: int) -> dict[str, float]:
     )
     dice_values: list[float] = []
     asd_values: list[float] = []
+    asd_absent_objects = 0
+    asd_empty_failures = 0
     confusion = None
     num_classes = int(config.downstream.num_classes)
+    ignore_index = int(getattr(config.dataset, "ignore_index", -100))
     for batch in tqdm(loader, desc="Evaluating segmentation"):
         batch = batch.to(device)
         logits = adapter.logits(batch.image)
@@ -43,7 +46,7 @@ def evaluate_segmentation(config: Any, spatial_dims: int) -> dict[str, float]:
         if str(getattr(config.evaluation, "metric", "dsc")).lower() == "miou":
             if confusion is None:
                 confusion = torch.zeros(num_classes, num_classes, dtype=torch.float64)
-            valid = (target != int(getattr(config.dataset, "ignore_index", -100))) & (target >= 0) & (target < num_classes)
+            valid = (target != ignore_index) & (target >= 0) & (target < num_classes)
             indices = target[valid].cpu() * num_classes + prediction[valid].cpu()
             confusion += torch.bincount(indices, minlength=num_classes**2).reshape(num_classes, num_classes)
             continue
@@ -52,10 +55,18 @@ def evaluate_segmentation(config: Any, spatial_dims: int) -> dict[str, float]:
         target_numpy = target.cpu().numpy()
         for sample_index in range(pred_numpy.shape[0]):
             spacing = tuple(batch.metadata["items"][sample_index].get("spacing", [1.0] * spatial_dims))
+            valid_region = target_numpy[sample_index] != ignore_index
             for class_index in range(1, num_classes):
+                # ignore 区域不应因模型任意输出而形成额外表面或空掩膜失败。
+                prediction_mask = (pred_numpy[sample_index] == class_index) & valid_region
+                target_mask = (target_numpy[sample_index] == class_index) & valid_region
+                if not prediction_mask.any() and not target_mask.any():
+                    asd_absent_objects += 1
+                elif not prediction_mask.any() or not target_mask.any():
+                    asd_empty_failures += 1
                 value = average_surface_distance(
-                    pred_numpy[sample_index] == class_index,
-                    target_numpy[sample_index] == class_index,
+                    prediction_mask,
+                    target_mask,
                     spacing,
                 )
                 if np.isfinite(value):
@@ -70,9 +81,14 @@ def evaluate_segmentation(config: Any, spatial_dims: int) -> dict[str, float]:
         }
     else:
         result = {
-        "dsc": float(np.mean(dice_values) * 100.0) if dice_values else float("nan"),
-        "asd": float(np.mean(asd_values)) if asd_values else float("nan"),
-        "samples": len(dataset),
+            "dsc": float(np.mean(dice_values) * 100.0) if dice_values else float("nan"),
+            "asd": float(np.mean(asd_values)) if asd_values else float("nan"),
+            "samples": len(dataset),
+            "asd_valid_objects": len(asd_values),
+            "asd_empty_failures": asd_empty_failures,
+            "asd_absent_objects": asd_absent_objects,
+            "asd_empty_penalty": "physical_fov_diagonal",
+            "asd_aggregation": "sample_class_macro_equal_directed_means",
         }
     output = Path(config.evaluation.output)
     output.parent.mkdir(parents=True, exist_ok=True)

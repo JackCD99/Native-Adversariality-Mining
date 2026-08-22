@@ -22,10 +22,10 @@ from nam.models import (
     ResUNet3DMiner,
     reference_miner_configuration,
 )
-from nam.objectives import adversariality_reward, normalized_kl, reselect_noise
+from nam.objectives import adversariality_reward, joint_gaussian_kl, reselect_noise
 from nam.utils.distributed import DistributedContext, finalize, initialize, reduce_mean
 from nam.utils.monitoring import ExperimentMonitor, logging_interval
-from nam.utils.seed import seed_everything
+from nam.utils.seed import resolve_stage_seed, seed_everything
 
 
 class MinerTrainer:
@@ -37,7 +37,7 @@ class MinerTrainer:
         self.method = str(config.diffusion.name).lower()
         self.context: DistributedContext = initialize(config.runtime.device)
         seed_everything(
-            int(config.runtime.seed) + self.context.rank,
+            resolve_stage_seed(config, "miner") + self.context.rank,
             bool(getattr(config.runtime, "deterministic", False)),
         )
 
@@ -186,9 +186,8 @@ class MinerTrainer:
             image = reselect_noise(image_mean, image_variance, bound)
             mask = reselect_noise(mask_mean, mask_variance, bound)
             selected = torch.cat((image.sample, mask.sample), dim=1)
-            kl = normalized_kl(image.kl_per_sample, image.sample) + normalized_kl(
-                mask.kl_per_sample, mask.sample
-            )
+            # 正文式(15)采用联合高斯的总 KL；独立双分支的联合 KL 为两项之和。
+            kl = joint_gaussian_kl(image, mask)
             diagnostics = {
                 "score": score,
                 "selected_noise": selected,
@@ -201,9 +200,7 @@ class MinerTrainer:
 
         delta_mean, delta_variance = self.miner(score)
         selection = reselect_noise(delta_mean, delta_variance, bound)
-        kl = selection.kl_per_sample
-        if self.method == "jodiffusion":
-            kl = normalized_kl(kl, selection.sample)
+        kl = joint_gaussian_kl(selection)
         diagnostics = {
             "score": score,
             "selected_noise": selection.sample,

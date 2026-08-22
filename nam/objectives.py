@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass
 
 import torch
@@ -192,7 +191,10 @@ def reselect_noise(
     return GaussianReselection(sample, delta_mean, variance, kl_per_sample)
 
 
-def normalized_kl(kl_per_sample: torch.Tensor, noise: torch.Tensor) -> torch.Tensor:
-    """Normalize KL by latent dimensionality for resolution-stable optimization."""
-    dimensions = math.prod(noise.shape[1:])
-    return kl_per_sample / max(dimensions, 1)
+def joint_gaussian_kl(*selections: GaussianReselection) -> torch.Tensor:
+    if not selections:
+        raise ValueError("At least one Gaussian reselection is required.")
+    batch_size = selections[0].kl_per_sample.shape[0]
+    if any(item.kl_per_sample.shape != (batch_size,) for item in selections):
+        raise ValueError("Every KL term must contain one scalar per batch sample.")
+    return torch.stack([item.kl_per_sample for item in selections], dim=0).sum(dim=0)
